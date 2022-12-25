@@ -17,6 +17,7 @@
 */
 
 // reactstrap components
+import axios from 'axios'
 import {
   Button,
   Card,
@@ -33,6 +34,25 @@ import {
 } from "reactstrap";
 
 const Register = () => {
+  const handleSubmit=(e)=>{
+    e.preventDefault();
+    const name=e.target.elements.name.value;
+    const email=e.target.elements.email.value;
+    const password=e.target.elements.password.value;
+    // axios.post('http://localhost:8000/auth/get_data?name=rida').then(res =>{console.log(res)})
+    axios({
+      method:'post',
+      url:'http://localhost:8000/auth/register',
+      data:{name:name,email:email,password:password}
+    })
+    .then(res=>{
+      console.log(res);
+    })
+    .catch(error=>{
+      console.log(error);
+    })
+    
+ }
   return (
     <>
       <Col lg="6" md="8">
@@ -82,7 +102,7 @@ const Register = () => {
             <div className="text-center text-muted mb-4">
               <small>Or sign up with credentials</small>
             </div>
-            <Form role="form">
+            <Form role="form" onSubmit={handleSubmit}>
               <FormGroup>
                 <InputGroup className="input-group-alternative mb-3">
                   <InputGroupAddon addonType="prepend">
@@ -90,7 +110,10 @@ const Register = () => {
                       <i className="ni ni-hat-3" />
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input placeholder="Name" type="text" />
+                  <Input
+                   name="name"
+                   placeholder="Name"
+                    type="text" />
                 </InputGroup>
               </FormGroup>
               <FormGroup>
@@ -101,6 +124,7 @@ const Register = () => {
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input
+                    name="email"
                     placeholder="Email"
                     type="email"
                     autoComplete="new-email"
@@ -115,6 +139,7 @@ const Register = () => {
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input
+                    name="password"
                     placeholder="Password"
                     type="password"
                     autoComplete="new-password"
@@ -150,7 +175,7 @@ const Register = () => {
                 </Col>
               </Row>
               <div className="text-center">
-                <Button className="mt-4" color="primary" type="button">
+                <Button className="mt-4" color="primary" type="submit" >
                   Create account
                 </Button>
               </div>
