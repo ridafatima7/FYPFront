@@ -17,6 +17,7 @@
 */
 
 // reactstrap components
+import { useState } from 'react';
 import axios from 'axios'
 import {
   Button,
@@ -34,8 +35,12 @@ import {
   Toast,
   ToastContainer
 } from "reactstrap";
+import { Redirect } from 'react-router-dom';
 
 const Login = () => {
+const [islogged,setlogin]=useState(false);
+const [error,setError]=useState(false);
+const [show,setShow]=useState(false);
  const handleSubmit=(e)=>{
     e.preventDefault();
     const email=e.target.elements.email.value;
@@ -47,12 +52,17 @@ const Login = () => {
       data:{email:email,password:password}
     })
     .then(res=>{
-      console.log(res)
+          setlogin(true)
     })
     .catch(error=>{
       console.log(error);
     })
+
     
+ }
+ if(islogged)
+ {
+      return <Redirect to="/admin/index" />;
  }
   return (
     <>

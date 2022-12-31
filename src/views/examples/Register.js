@@ -39,11 +39,13 @@ const Register = () => {
     const name=e.target.elements.name.value;
     const email=e.target.elements.email.value;
     const password=e.target.elements.password.value;
+    const confirm_password=e.target.elements.confirm_password.value;
+    const phone_no=e.target.elements.phone_no.value;
     // axios.post('http://localhost:8000/auth/get_data?name=rida').then(res =>{console.log(res)})
     axios({
       method:'post',
       url:'http://localhost:8000/auth/register',
-      data:{name:name,email:email,password:password}
+      data:{name:name,email:email,password:password,confirm_password:confirm_password,phone_no:phone_no}
     })
     .then(res=>{
       console.log(res);
@@ -152,6 +154,40 @@ const Register = () => {
                   <span className="text-success font-weight-700">strong</span>
                 </small>
               </div>
+              <FormGroup>
+                <InputGroup className="input-group-alternative">
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupText>
+                      <i className="ni ni-lock-circle-open" />
+                    </InputGroupText>
+                  </InputGroupAddon>
+                  <Input
+                    name="confirm_password"
+                    placeholder="Confirm Password"
+                    type="password"
+                    autoComplete="new-password"
+                  />
+                </InputGroup>
+              </FormGroup>
+              <div className="text-muted font-italic">
+                <small>
+                  password strength:{" "}
+                  <span className="text-success font-weight-700">strong</span>
+                </small>
+              </div>
+              <FormGroup>
+                <InputGroup className="input-group-alternative mb-3">
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupText>
+                      <i className="ni ni-hat-3" />
+                    </InputGroupText>
+                  </InputGroupAddon>
+                  <Input
+                   name="phone_no"
+                   placeholder="Phone Number"
+                    type="text" />
+                </InputGroup>
+              </FormGroup>
               <Row className="my-4">
                 <Col xs="12">
                   <div className="custom-control custom-control-alternative custom-checkbox">
@@ -159,6 +195,7 @@ const Register = () => {
                       className="custom-control-input"
                       id="customCheckRegister"
                       type="checkbox"
+                      
                     />
                     <label
                       className="custom-control-label"
