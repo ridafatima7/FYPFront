@@ -67,9 +67,9 @@ const Auth = (props) => {
             <div className="header-body text-center mb-7">
               <Row className="justify-content-center">
                 <Col lg="5" md="6">
-                  <h1 className="text-white">Disaster Information Cell</h1>
+                  <h1 className="text-white">Login</h1>
                   <p className="text-lead text-light">
-                    We are going to make a information based system
+                    It is information based system for disaster handling
                   </p>
                 </Col>
               </Row>

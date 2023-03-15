@@ -32,8 +32,8 @@ import {
   InputGroup,
   Row,
   Col,
-  Toast,
-  ToastContainer
+  Alert
+  
 } from "reactstrap";
 import { Redirect } from 'react-router-dom';
 
@@ -56,10 +56,13 @@ const [show,setShow]=useState(false);
     })
     .catch(error=>{
       console.log(error);
+      setError(true)
     })
+  }
 
-    
- }
+  const onDismiss=()=>setError(false);
+
+ 
  if(islogged)
  {
       return <Redirect to="/admin/index" />;
@@ -68,6 +71,11 @@ const [show,setShow]=useState(false);
     <>
       <Col lg="5" md="7">
         <Card className="bg-secondary shadow border-0">
+        <CardBody className="px-lg-5 py-lg-5">
+            <Alert color="danger" isOpen={error} toggle={onDismiss}>
+              <strong>Error ! </strong>Invalid crediendials
+            </Alert>
+        
           {/* <CardHeader className="bg-transparent pb-5"> */}
             {/* <div className="text-muted text-center mt-2 mb-3">
               <small>Sign in with</small>
@@ -109,7 +117,7 @@ const [show,setShow]=useState(false);
               </Button>
             </div> */}
           {/* </CardHeader> */}
-          <CardBody className="px-lg-5 py-lg-5">
+          
             <div className="text-center text-muted mb-4">
               <small>Or sign in with credentials</small>
             </div>
