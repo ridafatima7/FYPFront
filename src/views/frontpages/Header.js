@@ -24,6 +24,7 @@ const Header = () => {
                     <ul className="navbar-nav ml-auto">
                         <li className={splitLocation[1] === "" ? "nav-item active" : "nav-item"}><Link to="/" className="nav-link">Home</Link></li>
                         <li className={splitLocation[1] === "about-us" ? "nav-item active" : "nav-item"}><Link to="/about-us" className="nav-link">About</Link></li>
+                        <li className={splitLocation[1] === "contact-us" ? "nav-item active" : "nav-item"}><Link to="/contact-us" className="nav-link">Contact Us</Link></li>
                     </ul>
                 </div>
                 </div>

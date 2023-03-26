@@ -27,6 +27,7 @@ import AdminLayout from "layouts/Admin.js";
 import AuthLayout from "layouts/Auth.js";
 import Home from "views/frontpages/Home";
 import About from "views/frontpages/About";
+import ContactUs from "views/frontpages/ContactUs";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -38,6 +39,7 @@ root.render(
       {/* <Redirect from="/" to="/admin/index" /> */}
       <Route exact path="/" render={(props) => <Home {...props} />} />
       <Route path="/about-us" render={(props) => <About {...props} />} />
+      <Route path="/contact-us" render={(props) => <ContactUs {...props} />} />
     </Switch>
   </BrowserRouter>
 );
