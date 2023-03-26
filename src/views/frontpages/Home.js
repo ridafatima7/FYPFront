@@ -113,13 +113,13 @@ const Home = () => {
         <section className="ftco-section bg-light">
     	<div className="container-fluid">
     		<div className="row justify-content-center mb-5 pb-3">
-          <div className="col-md-5 heading-section ftco-animate text-center">
+          <div className="col-md-5 heading-section   text-center">
             <h2 className="mb-4">Our Causes</h2>
             <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
           </div>
         </div>
     		<div className="row">
-    			<div className="col-md-12 ftco-animate">
+    			<div className="col-md-12  ">
     				<div className="carousel-cause owl-carousel">
 	    				<div className="item">
 	    					<div className="cause-entry">
@@ -218,13 +218,13 @@ const Home = () => {
     <section className="ftco-section">
       <div className="container">
       	<div className="row justify-content-center mb-5 pb-3">
-          <div className="col-md-7 heading-section ftco-animate text-center">
+          <div className="col-md-7 heading-section   text-center">
             <h2 className="mb-4">Latest Donations</h2>
             <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
           </div>
         </div>
         <div className="row">
-        	<div className="col-lg-4 d-flex mb-sm-4 ftco-animate">
+        	<div className="col-lg-4 d-flex mb-sm-4  ">
         		<div className="staff">
         			<div className="d-flex mb-4">
         				<div className="img" style={{backgroundImage: "url('" + person_1 + "')"}}></div>
@@ -238,7 +238,7 @@ const Home = () => {
         			</div>
         		</div>
         	</div>
-        	<div className="col-lg-4 d-flex mb-sm-4 ftco-animate">
+        	<div className="col-lg-4 d-flex mb-sm-4  ">
         		<div className="staff">
         			<div className="d-flex mb-4">
         				<div className="img" style={{backgroundImage: "url('" + person_2 + "')"}}></div>
@@ -252,7 +252,7 @@ const Home = () => {
         			</div>
         		</div>
         	</div>
-        	<div className="col-lg-4 d-flex mb-sm-4 ftco-animate">
+        	<div className="col-lg-4 d-flex mb-sm-4  ">
         		<div className="staff">
         			<div className="d-flex mb-4">
         				<div className="img" style={{backgroundImage: "url('" + person_3 + "')"}}></div>
@@ -272,44 +272,44 @@ const Home = () => {
 
      {/* <section className="ftco-gallery">
     	<div className="d-md-flex">
-	    	<a href="cause_2.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style={{backgroundImage: "url('" + cause_2 + "')"}}>
+	    	<a href="cause_2.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img  " style={{backgroundImage: "url('" + cause_2 + "')"}}>
 	    		<div className="icon d-flex justify-content-center align-items-center">
 	    			<span className="icon-search"></span>
 	    		</div>
 	    	</a>
-	    	<a href="cause_3.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style={{backgroundImage: "url('" + cause_3 + "')"}}>
+	    	<a href="cause_3.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img  " style={{backgroundImage: "url('" + cause_3 + "')"}}>
 	    		<div className="icon d-flex justify-content-center align-items-center">
 	    			<span className="icon-search"></span>
 	    		</div>
 	    	</a>
-	    	<a href="cause_4.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style={{backgroundImage: "url('" + cause_4 + "')"}}>
+	    	<a href="cause_4.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img  " style={{backgroundImage: "url('" + cause_4 + "')"}}>
 	    		<div className="icon d-flex justify-content-center align-items-center">
 	    			<span className="icon-search"></span>
 	    		</div>
 	    	</a>
-	    	<a href="cause_5.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style={{backgroundImage: "url('" + cause_5 + "')"}}>
+	    	<a href="cause_5.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img  " style={{backgroundImage: "url('" + cause_5 + "')"}}>
 	    		<div className="icon d-flex justify-content-center align-items-center">
 	    			<span className="icon-search"></span>
 	    		</div>
 	    	</a>
     	</div>
     	<div className="d-md-flex">
-	    	<a href="images/cause_6.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style={{backgroundImage: "url('" + cause_6 + "')"}}>
+	    	<a href="images/cause_6.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img  " style={{backgroundImage: "url('" + cause_6 + "')"}}>
 	    		<div className="icon d-flex justify-content-center align-items-center">
 	    			<span className="icon-search"></span>
 	    		</div>
 	    	</a>
-	    	<a href="image_3.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style={{backgroundImage: "url('" + image_3 + "')"}}>
+	    	<a href="image_3.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img  " style={{backgroundImage: "url('" + image_3 + "')"}}>
 	    		<div className="icon d-flex justify-content-center align-items-center">
 	    			<span className="icon-search"></span>
 	    		</div>
 	    	</a>
-	    	<a href="image_1.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style={{backgroundImage: "url('" + image_1 + "')"}}>
+	    	<a href="image_1.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img  " style={{backgroundImage: "url('" + image_1 + "')"}}>
 	    		<div className="icon d-flex justify-content-center align-items-center">
 	    			<span className="icon-search"></span>
 	    		</div>
 	    	</a>
-	    	<a href="image_2.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style={{backgroundImage: "url('" + image_2 + "')"}}>
+	    	<a href="image_2.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img  " style={{backgroundImage: "url('" + image_2 + "')"}}>
 	    		<div className="icon d-flex justify-content-center align-items-center">
 	    			<span className="icon-search"></span>
 	    		</div>
@@ -320,13 +320,13 @@ const Home = () => {
     <section className="ftco-section">
       <div className="container">
         <div className="row justify-content-center mb-5 pb-3">
-          <div className="col-md-7 heading-section ftco-animate text-center">
+          <div className="col-md-7 heading-section   text-center">
             <h2 className="mb-4">Recent from blog</h2>
             <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
           </div>
         </div>
         <div className="row d-flex">
-          <div className="col-md-4 d-flex ftco-animate">
+          <div className="col-md-4 d-flex  ">
           	<div className="blog-entry align-self-stretch">
               <a href="blog-single.html" className="block-20" style={{backgroundImage: "url('" + image_1 + "')"}}>
               </a>
@@ -341,7 +341,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="col-md-4 d-flex ftco-animate">
+          <div className="col-md-4 d-flex  ">
           	<div className="blog-entry align-self-stretch">
               <a href="blog-single.html" className="block-20" style={{backgroundImage: "url('" + image_2 + "')"}}>
               </a>
@@ -356,7 +356,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="col-md-4 d-flex ftco-animate">
+          <div className="col-md-4 d-flex  ">
           	<div className="blog-entry align-self-stretch">
               <a href="blog-single.html" className="block-20" style={{backgroundImage: "url('" + image_3 + "')"}}>
               </a>
@@ -378,12 +378,12 @@ const Home = () => {
     <section className="ftco-section bg-light">
       <div className="container">
         <div className="row justify-content-center mb-5 pb-3">
-          <div className="col-md-7 heading-section ftco-animate text-center">
+          <div className="col-md-7 heading-section   text-center">
             <h2 className="mb-4">Our Latest Events</h2>
           </div>
         </div>
         <div className="row">
-        	<div className="col-md-4 d-flex ftco-animate">
+        	<div className="col-md-4 d-flex  ">
           	<div className="blog-entry align-self-stretch">
               <a href="blog-single.html" className="block-20" style={{backgroundImage: "url('" + event_1 + "')"}}>
               </a>
@@ -400,7 +400,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="col-md-4 d-flex ftco-animate">
+          <div className="col-md-4 d-flex  ">
           	<div className="blog-entry align-self-stretch">
               <a href="blog-single.html" className="block-20" style={{backgroundImage: "url('" + event_2 + "')"}}>
               </a>
@@ -417,7 +417,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="col-md-4 d-flex ftco-animate">
+          <div className="col-md-4 d-flex  ">
           	<div className="blog-entry align-self-stretch">
               <a href="blog-single.html" className="block-20" style={{backgroundImage: "url('" + event_3 + "')"}}>
               </a>
@@ -442,10 +442,10 @@ const Home = () => {
     	<div className="overlay"></div>
     	<div className="container">
     		<div className="row d-md-flex">
-    		<div className="col-md-6 d-flex ftco-animate">
+    		<div className="col-md-6 d-flex  ">
     			<div className="img img-2 align-self-stretch" style={{backgroundImage: "url('" + bg_4 + "')"}}></div>
     		</div>
-    		<div className="col-md-6 volunteer pl-md-5 ftco-animate">
+    		<div className="col-md-6 volunteer pl-md-5  ">
     			<h3 className="mb-3">Be a volunteer</h3>
     			<form action="#" className="volunter-form">
             <div className="form-group">
