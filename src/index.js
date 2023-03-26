@@ -28,6 +28,7 @@ import AuthLayout from "layouts/Auth.js";
 import Home from "views/frontpages/Home";
 import About from "views/frontpages/About";
 import ContactUs from "views/frontpages/ContactUs";
+import Donate from "views/frontpages/Donate";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -40,6 +41,7 @@ root.render(
       <Route exact path="/" render={(props) => <Home {...props} />} />
       <Route path="/about-us" render={(props) => <About {...props} />} />
       <Route path="/contact-us" render={(props) => <ContactUs {...props} />} />
+      <Route path="/donate" render={(props) => <Donate {...props} />} />
     </Switch>
   </BrowserRouter>
 );
