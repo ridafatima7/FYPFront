@@ -1,5 +1,10 @@
 import Header from "./Header"
 import Footer from "./Footer"
+
+import "assets/front-css/animate.css"
+import "assets/front-css/owl.carousel.min.css"
+import "assets/front-css/owl.theme.default.min.css"
+import "assets/front-css/style.css"
 // IMAGES
 import bg_7 from "assets/front-images/bg_7.jpg"
 import bg_1 from "assets/front-images/bg_1.jpg"
@@ -277,7 +282,10 @@ const Home = () => {
 	    			<span className="icon-search"></span>
 	    		</div>
 	    	</a>
-	    	<a href="cause_3.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img  " style={{backgroundImage: "url('" + cause_3 + "')"}}>
+	    	<a href="cause_3.jpg" className=import "assets/front-css/animate.css"
+import "assets/front-css/owl.carousel.min.css"
+import "assets/front-css/owl.theme.default.min.css"
+import "assets/front-css/style.css""gallery image-popup d-flex justify-content-center align-items-center img  " style={{backgroundImage: "url('" + cause_3 + "')"}}>
 	    		<div className="icon d-flex justify-content-center align-items-center">
 	    			<span className="icon-search"></span>
 	    		</div>
@@ -305,31 +313,10 @@ const Home = () => {
 	    		</div>
 	    	</a>
 	    	<a href="image_1.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img  " style={{backgroundImage: "url('" + image_1 + "')"}}>
-	    		<div className="icon d-flex justify-content-center align-items-center">
-	    			<span className="icon-search"></span>
-	    		</div>
-	    	</a>
-	    	<a href="image_2.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img  " style={{backgroundImage: "url('" + image_2 + "')"}}>
-	    		<div className="icon d-flex justify-content-center align-items-center">
-	    			<span className="icon-search"></span>
-	    		</div>
-	    	</a>
-	    </div>
-    </section>
-
-    <section className="ftco-section">
-      <div className="container">
-        <div className="row justify-content-center mb-5 pb-3">
-          <div className="col-md-7 heading-section   text-center">
-            <h2 className="mb-4">Recent from blog</h2>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-          </div>
-        </div>
-        <div className="row d-flex">
-          <div className="col-md-4 d-flex  ">
-          	<div className="blog-entry align-self-stretch">
-              <a href="blog-single.html" className="block-20" style={{backgroundImage: "url('" + image_1 + "')"}}>
-              </a>
+            import "assets/front-css/animate.css"
+            import "assets/front-css/owl.carousel.min.css"
+             import "assets/front-css/owl.theme.default.min.css"
+             import "assets/front-css/style.css"
               <div className="text p-4 d-block">
               	<div className="meta mb-3">
                   <div><a href="#">Sept 10, 2018</a></div>

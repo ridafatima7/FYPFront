@@ -1,6 +1,11 @@
 import Footer from "./Footer"
 import Header from "./Header"
 
+import "assets/front-css/animate.css"
+import "assets/front-css/owl.carousel.min.css"
+import "assets/front-css/owl.theme.default.min.css"
+import "assets/front-css/style.css"
+
 // IMAGES
 import bg_7 from "assets/front-images/bg_7.jpg"
 import bg_3 from "assets/front-images/bg_3.jpg"
