@@ -5,7 +5,7 @@ import "assets/front-css/owl.theme.default.min.css"
 import "assets/front-css/style.css"
 import { BrowserRouter, Link } from "react-router-dom"
 import { useLocation } from "react-router-dom";
-
+import "./Front.scss"
 // IMAGES
 
 const Header = () => {
@@ -14,6 +14,7 @@ const Header = () => {
     const splitLocation = pathname.split("/");
     return (
         <> 
+        <div className="my-front-css-custom">
             <nav className="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
                 <div className="container">
                 <a className="navbar-brand" href="index.html">Disaster information Cell</a>
@@ -30,7 +31,9 @@ const Header = () => {
                 </div>
                 </div>
             </nav>
+            </div>
         </>
+        
     )
 }
 
