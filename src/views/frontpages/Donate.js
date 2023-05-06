@@ -4,7 +4,7 @@ import Footer from "./Footer"
 import "assets/front-css/animate.css"
 import "assets/front-css/owl.carousel.min.css"
 import "assets/front-css/owl.theme.default.min.css"
-import "assets/front-css/style.css"
+import "assets/front-css/style.scss"
 
 // Images
 import bg_6 from "assets/front-images/bg_6.jpg"
@@ -23,7 +23,7 @@ import person_9 from "assets/front-images/person_9.jpg"
 
 const Donate = () => {
     return (
-        <>
+        <div className="main-parent-class">
         <Header />
         <div className="hero-wrap" style={{backgroundImage: "url('" + bg_6 + "')"}} data-stellar-background-ratio="0.5">
       <div className="overlay"></div>
@@ -216,7 +216,7 @@ const Donate = () => {
 		
         <Footer />
     
-        </> )
+        </div> )
 }
 
 

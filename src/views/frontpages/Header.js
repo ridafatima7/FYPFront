@@ -2,7 +2,7 @@
 import "assets/front-css/animate.css"
 import "assets/front-css/owl.carousel.min.css"
 import "assets/front-css/owl.theme.default.min.css"
-import "assets/front-css/style.css"
+import "assets/front-css/style.scss"
 import { BrowserRouter, Link } from "react-router-dom"
 import { useLocation } from "react-router-dom";
 import "./Front.scss"
@@ -13,7 +13,7 @@ const Header = () => {
     const { pathname } = location;
     const splitLocation = pathname.split("/");
     return (
-        <> 
+        <div className="main-parent-class"> 
         <div className="my-front-css-custom">
             <nav className="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
                 <div className="container">
@@ -32,7 +32,7 @@ const Header = () => {
                 </div>
             </nav>
             </div>
-        </>
+        </div>
         
     )
 }

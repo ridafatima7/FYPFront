@@ -4,6 +4,8 @@
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+ .main-parent-class
+ {
  :root {
     --blue: #007bff;
     --indigo: #6610f2;
@@ -9160,4 +9162,5 @@
     100% {
       stroke-dasharray: 89, 200;
       stroke-dashoffset: -136px; } }
+}
   

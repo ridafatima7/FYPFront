@@ -1,7 +1,7 @@
 import "assets/front-css/animate.css"
 import "assets/front-css/owl.carousel.min.css"
 import "assets/front-css/owl.theme.default.min.css"
-import "assets/front-css/style.css"
+import "assets/front-css/style.scss"
 
 // IMAGES
 import image_1 from "assets/front-images/image_1.jpg"
@@ -10,7 +10,7 @@ import image_2 from "assets/front-images/image_2.jpg"
 const Footer = () => {
     
     return (
-        <> 
+        <div className="main-parent-class"> 
             <footer className="ftco-footer ftco-section img">
     	<div className="overlay"></div>
       <div className="container">
@@ -90,7 +90,7 @@ const Footer = () => {
       </div>
     </footer> 
 
-        </>
+        </div>
     )
 }
 

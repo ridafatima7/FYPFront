@@ -4,7 +4,7 @@ import Footer from "./Footer"
 import "assets/front-css/animate.css"
 import "assets/front-css/owl.carousel.min.css"
 import "assets/front-css/owl.theme.default.min.css"
-import "assets/front-css/style.css"
+import "assets/front-css/style.scss"
 // IMAGES
 import bg_7 from "assets/front-images/bg_7.jpg"
 import bg_1 from "assets/front-images/bg_1.jpg"
@@ -68,7 +68,7 @@ import event_3 from "assets/front-images/event_3.jpg"
 
 const Home = () => {
     return (
-        <>
+        <div className="main-parent-class">
         <Header />
         <div className="hero-wrap" style={{backgroundImage: "url('" + bg_7 + "')"}}>
             <div className="container">
@@ -459,7 +459,7 @@ import "assets/front-css/style.css""gallery image-popup d-flex justify-content-c
   
      */}
      <Footer />
-    </>
+    </div>
     )
 }
 

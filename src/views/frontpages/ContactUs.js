@@ -4,14 +4,14 @@ import Footer from "./Footer"
 import "assets/front-css/animate.css"
 import "assets/front-css/owl.carousel.min.css"
 import "assets/front-css/owl.theme.default.min.css"
-import "assets/front-css/style.css"
+import "assets/front-css/style.scss"
 
 // Images
 import bg_2 from "assets/front-images/bg_2.jpg"
 
 const ContactUs = () => {
     return (
-        <>
+        <div className="main-parent-class">
         <Header />
         <div className="hero-wrap" style={{backgroundImage: "url('" + bg_2 + "')"}} data-stellar-background-ratio="0.5">
       <div className="overlay"></div>
@@ -76,7 +76,7 @@ const ContactUs = () => {
 		
         <Footer />
     
-        </> )
+        </div> )
 }
 
 

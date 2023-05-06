@@ -4,7 +4,7 @@ import Header from "./Header"
 import "assets/front-css/animate.css"
 import "assets/front-css/owl.carousel.min.css"
 import "assets/front-css/owl.theme.default.min.css"
-import "assets/front-css/style.css"
+import "assets/front-css/style.scss"
 
 // IMAGES
 import bg_7 from "assets/front-images/bg_7.jpg"
@@ -18,7 +18,7 @@ import image_2 from "assets/front-images/image_2.jpg"
 
 const About = () => {
     return (
-        <>
+        <div className="main-parent-class">
         <Header />
         <div className="hero-wrap" style={{backgroundImage: "url('" + bg_7 + "')"}}>
         <div className="container">
@@ -136,7 +136,7 @@ const About = () => {
 		
     <Footer />
     
-        </> )
+        </div> )
 }
 
 export default About
