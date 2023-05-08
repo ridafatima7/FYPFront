@@ -125,8 +125,8 @@ const Home = () => {
         </div>
     		<div className="row">
     			<div className="col-md-12  ">
-    				<div className="carousel-cause owl-carousel">
-	    				<div className="item">
+    				<div className="row">
+	    				<div className="item col-md-3">
 	    					<div className="cause-entry">
 		    					{/* <a href="#" className="img" style="background-image: url('" + cause_1 + "');"></a> */}
                                 <a href="#" className="img" style={{backgroundImage: "url('" + cause_1 + "')"}} ></a>
@@ -142,7 +142,7 @@ const Home = () => {
 		    					</div>
 		    				</div>
 	    				</div>
-	    				<div className="item">
+	    				<div className="item col-md-3">
 	    					<div className="cause-entry">
 		    					{/* <a href="#" className="img" style="background-image: url(images/cause_2.jpg);"></a> */}
                                 <a href="#" className="img" style={{backgroundImage: "url('" + cause_2 + "')"}}></a>
@@ -158,7 +158,7 @@ const Home = () => {
 		    					</div>
 		    				</div>
 	    				</div>
-	    				<div className="item">
+	    				<div className="item col-md-3">
 	    					<div className="cause-entry">
 		    					<a href="#" className="img" style={{backgroundImage: "url('" + cause_3 + "')"}}></a>
 		    					<div className="text p-3 p-md-4">
@@ -172,7 +172,7 @@ const Home = () => {
 		    					</div>
 		    				</div>
 	    				</div>
-	    				<div className="item">
+	    				<div className="item col-md-3">
 	    					<div className="cause-entry">
 		    					<a href="#" className="img" style={{backgroundImage: "url('" + cause_4 + "')"}}></a>
 		    					<div className="text p-3 p-md-4">
@@ -186,7 +186,7 @@ const Home = () => {
 		    					</div>
 		    				</div>
 	    				</div>
-	    				<div className="item">
+	    				{/* <div className="item col-md-3">
 	    					<div className="cause-entry">
 		    					<a href="#" className="img" style={{backgroundImage: "url('" + cause_5 + "')"}}></a>
 		    					<div className="text p-3 p-md-4">
@@ -200,7 +200,7 @@ const Home = () => {
 		    					</div>
 		    				</div>
 	    				</div>
-	    				<div className="item">
+	    				<div className="item col-md-3">
 	    					<div className="cause-entry">
 		    					<a href="#" className="img" style={{backgroundImage: "url('" + cause_6 + "')"}}></a>
 		    					<div className="text p-3 p-md-4">
@@ -213,7 +213,7 @@ const Home = () => {
 		                <span className="fund-raised d-block">$12,000 raised of $30,000</span>
 		    					</div>
 		    				</div>
-	    				</div>
+	    				</div> */}
     				</div>
     			</div>
     		</div>
