@@ -278,7 +278,7 @@ const Home = () => {
 
 	<section className="ftco-gallery">
     	<div className="d-md-flex">
-	    	<a href="images/cause-2.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(images/cause-2.jpg);">
+	    	<a href="images/cause-2.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style={{backgroundImage: "url('" + cause_2 + "')"}}>
 	    		<div className="icon d-flex justify-content-center align-items-center">
 	     			<span className="icon-search"></span>
 	     		</div>
@@ -288,7 +288,7 @@ const Home = () => {
 	     			<span className="icon-search"></span>
 	    		</div>
 	   	</a>
-	    	<a href="images/cause-4.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(images/cause-4.jpg);">
+	    	<a href="images/cause-4.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style={{backgroundImage: "url('" + cause_4 + "')"}}>
 	    		<div className="icon d-flex justify-content-center align-items-center">
 	    			<span className="icon-search"></span>
 	     		</div>
@@ -470,7 +470,7 @@ const Home = () => {
       		 </div>    			
       		</div>
       	</div>
-      </section>
+      </section> 
 
   
    
