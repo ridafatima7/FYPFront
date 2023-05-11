@@ -276,46 +276,46 @@ const Home = () => {
       </div>
     </section>
 
-	 {/* <section className="ftco-gallery">
+	<section className="ftco-gallery">
     	<div className="d-md-flex">
-	    	<a href="images/cause-2.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(images/cause-2.jpg);">
+	    	<a href="images/cause-2.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style={{backgroundImage: "url('" + cause_2 + "')"}}>
 	    		<div className="icon d-flex justify-content-center align-items-center">
 	     			<span className="icon-search"></span>
 	     		</div>
 	    	</a>
-	     	<a href="images/cause-3.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(images/cause-3.jpg);">
+	     	<a href="images/cause-3.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style={{backgroundImage: "url('" + cause_3 + "')"}} >
 	    		<div className="icon d-flex justify-content-center align-items-center">
 	     			<span className="icon-search"></span>
 	    		</div>
-	   	</a>
-	    	<a href="images/cause-4.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(images/cause-4.jpg);">
+	   		</a>
+	    	<a href="images/cause-4.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style={{backgroundImage: "url('" + cause_4 + "')"}}>
 	    		<div className="icon d-flex justify-content-center align-items-center">
 	    			<span className="icon-search"></span>
 	     		</div>
 	     	</a>
-	      	<a href="images/cause-5.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(images/cause-5.jpg);">
+	      	<a href="images/cause-5.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style={{backgroundImage: "url('" + cause_5 + "')"}}>
 	      		<div className="icon d-flex justify-content-center align-items-center">
 	      			<span className="icon-search"></span>
 	      		</div>
 	      	</a>
       	</div>
       	<div className="d-md-flex">
-	      	<a href="images/cause-6.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(images/cause-6.jpg);">
+	      	<a href="images/cause-6.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style={{backgroundImage: "url('" + cause_6 + "')"}}>
 	      		<div className="icon d-flex justify-content-center align-items-center">
 	      			<span className="icon-search"></span>
 	      		</div>
 	      	</a>
-	      	<a href="images/image_3.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(images/image_3.jpg);">
+	      	<a href="images/image_3.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style={{backgroundImage: "url('" + image_3 + "')"}}>
 	      		<div className="icon d-flex justify-content-center align-items-center">
 	      			<span className="icon-search"></span>
 	      		</div>
 	      	</a>
-	      	<a href="images/image_1.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(images/image_1.jpg);">
+	      	<a href="images/image_1.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style={{backgroundImage: "url('" + image_1 + "')"}}>
 	      		<div className="icon d-flex justify-content-center align-items-center">
 	      			<span className="icon-search"></span>
 	      		</div>
 	      	</a>
-	      	<a href="images/image_2.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(images/image_2.jpg);">
+	      	<a href="images/image_2.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style={{backgroundImage: "url('" + image_2 + "')"}}>
 	      		<div className="icon d-flex justify-content-center align-items-center">
 	      			<span className="icon-search"></span>
 	      		</div>
@@ -334,7 +334,7 @@ const Home = () => {
           <div className="row d-flex">
             <div className="col-md-4 d-flex ftco-animate">
             	<div className="blog-entry align-self-stretch">
-                <a href="blog-single.html" className="block-20" style="background-image: url('images/image_1.jpg');">
+                <a href="blog-single.html" className="block-20" style={{backgroundImage: "url('" + image_1 + "')"}}>
                 </a>
                 <div className="text p-4 d-block">
                 	<div className="meta mb-3">
@@ -349,7 +349,7 @@ const Home = () => {
             </div>
             <div className="col-md-4 d-flex ftco-animate">
             	<div className="blog-entry align-self-stretch">
-                <a href="blog-single.html" className="block-20" style="background-image: url('images/image_2.jpg');">
+                <a href="blog-single.html" className="block-20" style={{backgroundImage: "url('" + image_2 + "')"}}>
                 </a>
                 <div className="text p-4 d-block">
                 	<div className="meta mb-3">
@@ -364,7 +364,7 @@ const Home = () => {
             </div>
             <div className="col-md-4 d-flex ftco-animate">
             	<div className="blog-entry align-self-stretch">
-                <a href="blog-single.html" className="block-20" style="background-image: url('images/image_3.jpg');">
+                <a href="blog-single.html" className="block-20" style={{backgroundImage: "url('" + image_3 + "')"}}>
                 </a>
                 <div className="text p-4 d-block">
                 	<div className="meta mb-3">
@@ -391,7 +391,7 @@ const Home = () => {
           <div className="row">
           	<div className="col-md-4 d-flex ftco-animate">
             	<div className="blog-entry align-self-stretch">
-                <a href="blog-single.html" className="block-20" style="background-image: url('images/event-1.jpg');">
+                <a href="blog-single.html" className="block-20" style={{backgroundImage: "url('" + event_1 + "')"}}>
                 </a>
                 <div className="text p-4 d-block">
                 	<div className="meta mb-3">
@@ -408,7 +408,7 @@ const Home = () => {
             </div>
             <div className="col-md-4 d-flex ftco-animate">
             	<div className="blog-entry align-self-stretch">
-                <a href="blog-single.html" className="block-20" style="background-image: url('images/event-2.jpg');">
+                <a href="blog-single.html" className="block-20" style={{backgroundImage: "url('" + event_2 + "')"}}>
                 </a>
                 <div className="text p-4 d-block">
                 	<div className="meta mb-3">
@@ -425,7 +425,7 @@ const Home = () => {
             </div>
             <div className="col-md-4 d-flex ftco-animate">
             	<div className="blog-entry align-self-stretch">
-                <a href="blog-single.html" className="block-20" style="background-image: url('images/event-3.jpg');">
+                <a href="blog-single.html" className="block-20" style={{backgroundImage: "url('" + event_3 + "')"}}>
                 </a>
                 <div className="text p-4 d-block">
                 	<div className="meta mb-3">
@@ -444,16 +444,16 @@ const Home = () => {
         </div>
       </section>
 		
-	  	<section className="ftco-section-3 img" style="background-image: url(images/bg_3.jpg);">
+	  	<section className="ftco-section-3 img" style={{backgroundImage: "url('" + bg_3 + "')"}}>
       	<div className="overlay"></div>
       	<div className="container">
       		<div className="row d-md-flex">
       		<div className="col-md-6 d-flex ftco-animate">
-      			<div className="img img-2 align-self-stretch" style="background-image: url(images/bg_4.jpg);"></div>
+      			<div className="img img-2 align-self-stretch" style={{backgroundImage: "url('" + bg_4 + "')"}}></div>
       		</div>
       		<div className="col-md-6 volunteer pl-md-5 ftco-animate">
       			<h3 className="mb-3">Be a volunteer</h3>
-      			<form action="#" className="volunter-form"> 
+      			{/* <form action="#" className="volunter-form"> 
               <div className="form-group">
                 <input type="text" className="form-control" placeholder="Your Name">
               </div>
@@ -466,11 +466,11 @@ const Home = () => {
               <div className="form-group">
                 <input type="submit" value="Send Message" className="btn btn-white py-3 px-5">
               </div>
-            </form> 
+            </form>  */}
       		 </div>    			
       		</div>
       	</div>
-      </section>  */}
+      </section>
 
   
    
