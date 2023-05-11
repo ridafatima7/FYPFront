@@ -5,7 +5,7 @@ import "assets/front-css/animate.css"
 import "assets/front-css/owl.carousel.min.css"
 import "assets/front-css/owl.theme.default.min.css"
 import "assets/front-css/style.scss"
-// IMAGES
+  // IMAGES
 import bg_7 from "assets/front-images/bg_7.jpg"
 import bg_1 from "assets/front-images/bg_1.jpg"
 import bg_2 from "assets/front-images/bg_2.jpg"
@@ -20,54 +20,55 @@ import cause_6 from "assets/front-images/cause_6.jpg"
 import person_1 from "assets/front-images/person_1.jpg"
 import person_2 from "assets/front-images/person_2.jpg"
 import person_3 from "assets/front-images/person_3.jpg"
-// import person_4 from "assets/front-images/person_4.jpg"
-// import person_5 from "assets/front-images/person_5.jpg"
-// import person_6 from "assets/front-images/person_6.jpg"
-// import person_7 from "assets/front-images/person_7.jpg"
-// import person_8 from "assets/front-images/person_8.jpg"
-// import person_9 from "assets/front-images/person_9.jpg"
+  import person_4 from "assets/front-images/person_4.jpg"
+  import person_5 from "assets/front-images/person_5.jpg"
+  import person_6 from "assets/front-images/person_6.jpg"
+  import person_7 from "assets/front-images/person_7.jpg"
+  import person_8 from "assets/front-images/person_8.jpg"
+  import person_9 from "assets/front-images/person_9.jpg"
 import image_1 from "assets/front-images/image_1.jpg"
 import image_2 from "assets/front-images/image_2.jpg"
 import image_3 from "assets/front-images/image_3.jpg"
-// import image_4 from "assets/front-images/image_4.jpg"
-// import image_5 from "assets/front-images/image_5.jpg"
-// import image_6 from "assets/front-images/image_6.jpg"
+  import image_4 from "assets/front-images/image_4.jpg"
+  import image_5 from "assets/front-images/image_5.jpg"
+  import image_6 from "assets/front-images/image_6.jpg"
 import event_1 from "assets/front-images/event_1.jpg"
 import event_2 from "assets/front-images/event_2.jpg"
 import event_3 from "assets/front-images/event_3.jpg"
 
 
 
-// import {
-//     Container,
-//     Col,
-//     Card,
-//     CardHeader,
-//     CardFooter,
-//     Table,
-//     Media,
-//     Pagination,
-//     PaginationItem,
-//     PaginationLink,
-//     Badge,
-//     Button,
-//     Alert,
-//     UncontrolledDropdown,
-//     UncontrolledTooltip,
-//     Progress,
-//     DropdownToggle,
-//     DropdownMenu,
-//     DropdownItem,
-//     Modal, ModalHeader, ModalBody, ModalFooter,
-//     FormGroup,
-//     Form,
-//     Row,
-//     Input,
-//     Label
-//   } from "reactstrap";
+  import {
+      Container,
+      Col,
+      Card,
+      CardHeader,
+      CardFooter,
+      Table,
+      Media,
+      Pagination,
+      PaginationItem,
+      PaginationLink,
+      Badge,
+      Button,
+      Alert,
+      UncontrolledDropdown,
+      UncontrolledTooltip,
+      Progress,
+      DropdownToggle,
+      DropdownMenu,
+      DropdownItem,
+      Modal, ModalHeader, ModalBody, ModalFooter,
+      FormGroup,
+      Form,
+      Row,
+      Input,
+      Label
+    } from "reactstrap";
 
 const Home = () => {
-    return (
+	return (
+		
         <div className="main-parent-class">
         <Header />
         <div className="hero-wrap" style={{backgroundImage: "url('" + bg_7 + "')"}}>
@@ -76,7 +77,7 @@ const Home = () => {
                 <div className="col-md-7 text-center">
                     <h1 className="mb-4">Doing Nothing is Not An Option of Our Life</h1>
                     <p className="mb-5">Created by <a href="#">Colorlib.com</a></p>
-                    <p><a href="https://vimeo.com/45830194" className="btn btn-white btn-outline-white px-4 py-3 popup-vimeo"><span className="icon-play mr-2"></span>Watch Video </a></p>
+                    <p><a href="https: vimeo.com/45830194" className="btn btn-white btn-outline-white px-4 py-3 popup-vimeo"><span className="icon-play mr-2"></span>Watch Video </a></p>
                 </div>
                 </div>
             </div>
@@ -186,7 +187,7 @@ const Home = () => {
 		    					</div>
 		    				</div>
 	    				</div>
-	    				{/* <div className="item col-md-3">
+	    				 <div className="item col-md-3">
 	    					<div className="cause-entry">
 		    					<a href="#" className="img" style={{backgroundImage: "url('" + cause_5 + "')"}}></a>
 		    					<div className="text p-3 p-md-4">
@@ -213,7 +214,7 @@ const Home = () => {
 		                <span className="fund-raised d-block">$12,000 raised of $30,000</span>
 		    					</div>
 		    				</div>
-	    				</div> */}
+	    				</div>
     				</div>
     			</div>
     		</div>
@@ -275,192 +276,208 @@ const Home = () => {
       </div>
     </section>
 
-     {/* <section className="ftco-gallery">
+	 {/* <section className="ftco-gallery">
     	<div className="d-md-flex">
-	    	<a href="cause_2.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img  " style={{backgroundImage: "url('" + cause_2 + "')"}}>
+	    	<a href="images/cause-2.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(images/cause-2.jpg);">
+	    		<div className="icon d-flex justify-content-center align-items-center">
+	     			<span className="icon-search"></span>
+	     		</div>
+	    	</a>
+	     	<a href="images/cause-3.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(images/cause-3.jpg);">
+	    		<div className="icon d-flex justify-content-center align-items-center">
+	     			<span className="icon-search"></span>
+	    		</div>
+	   	</a>
+	    	<a href="images/cause-4.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(images/cause-4.jpg);">
 	    		<div className="icon d-flex justify-content-center align-items-center">
 	    			<span className="icon-search"></span>
-	    		</div>
-	    	</a>
-	    	<a href="cause_3.jpg" className=import "assets/front-css/animate.css"
-import "assets/front-css/owl.carousel.min.css"
-import "assets/front-css/owl.theme.default.min.css"
-import "assets/front-css/style.css""gallery image-popup d-flex justify-content-center align-items-center img  " style={{backgroundImage: "url('" + cause_3 + "')"}}>
-	    		<div className="icon d-flex justify-content-center align-items-center">
-	    			<span className="icon-search"></span>
-	    		</div>
-	    	</a>
-	    	<a href="cause_4.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img  " style={{backgroundImage: "url('" + cause_4 + "')"}}>
-	    		<div className="icon d-flex justify-content-center align-items-center">
-	    			<span className="icon-search"></span>
-	    		</div>
-	    	</a>
-	    	<a href="cause_5.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img  " style={{backgroundImage: "url('" + cause_5 + "')"}}>
-	    		<div className="icon d-flex justify-content-center align-items-center">
-	    			<span className="icon-search"></span>
-	    		</div>
-	    	</a>
-    	</div>
-    	<div className="d-md-flex">
-	    	<a href="images/cause_6.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img  " style={{backgroundImage: "url('" + cause_6 + "')"}}>
-	    		<div className="icon d-flex justify-content-center align-items-center">
-	    			<span className="icon-search"></span>
-	    		</div>
-	    	</a>
-	    	<a href="image_3.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img  " style={{backgroundImage: "url('" + image_3 + "')"}}>
-	    		<div className="icon d-flex justify-content-center align-items-center">
-	    			<span className="icon-search"></span>
-	    		</div>
-	    	</a>
-	    	<a href="image_1.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img  " style={{backgroundImage: "url('" + image_1 + "')"}}>
-            import "assets/front-css/animate.css"
-            import "assets/front-css/owl.carousel.min.css"
-             import "assets/front-css/owl.theme.default.min.css"
-             import "assets/front-css/style.css"
-              <div className="text p-4 d-block">
-              	<div className="meta mb-3">
-                  <div><a href="#">Sept 10, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" className="meta-chat"><span className="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 className="heading mt-3"><a href="#">Hurricane Irma has devastated Florida</a></h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-4 d-flex  ">
-          	<div className="blog-entry align-self-stretch">
-              <a href="blog-single.html" className="block-20" style={{backgroundImage: "url('" + image_2 + "')"}}>
-              </a>
-              <div className="text p-4 d-block">
-              	<div className="meta mb-3">
-                  <div><a href="#">Sept 10, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" className="meta-chat"><span className="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 className="heading mt-3"><a href="#">Hurricane Irma has devastated Florida</a></h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-4 d-flex  ">
-          	<div className="blog-entry align-self-stretch">
-              <a href="blog-single.html" className="block-20" style={{backgroundImage: "url('" + image_3 + "')"}}>
-              </a>
-              <div className="text p-4 d-block">
-              	<div className="meta mb-3">
-                  <div><a href="#">Sept 10, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" className="meta-chat"><span className="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 className="heading mt-3"><a href="#">Hurricane Irma has devastated Florida</a></h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+	     		</div>
+	     	</a>
+	      	<a href="images/cause-5.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(images/cause-5.jpg);">
+	      		<div className="icon d-flex justify-content-center align-items-center">
+	      			<span className="icon-search"></span>
+	      		</div>
+	      	</a>
+      	</div>
+      	<div className="d-md-flex">
+	      	<a href="images/cause-6.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(images/cause-6.jpg);">
+	      		<div className="icon d-flex justify-content-center align-items-center">
+	      			<span className="icon-search"></span>
+	      		</div>
+	      	</a>
+	      	<a href="images/image_3.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(images/image_3.jpg);">
+	      		<div className="icon d-flex justify-content-center align-items-center">
+	      			<span className="icon-search"></span>
+	      		</div>
+	      	</a>
+	      	<a href="images/image_1.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(images/image_1.jpg);">
+	      		<div className="icon d-flex justify-content-center align-items-center">
+	      			<span className="icon-search"></span>
+	      		</div>
+	      	</a>
+	      	<a href="images/image_2.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style="background-image: url(images/image_2.jpg);">
+	      		<div className="icon d-flex justify-content-center align-items-center">
+	      			<span className="icon-search"></span>
+	      		</div>
+	      	</a>
+	      </div>
+      </section>
 
-    <section className="ftco-section bg-light">
-      <div className="container">
-        <div className="row justify-content-center mb-5 pb-3">
-          <div className="col-md-7 heading-section   text-center">
-            <h2 className="mb-4">Our Latest Events</h2>
-          </div>
-        </div>
-        <div className="row">
-        	<div className="col-md-4 d-flex  ">
-          	<div className="blog-entry align-self-stretch">
-              <a href="blog-single.html" className="block-20" style={{backgroundImage: "url('" + event_1 + "')"}}>
-              </a>
-              <div className="text p-4 d-block">
-              	<div className="meta mb-3">
-                  <div><a href="#">Sep. 10, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" className="meta-chat"><span className="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 className="heading mb-4"><a href="#">World Wide Donation</a></h3>
-                <p className="time-loc"><span className="mr-2"><i className="icon-clock-o"></i> 10:30AM-03:30PM</span> <span><i className="icon-map-o"></i> Venue Main Campus</span></p>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                <p><a href="event.html">Join Event <i className="ion-ios-arrow-forward"></i></a></p>
-              </div>
+      <section className="ftco-section">
+        <div className="container">
+          <div className="row justify-content-center mb-5 pb-3">
+            <div className="col-md-7 heading-section ftco-animate text-center">
+              <h2 className="mb-4">Recent from blog</h2>
+              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
             </div>
           </div>
-          <div className="col-md-4 d-flex  ">
-          	<div className="blog-entry align-self-stretch">
-              <a href="blog-single.html" className="block-20" style={{backgroundImage: "url('" + event_2 + "')"}}>
-              </a>
-              <div className="text p-4 d-block">
-              	<div className="meta mb-3">
-                  <div><a href="#">Sep. 10, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" className="meta-chat"><span className="icon-chat"></span> 3</a></div>
+          <div className="row d-flex">
+            <div className="col-md-4 d-flex ftco-animate">
+            	<div className="blog-entry align-self-stretch">
+                <a href="blog-single.html" className="block-20" style="background-image: url('images/image_1.jpg');">
+                </a>
+                <div className="text p-4 d-block">
+                	<div className="meta mb-3">
+                    <div><a href="#">Sept 10, 2018</a></div>
+                    <div><a href="#">Admin</a></div>
+                    <div><a href="#" className="meta-chat"><span className="icon-chat"></span> 3</a></div>
+                  </div>
+                  <h3 className="heading mt-3"><a href="#">Hurricane Irma has devastated Florida</a></h3>
+                  <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
                 </div>
-                <h3 className="heading mb-4"><a href="#">World Wide Donation</a></h3>
-                <p className="time-loc"><span className="mr-2"><i className="icon-clock-o"></i> 10:30AM-03:30PM</span> <span><i className="icon-map-o"></i> Venue Main Campus</span></p>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                <p><a href="event.html">Join Event <i className="ion-ios-arrow-forward"></i></a></p>
               </div>
             </div>
-          </div>
-          <div className="col-md-4 d-flex  ">
-          	<div className="blog-entry align-self-stretch">
-              <a href="blog-single.html" className="block-20" style={{backgroundImage: "url('" + event_3 + "')"}}>
-              </a>
-              <div className="text p-4 d-block">
-              	<div className="meta mb-3">
-                  <div><a href="#">Sep. 10, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" className="meta-chat"><span className="icon-chat"></span> 3</a></div>
+            <div className="col-md-4 d-flex ftco-animate">
+            	<div className="blog-entry align-self-stretch">
+                <a href="blog-single.html" className="block-20" style="background-image: url('images/image_2.jpg');">
+                </a>
+                <div className="text p-4 d-block">
+                	<div className="meta mb-3">
+                    <div><a href="#">Sept 10, 2018</a></div>
+                    <div><a href="#">Admin</a></div>
+                    <div><a href="#" className="meta-chat"><span className="icon-chat"></span> 3</a></div>
+                  </div>
+                  <h3 className="heading mt-3"><a href="#">Hurricane Irma has devastated Florida</a></h3>
+                  <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
                 </div>
-                <h3 className="heading mb-4"><a href="#">World Wide Donation</a></h3>
-                <p className="time-loc"><span className="mr-2"><i className="icon-clock-o"></i> 10:30AM-03:30PM</span> <span><i className="icon-map-o"></i> Venue Main Campus</span></p>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                <p><a href="event.html">Join Event <i className="ion-ios-arrow-forward"></i></a></p>
+              </div>
+            </div>
+            <div className="col-md-4 d-flex ftco-animate">
+            	<div className="blog-entry align-self-stretch">
+                <a href="blog-single.html" className="block-20" style="background-image: url('images/image_3.jpg');">
+                </a>
+                <div className="text p-4 d-block">
+                	<div className="meta mb-3">
+                    <div><a href="#">Sept 10, 2018</a></div>
+                    <div><a href="#">Admin</a></div>
+                    <div><a href="#" className="meta-chat"><span className="icon-chat"></span> 3</a></div>
+                  </div>
+                  <h3 className="heading mt-3"><a href="#">Hurricane Irma has devastated Florida</a></h3>
+                  <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <section className="ftco-section bg-light">
+        <div className="container">
+          <div className="row justify-content-center mb-5 pb-3">
+            <div className="col-md-7 heading-section ftco-animate text-center">
+              <h2 className="mb-4">Our Latest Events</h2>
+            </div>
+          </div>
+          <div className="row">
+          	<div className="col-md-4 d-flex ftco-animate">
+            	<div className="blog-entry align-self-stretch">
+                <a href="blog-single.html" className="block-20" style="background-image: url('images/event-1.jpg');">
+                </a>
+                <div className="text p-4 d-block">
+                	<div className="meta mb-3">
+                    <div><a href="#">Sep. 10, 2018</a></div>
+                    <div><a href="#">Admin</a></div>
+                    <div><a href="#" className="meta-chat"><span className="icon-chat"></span> 3</a></div>
+                  </div>
+                  <h3 className="heading mb-4"><a href="#">World Wide Donation</a></h3>
+                  <p className="time-loc"><span className="mr-2"><i className="icon-clock-o"></i> 10:30AM-03:30PM</span> <span><i className="icon-map-o"></i> Venue Main Campus</span></p>
+                  <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                  <p><a href="event.html">Join Event <i className="ion-ios-arrow-forward"></i></a></p>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-4 d-flex ftco-animate">
+            	<div className="blog-entry align-self-stretch">
+                <a href="blog-single.html" className="block-20" style="background-image: url('images/event-2.jpg');">
+                </a>
+                <div className="text p-4 d-block">
+                	<div className="meta mb-3">
+                    <div><a href="#">Sep. 10, 2018</a></div>
+                    <div><a href="#">Admin</a></div>
+                    <div><a href="#" className="meta-chat"><span className="icon-chat"></span> 3</a></div>
+                  </div>
+                  <h3 className="heading mb-4"><a href="#">World Wide Donation</a></h3>
+                  <p className="time-loc"><span className="mr-2"><i className="icon-clock-o"></i> 10:30AM-03:30PM</span> <span><i className="icon-map-o"></i> Venue Main Campus</span></p>
+                  <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                  <p><a href="event.html">Join Event <i className="ion-ios-arrow-forward"></i></a></p>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-4 d-flex ftco-animate">
+            	<div className="blog-entry align-self-stretch">
+                <a href="blog-single.html" className="block-20" style="background-image: url('images/event-3.jpg');">
+                </a>
+                <div className="text p-4 d-block">
+                	<div className="meta mb-3">
+                    <div><a href="#">Sep. 10, 2018</a></div>
+                    <div><a href="#">Admin</a></div>
+                    <div><a href="#" className="meta-chat"><span className="icon-chat"></span> 3</a></div>
+                  </div>
+                  <h3 className="heading mb-4"><a href="#">World Wide Donation</a></h3>
+                  <p className="time-loc"><span className="mr-2"><i className="icon-clock-o"></i> 10:30AM-03:30PM</span> <span><i className="icon-map-o"></i> Venue Main Campus</span></p>
+                  <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                  <p><a href="event.html">Join Event <i className="ion-ios-arrow-forward"></i></a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 		
-		<section className="ftco-section-3 img" style={{backgroundImage: "url('" + bg_3 + "')"}}>
-    	<div className="overlay"></div>
-    	<div className="container">
-    		<div className="row d-md-flex">
-    		<div className="col-md-6 d-flex  ">
-    			<div className="img img-2 align-self-stretch" style={{backgroundImage: "url('" + bg_4 + "')"}}></div>
-    		</div>
-    		<div className="col-md-6 volunteer pl-md-5  ">
-    			<h3 className="mb-3">Be a volunteer</h3>
-    			<form action="#" className="volunter-form">
-            <div className="form-group">
-              <input type="text" className="form-control" placeholder="Your Name">
-            </div>
-            <div className="form-group">
-              <input type="text" className="form-control" placeholder="Your Email">
-            </div>
-            <div className="form-group">
-              <textarea name="" id="" cols="30" rows="3" className="form-control" placeholder="Message"></textarea>
-            </div>
-            <div className="form-group">
-              <input type="submit" value="Send Message" className="btn btn-white py-3 px-5">
-            </div>
-          </form>
-    		</div>    			
-    		</div>
-    	</div>
-    </section>
-    
-
-    
+	  	<section className="ftco-section-3 img" style="background-image: url(images/bg_3.jpg);">
+      	<div className="overlay"></div>
+      	<div className="container">
+      		<div className="row d-md-flex">
+      		<div className="col-md-6 d-flex ftco-animate">
+      			<div className="img img-2 align-self-stretch" style="background-image: url(images/bg_4.jpg);"></div>
+      		</div>
+      		<div className="col-md-6 volunteer pl-md-5 ftco-animate">
+      			<h3 className="mb-3">Be a volunteer</h3>
+      			<form action="#" className="volunter-form"> 
+              <div className="form-group">
+                <input type="text" className="form-control" placeholder="Your Name">
+              </div>
+              <div className="form-group">
+                <input type="text" className="form-control" placeholder="Your Email">
+              </div>
+              <div className="form-group">
+                <textarea name="" id="" cols="30" rows="3" className="form-control" placeholder="Message"></textarea>
+              </div>
+              <div className="form-group">
+                <input type="submit" value="Send Message" className="btn btn-white py-3 px-5">
+              </div>
+            </form> 
+      		 </div>    			
+      		</div>
+      	</div>
+      </section>  */}
 
   
-     */}
+   
      <Footer />
     </div>
+		
     )
 }
 
-export default Home
+export default Home;
