@@ -7328,6 +7328,7 @@
       padding-left: 20px;
       padding-right: 20px;
       color: rgba(255, 255, 255, 0.8);
+      // color: black;
       font-weight: 400;
       opacity: 1 !important; }
       .ftco-navbar-light .navbar-nav > .nav-item > .nav-link:hover {
@@ -7495,7 +7496,7 @@
     height: 700px; }
     .slider-text h1 {
       font-size: 60px;
-      color: #fff;
+      color:#fff;
       line-height: 1.2;
       font-weight: 400; }
       @media (max-width: 991.98px) {
@@ -8885,7 +8886,10 @@
       float: left; }
     .custom-pagination .next {
       float: right; }
-  
+  .main-parent-class .ftco-animate {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
   /* Blog*/
   .post-info {
     font-size: 12px;

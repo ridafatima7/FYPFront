@@ -32,9 +32,10 @@ import image_3 from "assets/front-images/image_3.jpg"
   import image_4 from "assets/front-images/image_4.jpg"
   import image_5 from "assets/front-images/image_5.jpg"
   import image_6 from "assets/front-images/image_6.jpg"
-import event_1 from "assets/front-images/event_1.jpg"
-import event_2 from "assets/front-images/event_2.jpg"
-import event_3 from "assets/front-images/event_3.jpg"
+  import event_1 from "assets/front-images/event_1.jpg"
+  import event_2 from "assets/front-images/event_2.jpg"
+  import event_3 from "assets/front-images/event_3.jpg"
+  import fourth from "assets/front-images/fourth.jpg"
 
 
 
@@ -71,7 +72,7 @@ const Home = () => {
 		
         <div className="main-parent-class">
         <Header />
-        <div className="hero-wrap" style={{backgroundImage: "url('" + bg_7 + "')"}}>
+        <div className="hero-wrap" style={{backgroundImage: "url('" + fourth + "')"}}>
             <div className="container">
                 <div className="row no-gutters slider-text align-items-center justify-content-center">
                 <div className="col-md-7 text-center">
@@ -453,20 +454,20 @@ const Home = () => {
       		</div>
       		<div className="col-md-6 volunteer pl-md-5 ftco-animate">
       			<h3 className="mb-3">Be a volunteer</h3>
-      			{/* <form action="#" className="volunter-form"> 
+      			 <form action="#" className="volunter-form"> 
               <div className="form-group">
-                <input type="text" className="form-control" placeholder="Your Name">
+                <input type="text" className="form-control" placeholder="Your Name" />
               </div>
               <div className="form-group">
-                <input type="text" className="form-control" placeholder="Your Email">
+                <input type="text" className="form-control" placeholder="Your Email" />
               </div>
               <div className="form-group">
                 <textarea name="" id="" cols="30" rows="3" className="form-control" placeholder="Message"></textarea>
               </div>
               <div className="form-group">
-                <input type="submit" value="Send Message" className="btn btn-white py-3 px-5">
+                <input type="submit" value="Send Message" className="btn btn-white py-3 px-5" />
               </div>
-            </form>  */}
+            </form>  
       		 </div>    			
       		</div>
       	</div>
