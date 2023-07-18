@@ -21,8 +21,11 @@ import Maps from "views/examples/Maps.js";
 import Register from "views/examples/Register.js";
 import Login from "views/examples/Login.js";
 import DisasterInfoManagement from "views/examples/DisasterInfoManagement";
+import DisasterReliefManagement from "views/examples/DisasterReliefManagement";
 import RegisterasNGO from "views/examples/RegisterasNGO.js";
 import Tables from "views/examples/Tables.js";
+import Messages from "views/examples/Messages.js";
+import DonationData from "views/examples/DonationData.js";
 import Icons from "views/examples/Icons.js";
 
 var routes = [
@@ -54,13 +57,13 @@ var routes = [
     component: Profile,
     layout: "/admin"
   },
-  {
-    path: "/tables",
-    name: "Tables",
-    icon: "ni ni-bullet-list-67 text-red",
-    component: Tables,
-    layout: "/admin"
-  },
+  // {
+  //   path: "/tables",
+  //   name: "Tables",
+  //   icon: "ni ni-bullet-list-67 text-red",
+  //   component: Tables,
+  //   layout: "/admin"
+  // },
   {
     path: "/login",
     name: "Login",
@@ -83,11 +86,26 @@ var routes = [
     layout: "/admin"
   },
   {
-    path: "/RegisterasNGO",
-    name: "Register as NGO",
+    path: "/DisasterReliefManagement",
+    name: "Disaster Relief  Management",
     icon: "ni ni-tv-2 text-primary",
-    component:RegisterasNGO ,
+    component: DisasterReliefManagement,
     layout: "/admin"
-  }
+  },
+  // {
+  //   path: "/RegisterasNGO",
+  //   name: "Register as NGO",
+  //   icon: "ni ni-tv-2 text-primary",
+  //   component:RegisterasNGO ,
+  //   layout: "/admin"
+  // },
+  {
+    path:"/Messages",
+    name:"Messages",
+    // icon: "ni ni-tv-2 text-primary",
+    icon: "ni ni-email-83 text-pink",
+    component: Messages,
+    layout: "/admin"
+  },
 ];
 export default routes;

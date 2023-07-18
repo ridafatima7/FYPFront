@@ -42,13 +42,14 @@ const UserHeader = () => {
               <p className="text-white mt-0 mb-5">
                 We are going to make disaster information cell
               </p>
-              <Button
+              {/* <Button
                 color="info"
                 href="#pablo"
+                // backgroung="#f86f2d"
                 onClick={(e) => e.preventDefault()}
               >
                 Edit profile
-              </Button>
+              </Button> */}
             </Col>
           </Row>
         </Container>

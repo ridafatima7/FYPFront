@@ -29,7 +29,9 @@ import Home from "views/frontpages/Home";
 import About from "views/frontpages/About";
 import ContactUs from "views/frontpages/ContactUs";
 import Donate from "views/frontpages/Donate";
-
+import Donation from "views/examples/DonationData.js";
+import Disasters from "views/frontpages/Disasters.js";
+import ReliefActivities from "views/frontpages/ReliefActivities.js";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
@@ -42,6 +44,10 @@ root.render(
       <Route path="/about-us" render={(props) => <About {...props} />} />
       <Route path="/contact-us" render={(props) => <ContactUs {...props} />} />
       <Route path="/donate" render={(props) => <Donate {...props} />} />
+      <Route path="/disasters" render={(props) => <Disasters {...props} />} />
+      <Route path="/relief_Activities" render={(props) => <ReliefActivities {...props} />} />
+      <Route path="/donations" render={(props) => <Donation {...props} />} />
+
     </Switch>
   </BrowserRouter>
 );

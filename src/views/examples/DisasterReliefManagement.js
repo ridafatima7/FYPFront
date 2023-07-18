@@ -30,7 +30,7 @@ import {
 } from "reactstrap";
 import NewHeader from "components/Headers/NewHeader.js";
 import { post } from 'jquery';
-const DisasterInfoManagement =(args)=>{
+const DisasterReliefManagement =(args)=>{
 const [modal, setModal] = useState(false);
 const toggle = () => setModal(!modal);
 const closeModal = () => setModal(false);
@@ -47,41 +47,34 @@ const onDismissaddSuccess = () => setaddSuccess(false);
 const [addsuccess, setaddSuccess] = useState(false);
 const Deletetoggle = (event) => { 
   setTempId(event.target.attributes.getNamedItem('data-id').value); 
-  
   setTempName(event.target.attributes.getNamedItem('data-name').value);
   setdeleteModal(!deletemodal); 
-
-  
-  
-  
 };
 const edittoggle1=(event)=>
-  {
+{
     setEditModal(!editmodal);
-  };
-  const editModalClose=()=>
-  {
+};
+const editModalClose=()=>
+{
     setEditModal(!editmodal); 
-  }
-  
-
+}
 const [id, setInformationid] = useState(null);
-  const [disasterType, setDisasterType] = useState(null);
-  const [Title, setTitle]=useState(null);
-  const[Area,setArea]=useState(null);
-  const[xcoordinates, setCoordinatesX]=useState(null);
-  const[ycoordinates, setCoordinatesY]=useState(null);
-  const[Population,setPopulation]=useState(null);
-  const[survivors,setSurvivors]=useState(null);
-  const[deaths,setDeaths]=useState(null);
-  const[date,setDate]=useState(null);
-  const[shelters,setShelters]=useState(null);
-  const[food,setFood]=useState(null);
-  const[medicine,setMedicine]=useState(null);
-  const[gallery,setGallery]=useState(null);
-  const[editmodal, setEditModal]=useState(false);
-  const onDismisseditSuccess = () => seteditSuccess(false);
-  const [editsuccess, seteditSuccess] = useState(false);
+const [disasterType, setDisasterType] = useState(null);
+const [Title, setTitle]=useState(null);
+const[Area,setArea]=useState(null);
+const[xcoordinates, setCoordinatesX]=useState(null);
+const[ycoordinates, setCoordinatesY]=useState(null);
+const[Population,setPopulation]=useState(null);
+const[survivors,setSurvivors]=useState(null);
+const[deaths,setDeaths]=useState(null);
+const[date,setDate]=useState(null);
+const[shelters,setShelters]=useState(null);
+const[food,setFood]=useState(null);
+const[medicine,setMedicine]=useState(null);
+const[gallery,setGallery]=useState(null);
+const[editmodal, setEditModal]=useState(false);
+const onDismisseditSuccess = () => seteditSuccess(false);
+const [editsuccess, seteditSuccess] = useState(false);
 // const editModalClose=()=>
 // {
 //   setEditModal(!editmodal); 
@@ -95,7 +88,7 @@ function GetInformation(e)
   axios({ 
 
     method:'get',
-    url:"http://localhost:8000/Information/GetInformation",
+    url:"http://localhost:8000/Relief_Information/GetInformation",
   })
   .then(res=>{
     if(res.data)
@@ -107,17 +100,15 @@ function GetInformation(e)
     console.log(error);
   })
 }
-
 useEffect(() => {
 GetInformation();
 }, []);
   function FindInformation(id)
   {
-
     axios({     //FindOneInformation on the base of id API Calling
       withCredentials: true,
       method:'get',
-      url:"http://localhost:8000/Information/FindInformation?temp_id="+id
+      url:"http://localhost:8000/Relief_Information/FindInformation?temp_id="+id
     })
     .then(res=>{
       if(res.data)
@@ -137,8 +128,6 @@ GetInformation();
         setMedicine(res.data.medicine);
         setGallery(res.data.gallery);
         setEditModal(!editmodal);
-
-       
       }
         
     })
@@ -168,7 +157,7 @@ GetInformation();
     axios({     // edit Information on the base of id API Calling
       withCredentials: true,
       method:'post',
-      url:"http://localhost:8000/Information/EditInformation",
+      url:"http://localhost:8000/Relief_Information/EditInformation",
       data:{id:id,disasterType:disasterType, title:title , area:area, xcoordinates:xcoordinates,ycoordinates:ycoordinates,population:population
         ,survivors:survivors,deaths:deaths,date:date,shelters:shelters,food:food,medicine:medicine,gallery:gallery},
 
@@ -201,7 +190,7 @@ GetInformation();
     axios({     //DeleteCourse API Calling
        withCredentials: true,
       method:'get',
-      url:"http://localhost:8000/Information/DeleteInformation?temp_id="+tempId
+      url:"http://localhost:8000/Relief_Information/DeleteInformation?temp_id="+tempId
     })
     .then(res=>{
       if(res.data.indicator=="success")
@@ -244,7 +233,7 @@ function AddInformation(e)
     axios({    //AddInformation API Calling
       method:'post',
        withCredentials: true,
-      url:"http://localhost:8000/Information/AddInformation",
+      url:"http://localhost:8000/Relief_Information/AddInformation",
       data:{disasterType:disasterType, title:title , area:area, xcoordinates:xcoordinates,ycoordinates:ycoordinates, population:population
       ,survivors:survivors,deaths:deaths,date:date,shelters:shelters,food:food,medicine:medicine,gallery:gallery},
     })
@@ -314,7 +303,7 @@ return (
                     value={id}
                   />
                     <Label for="DisasterType">
-                      Disaster Type
+                      Information Type
                     </Label>
                     <Input
                       id="DisasterType"
@@ -328,7 +317,7 @@ return (
                 <Col md={6}>
                   <FormGroup>
                     <Label for="DisasterTitle">
-                      Title
+                      Information Title
                     </Label>
                     <Input
                       id="Title"
@@ -342,7 +331,7 @@ return (
                 <Col md={6}>
                   <FormGroup>
                     <Label for="startdate">
-                      Area
+                      Disaster Area
                     </Label>
                     <Input
                       id="Area"
@@ -386,7 +375,7 @@ return (
                 <Col md={6}>
               <FormGroup>
                 <Label for="description">
-                  Population
+                  Total Population
                 </Label>
                 <Input
                   id="Population"
@@ -400,7 +389,7 @@ return (
               <Col md={6}>
               <FormGroup>
                 <Label for="Survivors">
-                Total survivors
+                Families Surved
                 </Label>
                 <Input
                   id="survivors"
@@ -414,7 +403,7 @@ return (
               <Col md={6}>
               <FormGroup>
                 <Label for="Deaths">
-                Total deaths
+                Individual Surved
                 </Label>
                 <Input
                   id="deaths"
@@ -442,7 +431,7 @@ return (
               <Col md={6}>
               <FormGroup>
                 <Label for="Shelters">
-                Shelters Required*
+                Shelters provided
                 </Label>
                 <Input
                   id="shelters"
@@ -456,7 +445,7 @@ return (
               <Col md={6}>
               <FormGroup>
                 <Label for="Food">
-                Food Required
+                Food Provided
                 </Label>
                 <Input
                   id="food"
@@ -471,7 +460,7 @@ return (
               <Col md={6}>
               <FormGroup>
                 <Label for="Medicine">
-                Medicine Required
+                Medicine Provided
                 </Label>
                 <Input
                   id="medicine"
@@ -546,7 +535,7 @@ return (
         {/* Delete modal */}
  
         <Modal isOpen={deletemodal} toggle={DeletetoggleClose} {...args} size='sm'>
-          <ModalHeader toggle={DeletetoggleClose} >Delete Course</ModalHeader>
+          <ModalHeader toggle={DeletetoggleClose} >Delete Information</ModalHeader>
           <ModalBody>
             Are you sure you want to delete <b>{tempName}</b>?
           </ModalBody>
@@ -562,34 +551,32 @@ return (
           </Modal>
     <Modal isOpen={modal} toggle={toggle} {...args} size='lg'>
         <Form  role="form" onSubmit={AddInformation}>
-        
-          <ModalHeader  className="text-center" toggle={toggle}><b>Add new Disaster Information</b></ModalHeader>
-          
+          <ModalHeader  className="text-center" toggle={toggle}><b>Add Relied Activities Information</b></ModalHeader>
           <ModalBody>
               <Row >
                 <Col md={6}>
                   <FormGroup>
                     <Label for="Disaster Type">
-                      Disaster Type*
+                      Disaster Name*
                     </Label>
                     {/* <Input
                       id="disasterType"
                       name="disasterType"
-                      placeholder="Enter Disaster type"
+                      placeholder="Enter information type"
                       type="text"
-                    />  */}
-                     <Input type="select" name="DisasterType" id="disasterType"  placeholder="Enter Disaster type" >
-                    <option value="">Enter Disaster type</option>
-                    <option value="option1">Local</option>
-                     <option value="option2">Regional</option>
-                     <option value="option3">International</option>
-                    </Input>
-                  </FormGroup> 
+                    /> */}
+                    <Input type="select" name="DisasterType" id="disasterType"  placeholder="Enter Information type" >
+                    <option value="">Enter Information type</option>
+                    <option value="option1">Floods2023</option>
+                     <option value="option2">Landsliding2023</option>
+                     <option value="option3">Earthquakejune2023</option>
+                     </Input>
+                  </FormGroup>
                 </Col>
                 <Col md={6}>
                   <FormGroup>
                     <Label for="Disaster Title">
-                      Disaster Title*
+                      Information Title*
                     </Label>
                     <Input
                       id="title"
@@ -673,7 +660,7 @@ return (
               <Col md={6}>
               <FormGroup>
                 <Label for="Survivors">
-                Total survivors
+                Families Surved*
                 </Label>
                 <Input
                   id="survivors"
@@ -686,7 +673,7 @@ return (
               <Col md={6}>
               <FormGroup>
                 <Label for="Deaths">
-                Total deaths
+                Individual Served*
                 </Label>
                 <Input
                   id="deaths"
@@ -699,7 +686,7 @@ return (
               <Col md={6}>
               <FormGroup>
                 <Label for="Date">
-                Date
+                Date*
                 </Label>
                 <Input
                   id="date"
@@ -712,7 +699,7 @@ return (
               <Col md={6}>
               <FormGroup>
                 <Label for="Shelters">
-                Shelters Required*
+                Shelters Provided*
                 </Label>
                 <Input
                   id="shelters"
@@ -725,7 +712,7 @@ return (
               <Col md={6}>
               <FormGroup>
                 <Label for="Food">
-                Food Required*
+                Food Provided*
                 </Label>
                 <Input
                   id="food"
@@ -739,7 +726,7 @@ return (
               <Col md={6}>
               <FormGroup>
                 <Label for="Medicine">
-                Medicine Required*
+                Medicine Provided*
                 </Label>
                 <Input
                   id="medicine"
@@ -798,7 +785,7 @@ return (
           </ModalBody>
           <ModalFooter>
             <Button color="primary" type="submit" onClick={toggle}>
-              Add Disaster
+              Add Information
             </Button>{' '}
             <Button color="secondary" onClick={toggle}>
               Cancel
@@ -828,7 +815,7 @@ return (
               <CardHeader className="bg-transparent border-0">
                 <Row className="align-items-center">
                   <div className="col">
-                  <h3 className="text-white mb-0">Disaster Information</h3>
+                  <h3 className="text-white mb-0"><b>Relief Information</b></h3>
                   </div>
                   <div className="col text-right">
                     <Button 
@@ -852,18 +839,18 @@ return (
                 }) */}
                 <thead className="thead-dark">
                   <tr>
-                    <th scope="col">Disaster Type</th>
-                    <th scope="col">Disaster Title</th>
-                    <th scope="col">Disaster Area</th>
+                    <th scope="col">Information Type</th>
+                    <th scope="col">Information Title</th>
+                    <th scope="col">Information Area</th>
                     <th scope="col">Area XCoordinates</th>
                     <th scope="col">Area YCoordinates</th>
                     <th scope="col">Population</th>
-                    <th scope="col">Survivors</th>
-                    <th scope="col">Deaths</th>
+                    <th scope="col">Individual Surved</th>
+                    <th scope="col">Families surved</th>
                     <th scope="col">Date</th>
-                    <th scope="col">Shelters</th>
-                    <th scope="col">Food</th>
-                    <th scope="col">Medicines</th>
+                    <th scope="col">Shelters Provided</th>
+                    <th scope="col">Food Provided</th>
+                    <th scope="col">Medicines Provided</th>
                     <th scope="col">Gallery</th>
                     <th scope="col">Action</th>
                     <th scope="col" />
@@ -936,4 +923,4 @@ return (
     </>
 )
 }
-export default DisasterInfoManagement;
+export default DisasterReliefManagement;

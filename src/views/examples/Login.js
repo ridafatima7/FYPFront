@@ -33,50 +33,53 @@ import {
   Row,
   Col,
   Alert
-  
+
 } from "reactstrap";
 import { Redirect } from 'react-router-dom';
 
 const Login = () => {
-const [islogged,setlogin]=useState(false);
-const [error,setError]=useState(false);
-const [show,setShow]=useState(false);
- const handleSubmit=(e)=>{
+  const [islogged, setlogin] = useState(false);
+  const [error, setError] = useState(false);
+  const [show, setShow] = useState(false);
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const email=e.target.elements.email.value;
-    const password=e.target.elements.password.value;
+    const email = e.target.elements.email.value;
+    const password = e.target.elements.password.value;
     // axios.post('http://localhost:8000/auth/get_data?name=rida').then(res =>{console.log(res)})
     axios({
-      method:'post',
-      url:'http://localhost:8000/auth/validate',
-      data:{email:email,password:password}
+      method: 'post',
+      withCredentials: true,
+      url: 'http://localhost:8000/auth/validate',
+      data: { email: email, password: password }
     })
-    .then(res=>{
-          setlogin(true)
-    })
-    .catch(error=>{
-      console.log(error);
-      setError(true)
-    })
+      .then(res => {
+        localStorage.setItem("user", JSON.stringify(res.data))
+        setlogin(true)
+      })
+      .catch(error => {
+        console.log(error);
+        setError(true)
+      })
   }
 
-  const onDismiss=()=>setError(false);
+  const onDismiss = () => setError(false);
 
- 
- if(islogged)
- {
-      return <Redirect to="/admin/index" />;
- }
+
+  if (islogged) {
+    return <Redirect to="/admin/index" />;
+  }
   return (
     <>
       <Col lg="5" md="7">
         <Card className="bg-secondary shadow border-0">
-        <CardBody className="px-lg-5 py-lg-5">
+          <CardBody className="px-lg-5 ">
             <Alert color="danger" isOpen={error} toggle={onDismiss}>
               <strong>Error ! </strong>Invalid crediendials
             </Alert>
-        
-          {/* <CardHeader className="bg-transparent pb-5"> */}
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' , paddingTop: '20px' }}>
+              <h1 style={{color:'blue'}}>Sign in</h1>
+            </div>
+            {/* <CardHeader className="bg-transparent pb-5"> */}
             {/* <div className="text-muted text-center mt-2 mb-3">
               <small>Sign in with</small>
             </div>
@@ -116,10 +119,10 @@ const [show,setShow]=useState(false);
                 <span className="btn-inner--text">Google</span>
               </Button>
             </div> */}
-          {/* </CardHeader> */}
-          
+            {/* </CardHeader> */}
+
             <div className="text-center text-muted mb-4">
-              <small>Or sign in with credentials</small>
+              <small>sign in with credentials</small>
             </div>
             <Form role="form" onSubmit={handleSubmit}>
               <FormGroup className="mb-3">
@@ -152,7 +155,7 @@ const [show,setShow]=useState(false);
                   />
                 </InputGroup>
               </FormGroup>
-              <div className="custom-control custom-control-alternative custom-checkbox">
+              {/* <div className="custom-control custom-control-alternative custom-checkbox">
                 <input
                   className="custom-control-input"
                   id=" customCheckLogin"
@@ -164,9 +167,9 @@ const [show,setShow]=useState(false);
                 >
                   <span className="text-muted">Remember me</span>
                 </label>
-              </div>
+              </div> */}
               <div className="text-center">
-                <Button className="my-4" color="primary" type="submit">
+                <Button className="my-4" style={{background:'#f86f2d'}} type="submit">
                   Sign in
                 </Button>
               </div>

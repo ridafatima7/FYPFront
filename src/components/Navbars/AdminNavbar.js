@@ -8,14 +8,16 @@
 * Copyright 2022 Creative Tim (https://www.creative-tim.com)
 * Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
 
-* Coded by Creative Tim
+* Coded by Rida Fatima
 
 =========================================================
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import { Link } from "react-router-dom";
+import { useState } from 'react';
+import { Link,useHistory,Redirect} from "react-router-dom";
+import axios from 'axios'
 // reactstrap components
 import {
   DropdownMenu,
@@ -35,6 +37,34 @@ import {
 } from "reactstrap";
 
 const AdminNavbar = (props) => {
+  const history=useHistory();
+  if(!localStorage.getItem("user"))
+  {
+      history.push("/auth")
+  }
+  const storedUser = localStorage.getItem('user');
+  const user_info = JSON.parse(storedUser);
+  
+    //const [isloggedout, setloggedOut]=useState(false);
+    const [error, setError] = useState(false);
+    function handleSubmit(e) {
+      e.preventDefault();
+    
+      axios.post("http://localhost:8000/auth/logout")
+        .then(res => {
+          if (res.data === "success") {
+            localStorage.clear(); // Clear local storage
+            // <Redirect to="/auth/login" />; 
+            history.push('/auth/login');
+          } else {
+            setError(true);
+          }
+        })
+        .catch(error => {
+          setError(true);
+        });
+    }
+    
   return (
     <>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
@@ -69,7 +99,7 @@ const AdminNavbar = (props) => {
                   </span>
                   <Media className="ml-2 d-none d-lg-block">
                     <span className="mb-0 text-sm font-weight-bold">
-                      Rida Fatima
+                    {user_info.name} 
                     </span>
                   </Media>
                 </Media>
@@ -86,18 +116,18 @@ const AdminNavbar = (props) => {
                   <i className="ni ni-settings-gear-65" />
                   <span>Settings</span>
                 </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
+                {/* <DropdownItem to="/admin/user-profile" tag={Link}>
                   <i className="ni ni-calendar-grid-58" />
                   <span>Activity</span>
-                </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
+                </DropdownItem> */}
+                {/* <DropdownItem to="/admin/user-profile" tag={Link}>
                   <i className="ni ni-support-16" />
                   <span>Support</span>
-                </DropdownItem>
+                </DropdownItem> */}
                 <DropdownItem divider />
-                <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
+                <DropdownItem href="#pablo" onClick={handleSubmit}>
                   <i className="ni ni-user-run" />
-                  <span>Logout</span>
+                  <span >Logout</span>
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>

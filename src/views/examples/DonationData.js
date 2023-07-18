@@ -1,4 +1,3 @@
-
 import {
   Button,
   Card,
@@ -11,182 +10,47 @@ import {
   Row,
   Col
 } from "reactstrap";
-import { useState } from 'react';
-import axios from 'axios'
-
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
+import Header from "views/frontpages/Header.js"
 const storedUser = localStorage.getItem('user');
 const user_info = JSON.parse(storedUser);
 
 
-const Profile = () => {
-  function EditProfile(e) {
-    e.preventDefault();
-    const id = e.target.id.value;
-    const name = e.target.name.value;
-    const user_name = e.target.username.value;
-    const email = e.target.email.value;
-    const phone_no = e.target.phone_no.value;
-    const formData = new FormData();
-    // if(profile_pic)
-    // {
-     
-    //   formData.append('file', profile_pic);
-    // }
-    formData.append('name', name);
-    formData.append('user_name', user_name);
-    formData.append('email', email);
-    formData.append('phone_no', phone_no);
-    formData.append('id', id);
-    e.preventDefault();
-    axios({     //edit Course on the base of id API Calling
-      method: 'post',
-      withCredentials: true,
-      sameSite: 'none',
-      url: "http://localhost:8000/User/EditProfile",
-      data: formData,
-     })
-      .then(res => {
-        if (res.data == "success") {
-          seteditSuccess(true);
-          setRerender(!rerender);
+const DonationData = () => {
 
-        }
-        else {
-          setErrorMessage(res.data);
-          setError(true);
-        }
-
-
-      })
-      .catch(error => {
-        console.log(error)
-        if (error.response.data == "Not logged in") {
-          localStorage.clear(); // Clear local storage
-          history.push('/auth/login');
-        }
-        setErrorMessage("Failed to connect to backend");
-        setError(true);
-        console.log(error);
-
-      })
-  };
   const storedUser = localStorage.getItem('user');
   const user_info = JSON.parse(storedUser);
   return (
     <>
+      <Header />
       <UserHeader />
-      {/* Page content */}
-      <Container className="mt--7" fluid>
-        <Row>
-          <Col className="order-xl-2 mb-5 mb-xl-0" xl="4">
-            <Card className="card-profile shadow">
-              <Row className="justify-content-center">
-                <Col className="order-lg-2" lg="3">
-                  <div className="card-profile-image">
-                    <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                      <img
-                        alt="..."
-                        className="rounded-circle"
-                        src={require("../../assets/img/theme/team-4-800x800.jpg")}
-                      />
-                    </a>
-                  </div>
-                </Col>
-              </Row>
-              <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-                <div className="d-flex justify-content-between">
-                  <Button
-                    className="mr-4"
-                    color="info"
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                    size="sm"
-                  >
-                    Connect
-                  </Button>
-                  <Button
-                    className="float-right"
-                    color="default"
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                    size="sm"
-                  >
-                    Message
-                  </Button>
-                </div>
-              </CardHeader>
-              <CardBody className="pt-0 pt-md-4">
-                <Row>
-                  <div className="col">
-                    <div className="card-profile-stats d-flex justify-content-center mt-md-5">
-                      {/* <div>
-                        <span className="heading">22</span>
-                        <span className="description">Friends</span>
-                      </div>
-                      <div>
-                        <span className="heading">10</span>
-                        <span className="description">Photos</span>
-                      </div>
-                      <div>
-                        <span className="heading">89</span>
-                        <span className="description">Comments</span>
-                      </div> */}
-                    </div>
-                  </div>
-                </Row>
-                <div className="text-center">
-                  <h3>
-                    {user_info.name}
-                    <span className="font-weight-light">, @{user_info.username} </span>
-                  </h3>
-                  <div className="h5 font-weight-300">
-                    <i className="ni location_pin mr-2" />
-                    {user_info.email}
-                  </div>
-                  <div className="h5 mt-4">
-                    <i className="ni business_briefcase-24 mr-2" />
-                    {user_info.phone_no}
-                  </div>
-                  <div>
-                    <i className="ni education_hat mr-2" />
-                    {user_info.address}
-                  </div>
-                  <hr className="my-4" />
-                  <p>
-                    {user_info.address}
-                  </p>
-                  <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                    Show more
-                  </a>
-                </div>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col className="order-xl-1" xl="8">
+     
+      <Container  className="mt--7" fluid >
+      <Row>
+          <Col   className="order-xl-1" xl="8">
             <Card className="bg-secondary shadow">
-              <CardHeader className="bg-white border-0">
-                <Row className="align-items-center">
-                  <Col xs="8">
-                    <h3 className="mb-0">My account</h3>
+              <CardHeader  className="bg-white border-0">
+                <Row  className="align-items-center">
+                  <Col xs="8" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '1px', paddingLeft: '240px' }}>
+                    <h3 className="mb-0">Donate</h3>
                   </Col>
                   <Col className="text-right" xs="4">
-                    <Button
+                    {/* <Button
                       color="primary"
                       href="#pablo"
                       onClick={(e) => e.preventDefault()}
                       size="sm"
                     >
                       Settings
-                    </Button>
+                    </Button> */}
                   </Col>
                 </Row>
               </CardHeader>
               <CardBody>
                 <Form>
                   <h6 className="heading-small text-muted mb-4">
-                    User information
+                    Donor information
                   </h6>
                   <div className="pl-lg-4">
                     <Row>
@@ -200,7 +64,7 @@ const Profile = () => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue={user_info.name}
+                            defaultValue="Enter Full Name"
                             id="input-username"
                             placeholder="Username"
                             type="text"
@@ -218,7 +82,7 @@ const Profile = () => {
                           <Input
                             className="form-control-alternative"
                             id="input-email"
-                            placeholder={user_info.email}
+                            placeholder="Enter Email"
                             type="email"
                           />
                         </FormGroup>
@@ -235,9 +99,9 @@ const Profile = () => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue={user_info.username}
+                            defaultValue="Enter Username"
                             id="input-first-name"
-                            placeholder={user_info.username}
+                            placeholder="Enter Username"
                             type="text"
                           />
                         </FormGroup>
@@ -252,9 +116,9 @@ const Profile = () => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue={user_info.phone_no}
+                            defaultValue="Enter Phone number"
                             id="input-last-name"
-                            placeholder={user_info.phone_no}
+                            placeholder="Enter Phone number"
                             type="text"
                           />
                         </FormGroup>
@@ -264,7 +128,7 @@ const Profile = () => {
                   <hr className="my-4" />
                   {/* Address */}
                   <h6 className="heading-small text-muted mb-4">
-                    Contact information
+                    Account information
                   </h6>
                   <div className="pl-lg-4">
                     <Row>
@@ -274,30 +138,18 @@ const Profile = () => {
                             className="form-control-label"
                             htmlFor="input-address"
                           >
-                            Bio
+                            Address
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="Enter Bio"
+                            defaultValue="Enter Address"
                             id="input-address"
-                            placeholder="Enter Your  Bio"
+                            placeholder="Enter Address"
                             type="text"
                           />
-                          
                         </FormGroup>
                       </Col>
                     </Row>
-                  </div>
-                  <div style={{ paddingLeft:'260px', justifyContent: 'center',width:'120px' }}>
-                  <Button
-                            
-                            color="info"
-                            href="#pablo"
-                            // backgroung="#f86f2d"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            Save
-                          </Button>
                   </div>
                   {/* <Row>
                       <Col lg="4">
@@ -368,14 +220,26 @@ const Profile = () => {
                       />
                     </FormGroup>
                   </div> */}
+                  <Button
+                    style={{ background: '#f86f2d',display: 'flex', justifyContent: 'center' }}
+                    // color="info"
+                    href="#pablo"
+                    // backgroung="#f86f2d"
+                    onClick={(e) => e.preventDefault()}
+                  >
+                   Submit
+                  </Button>
                 </Form>
               </CardBody>
             </Card>
           </Col>
         </Row>
       </Container>
+      
     </>
   );
 };
 
-export default Profile;
+export default DonationData;
+
+

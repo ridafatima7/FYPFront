@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import { Link } from "react-router-dom";
+import { Link ,useHistory} from "react-router-dom";
 // reactstrap components
 import {
   UncontrolledCollapse,
@@ -30,6 +30,13 @@ import {
 } from "reactstrap";
 
 const AdminNavbar = () => {
+  // const history=useHistory();
+  // if(!localStorage.getItem("user"))
+  // {
+  //     history.push("/auth")
+  // }
+  // const storedUser = localStorage.getItem('user');
+  // const user_info = JSON.parse(storedUser);
   return (
     <>
       <Navbar className="navbar-top navbar-horizontal navbar-dark" expand="md">
@@ -37,7 +44,8 @@ const AdminNavbar = () => {
           <NavbarBrand to="/" tag={Link}>
             <img
               alt="..."
-              src={require("../../assets/img/brand/argon-react-white.png")}
+              src={require("../../assets/img/brand/LOGO2.png")}
+              style={{ width: '60px', height: '60px' }}
             />
           </NavbarBrand>
           <button className="navbar-toggler" id="navbar-collapse-main">
@@ -66,7 +74,7 @@ const AdminNavbar = () => {
               <NavItem>
                 <NavLink className="nav-link-icon" to="/" tag={Link}>
                   <i className="ni ni-planet" />
-                  <span className="nav-link-inner--text">Dashboard</span>
+                  <span className="nav-link-inner--text">Home</span>
                 </NavLink>
               </NavItem>
               <NavItem>

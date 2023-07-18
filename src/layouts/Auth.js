@@ -8,7 +8,7 @@
 * Copyright 2022 Creative Tim (https://www.creative-tim.com)
 * Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
 
-* Coded by Creative Tim
+* Coded by Rida Fatima
 
 =========================================================
 
@@ -23,7 +23,6 @@ import { Container, Row, Col } from "reactstrap";
 // core components
 import AuthNavbar from "components/Navbars/AuthNavbar.js";
 import AuthFooter from "components/Footers/AuthFooter.js";
-
 import routes from "routes.js";
 
 const Auth = (props) => {
@@ -67,7 +66,7 @@ const Auth = (props) => {
             <div className="header-body text-center mb-7">
               <Row className="justify-content-center">
                 <Col lg="5" md="6">
-                  <h1 className="text-white">Login</h1>
+                  <h1 className="text-white">Disaster Information Cell</h1>
                   <p className="text-lead text-light">
                     It is information based system for disaster handling
                   </p>

@@ -8,6 +8,7 @@ import "assets/front-css/style.scss"
 
 // IMAGES
 import bg_7 from "assets/front-images/bg_7.jpg"
+import aboutus from "assets/front-images/2.webp"
 import bg_3 from "assets/front-images/bg_3.jpg"
 import person_1 from "assets/front-images/person_1.jpg"
 import person_2 from "assets/front-images/person_2.jpg"
@@ -20,11 +21,11 @@ const About = () => {
     return (
         <div className="main-parent-class">
         <Header />
-        <div className="hero-wrap" style={{backgroundImage: "url('" + bg_7 + "')"}}>
+        <div className="hero-wrap" style={{backgroundImage: "url('" + aboutus + "')"}}>
         <div className="container">
             <div className="row no-gutters slider-text align-items-center justify-content-center">
             <div className="col-md-7 text-center">
-                <h1 className="mb-3 bread">About Us</h1>
+                <h1 className="mb-3 bread" style={{ backgroundColor: 'black' }}>About Us</h1>
             </div>
             </div>
         </div>
@@ -34,12 +35,13 @@ const About = () => {
     	<div className="container">
     		<div className="row d-flex">
     			<div className="col-md-6 d-flex ftco-animate">
-    				<div className="img img-about align-self-stretch" style={{backgroundImage: "url('" + bg_3 + "')"}}></div>
+    				<div className="img img-about align-self-stretch" style={{backgroundImage: "url('" + aboutus + "')"}}></div>
     			</div>
     			<div className="col-md-6 pl-md-5 ftco-animate">
-    				<h2 className="mb-4">Welcome to Welfare Stablished Since 1898</h2>
-    				<p>The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way.</p>
-    				<p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their.</p>
+    				<h2 className="mb-4">Welcome to <b>Disaster Information Cell</b> Established Since 2010</h2>
+					<p>Disaster Information Cell is the lead agency at the Federal level to deal with the whole spectrum of Disaster Management activities.</p>
+					<p>It is the executive arm of the National Disaster Management Commission (NDMC) which has been established under the Chairmanship of the Prime Minister as the apex policy making body in the field of Disaster Management. In the event of a disaster, all stakeholders including Government Ministries/Departments/Organizations, Armed Forces, INGOs, NGOs, UN Agencies work through and form part of the NDMA to conduct one window operations. </p>
+					<p>DIC manages the whole Disaster Management Cycle (DMC) which includes Preparedness, Mitigation, Risk Reduction, Relief and Rehabilitation. A National Disaster Management Plan (NDMP) is prepared and is followed towards provision of better services to the affected ones.</p>
     			</div>
     		</div>
     	</div>
@@ -79,7 +81,7 @@ const About = () => {
     	</div>
     </section>
 
-    <section className="ftco-section bg-light">
+    {/* <section className="ftco-section bg-light">
       <div className="container">
       	<div className="row justify-content-center mb-5 pb-3">
           <div className="col-md-7 heading-section ftco-animate text-center">
@@ -132,7 +134,7 @@ const About = () => {
         	</div>
         </div>
       </div>
-    </section>
+    </section> */}
 		
     <Footer />
     
