@@ -336,6 +336,7 @@ return (
                       placeholder="Enter Title"
                       type="text"
                       defaultValue={Title}
+                      required
                     />
                   </FormGroup>
                 </Col>
@@ -596,6 +597,7 @@ return (
                       name="title"
                       placeholder="Enter Disaster title"
                       type="text"
+                      required
                     />
                   </FormGroup>
                 </Col>
@@ -666,7 +668,10 @@ return (
                   id="population"
                   name="population"
                   placeholder="Enter Estimated Population"
-                  type='text'
+                  type='number'
+                  // required
+                  // min="0"
+                  // max="1000000"
                 />
               </FormGroup>
               </Col>
@@ -693,19 +698,21 @@ return (
                   name="deaths"
                   placeholder="Enter Estimated deaths"
                   type='text'
+                  required
                 />
               </FormGroup>
               </Col>
               <Col md={6}>
               <FormGroup>
                 <Label for="Date">
-                Date
+                Date*
                 </Label>
                 <Input
                   id="date"
                   name="date"
                   placeholder="Choose date"
                   type='date'
+                  require
                 />
               </FormGroup>
               </Col>
@@ -719,6 +726,7 @@ return (
                   name="shelters"
                   placeholder="Enter Estimated shelters( for familes)"
                   type='text'
+                  required
                 />
               </FormGroup>
               </Col>

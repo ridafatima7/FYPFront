@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect,userTa } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import {
@@ -30,7 +30,9 @@ import {
 } from "reactstrap";
 import NewHeader from "components/Headers/NewHeader.js";
 import { post } from 'jquery';
+
 const DisasterReliefManagement =(args)=>{
+const[usertable, setUsertable] =useState()
 const [modal, setModal] = useState(false);
 const toggle = () => setModal(!modal);
 const closeModal = () => setModal(false);
@@ -559,17 +561,30 @@ return (
                     <Label for="Disaster Type">
                       Disaster Name*
                     </Label>
-                    {/* <Input
+                    <Input
                       id="disasterType"
                       name="disasterType"
                       placeholder="Enter information type"
-                      type="text"
-                    /> */}
-                    <Input type="select" name="DisasterType" id="disasterType"  placeholder="Enter Information type" >
+                      type="select"
+                    >
+                      {usertable ?
+                        usertable
+                          .filter(row => row.role === 'NGO')
+                          .map((row, index) => {
+                            return (
+                              <option key={index} value={row._id}>
+                                {row.dis_type}
+                              </option>
+                            )
+                          })
+                        :
+                        <h1>No information Selected Yet</h1>
+                      }
+                    {/* <Input type="select" name="DisasterType" id="disasterType"  placeholder="Enter Information type" >
                     <option value="">Enter Information type</option>
                     <option value="option1">Floods2023</option>
                      <option value="option2">Landsliding2023</option>
-                     <option value="option3">Earthquakejune2023</option>
+                     <option value="option3">Earthquakejune2023</option> */}
                      </Input>
                   </FormGroup>
                 </Col>
@@ -746,6 +761,7 @@ return (
                   name="gallery"
                   placeholder="Upload Disaster Pictures(If Any)"
                   type='text'
+                  required
                 />
               </FormGroup>
               </Col>
