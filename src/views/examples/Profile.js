@@ -11,7 +11,8 @@ import {
   Row,
   Col
 } from "reactstrap";
-import { useState } from 'react';
+import { useState} from 'react';
+import { Redirect,Link,useHistory} from 'react-router-dom';
 import axios from 'axios'
 
 // core components
@@ -21,12 +22,19 @@ const user_info = JSON.parse(storedUser);
 
 
 const Profile = () => {
+  const [errorMessage, setErrorMessage] = useState("");
+  const [error, setError] = useState("");
+  const [success, seteditSuccess] = useState("");
+  const [rerender, setRerender] = useState("false");
+
+  const history = useHistory();
+
   function EditProfile(e) {
     e.preventDefault();
     const id = e.target.id.value;
     const name = e.target.name.value;
-    const user_name = e.target.username.value;
     const email = e.target.email.value;
+    const address = e.target.address.value;
     const phone_no = e.target.phone_no.value;
     const formData = new FormData();
     // if(profile_pic)
@@ -35,8 +43,8 @@ const Profile = () => {
     //   formData.append('file', profile_pic);
     // }
     formData.append('name', name);
-    formData.append('user_name', user_name);
     formData.append('email', email);
+    formData.append('address', address);
     formData.append('phone_no', phone_no);
     formData.append('id', id);
     e.preventDefault();
@@ -44,7 +52,7 @@ const Profile = () => {
       method: 'post',
       withCredentials: true,
       sameSite: 'none',
-      url: "http://localhost:8000/User/EditProfile",
+      url: "http://localhost:8000/auth/EditProfile",
       data: formData,
      })
       .then(res => {
@@ -72,8 +80,8 @@ const Profile = () => {
 
       })
   };
-  const storedUser = localStorage.getItem('user');
-  const user_info = JSON.parse(storedUser);
+  // const storedUser = localStorage.getItem('user');
+  // const user_info = JSON.parse(storedUser);
   return (
     <>
       <UserHeader />
@@ -101,7 +109,8 @@ const Profile = () => {
                     className="mr-4"
                     color="info"
                     href="#pablo"
-                    onClick={(e) => e.preventDefault()}
+                     onClick={(e) => e.preventDefault()}
+                    
                     size="sm"
                   >
                     Connect
@@ -231,13 +240,13 @@ const Profile = () => {
                             className="form-control-label"
                             htmlFor="input-first-name"
                           >
-                            UserName
+                            Address
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue={user_info.username}
+                            defaultValue={user_info.address}
                             id="input-first-name"
-                            placeholder={user_info.username}
+                            placeholder={user_info.address}
                             type="text"
                           />
                         </FormGroup>
@@ -269,7 +278,7 @@ const Profile = () => {
                   <div className="pl-lg-4">
                     <Row>
                       <Col md="12">
-                        <FormGroup>
+                        {/* <FormGroup>
                           <label
                             className="form-control-label"
                             htmlFor="input-address"
@@ -284,7 +293,7 @@ const Profile = () => {
                             type="text"
                           />
                           
-                        </FormGroup>
+                        </FormGroup> */}
                       </Col>
                     </Row>
                   </div>
@@ -292,9 +301,10 @@ const Profile = () => {
                   <Button
                             
                             color="info"
-                            href="#pablo"
+                             href="#pablo"
                             // backgroung="#f86f2d"
-                            onClick={(e) => e.preventDefault()}
+                            // onClick={(e) => e.preventDefault()}
+                            onClick={EditProfile}
                           >
                             Save
                           </Button>

@@ -393,7 +393,7 @@ return (
                   id="Population"
                   name="Population"
                   placeholder="Total Population"
-                  type='text'
+                  type='number'
                   defaultValue={Population}
                 />
               </FormGroup>
@@ -407,7 +407,7 @@ return (
                   id="survivors"
                   name="survivors"
                   placeholder="Enter Estimated survivors"
-                  type='text'
+                  type='number'
                   defaultValue={survivors}
                 />
               </FormGroup>
@@ -421,7 +421,7 @@ return (
                   id="deaths"
                   name="deaths"
                   placeholder="Enter Estimated deaths"
-                  type='text'
+                  type='number'
                   defaultValue={deaths}
                 />
               </FormGroup>
@@ -449,7 +449,7 @@ return (
                   id="shelters"
                   name="shelters"
                   placeholder="Enter Estimated shelters( for familes)"
-                  type='text'
+                  type='number'
                   defaultValue={shelters}
                 />
               </FormGroup>
@@ -463,7 +463,7 @@ return (
                   id="food"
                   name="food"
                   placeholder="Enter Required food ( for individuals)"
-                  type='text'
+                  type='number'
                   defaultValue={food}
                 />
               </FormGroup>
@@ -478,7 +478,7 @@ return (
                   id="medicine"
                   name="medicine"
                   placeholder="Enter Required medicine ( for individuals)"
-                  type='text'
+                  type='number'
                   defaultValue={medicine}
                 />
               </FormGroup>
@@ -579,7 +579,7 @@ return (
                       placeholder="Enter Disaster type"
                       type="text"
                     />  */}
-                     <Input type="select" name="DisasterType" id="disasterType"  placeholder="Enter Disaster type" >
+                     <Input type="select" name="DisasterType" id="disasterType"  placeholder="Enter Disaster type" required>
                     <option value="">Enter Disaster type</option>
                     <option value="option1">Local</option>
                      <option value="option2">Regional</option>
@@ -612,7 +612,7 @@ return (
                       placeholder="Enter Disaster area"
                       type="text"
                     /> */}
-                    <Input type="select" name="area" id="area"  placeholder="Enter Disaster Area" >
+                    <Input type="select" name="area" id="area"  placeholder="Enter Disaster Area" required>
                     <option value="">Enter Disaster Area</option>
                     <option value="option1">Lahore</option>
                      <option value="option2">Sargodha</option>
@@ -641,6 +641,7 @@ return (
                       name="xcoordinates"
                       placeholder="Enter Area Co-ordinates(X)"
                       type="text"
+                      required
                     />
                   </FormGroup>
                 </Col>
@@ -654,6 +655,7 @@ return (
                       name="ycoordinates"
                       placeholder="Enter Area Co-ordinates(Y)"
                       type="text"
+                      required
                     />
                   </FormGroup>
                 </Col>
@@ -669,9 +671,9 @@ return (
                   name="population"
                   placeholder="Enter Estimated Population"
                   type='number'
-                  // required
-                  // min="0"
-                  // max="1000000"
+                  required
+                  min="0"
+                  max="1000000"
                 />
               </FormGroup>
               </Col>
@@ -684,7 +686,8 @@ return (
                   id="survivors"
                   name="survivors"
                   placeholder="Enter Estimated survivors"
-                  type='text'
+                  type='number'
+
                 />
               </FormGroup>
               </Col>
@@ -697,7 +700,7 @@ return (
                   id="deaths"
                   name="deaths"
                   placeholder="Enter Estimated deaths"
-                  type='text'
+                  type='number'
                   required
                 />
               </FormGroup>
@@ -712,7 +715,9 @@ return (
                   name="date"
                   placeholder="Choose date"
                   type='date'
-                  require
+                  required
+                  min="2023-01-01" // Add the minimum date allowed here
+                  max="2023-12-31"
                 />
               </FormGroup>
               </Col>
@@ -725,7 +730,7 @@ return (
                   id="shelters"
                   name="shelters"
                   placeholder="Enter Estimated shelters( for familes)"
-                  type='text'
+                  type='number'
                   required
                 />
               </FormGroup>
@@ -739,7 +744,8 @@ return (
                   id="food"
                   name="food"
                   placeholder="Enter Required food ( for individuals)"
-                  type='text'
+                  type='number'
+                  required
                 />
               </FormGroup>
               </Col>
@@ -753,7 +759,8 @@ return (
                   id="medicine"
                   name="medicine"
                   placeholder="Enter Required medicine ( for individuals)"
-                  type='text'
+                  type='number'
+                  required
                 />
               </FormGroup>
               </Col>

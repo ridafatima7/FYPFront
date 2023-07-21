@@ -383,7 +383,7 @@ return (
                   id="Population"
                   name="Population"
                   placeholder="Total Population"
-                  type='text'
+                  type='number'
                   defaultValue={Population}
                 />
               </FormGroup>
@@ -566,10 +566,11 @@ return (
                       name="disasterType"
                       placeholder="Enter information type"
                       type="select"
+
                     >
-                      {usertable ?
+                      {/* {usertable ?
                         usertable
-                          .filter(row => row.role === 'NGO')
+                          .filter(row => row.Role === 'NGO')
                           .map((row, index) => {
                             return (
                               <option key={index} value={row._id}>
@@ -579,7 +580,7 @@ return (
                           })
                         :
                         <h1>No information Selected Yet</h1>
-                      }
+                      } */}
                     {/* <Input type="select" name="DisasterType" id="disasterType"  placeholder="Enter Information type" >
                     <option value="">Enter Information type</option>
                     <option value="option1">Floods2023</option>
@@ -598,6 +599,7 @@ return (
                       name="title"
                       placeholder="Enter Disaster title"
                       type="text"
+                      required 
                     />
                   </FormGroup>
                 </Col>
@@ -612,7 +614,7 @@ return (
                       placeholder="Enter Disaster area"
                       type="text"
                     /> */}
-                    <Input type="select" name="area" id="area"  placeholder="Enter Disaster Area" >
+                    <Input type="select" name="area" id="area"    placeholder="Enter Disaster Area" required >
                     <option value="">Enter Disaster Area</option>
                     <option value="option1">Lahore</option>
                      <option value="option2">Sargodha</option>
@@ -641,6 +643,7 @@ return (
                       name="xcoordinates"
                       placeholder="Enter Area Co-ordinates(X)"
                       type="text"
+                      required
                     />
                   </FormGroup>
                 </Col>
@@ -654,6 +657,7 @@ return (
                       name="ycoordinates"
                       placeholder="Enter Area Co-ordinates(Y)"
                       type="text"
+                      required
                     />
                   </FormGroup>
                 </Col>
@@ -668,7 +672,8 @@ return (
                   id="population"
                   name="population"
                   placeholder="Enter Estimated Population"
-                  type='text'
+                  type='number'
+                  required
                 />
               </FormGroup>
               </Col>
@@ -708,6 +713,9 @@ return (
                   name="date"
                   placeholder="Choose date"
                   type='date'
+                  min="2023-01-01" // Add the minimum date allowed here
+                  max="2023-12-31"
+                  required
                 />
               </FormGroup>
               </Col>
@@ -721,6 +729,7 @@ return (
                   name="shelters"
                   placeholder="Enter Estimated shelters( for familes)"
                   type='text'
+                  required
                 />
               </FormGroup>
               </Col>
@@ -734,6 +743,7 @@ return (
                   name="food"
                   placeholder="Enter Required food ( for individuals)"
                   type='text'
+                  required
                 />
               </FormGroup>
               </Col>
@@ -748,6 +758,7 @@ return (
                   name="medicine"
                   placeholder="Enter Required medicine ( for individuals)"
                   type='text'
+                  required
                 />
               </FormGroup>
               </Col>
@@ -761,7 +772,7 @@ return (
                   name="gallery"
                   placeholder="Upload Disaster Pictures(If Any)"
                   type='text'
-                  required
+                  
                 />
               </FormGroup>
               </Col>
