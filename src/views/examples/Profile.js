@@ -1,4 +1,4 @@
-
+import React, { useRef } from 'react';
 import {
   Button,
   Card,
@@ -9,7 +9,8 @@ import {
   Input,
   Container,
   Row,
-  Col
+  Col,
+  Alert
 } from "reactstrap";
 import { useState} from 'react';
 import { Redirect,Link,useHistory} from 'react-router-dom';
@@ -17,38 +18,50 @@ import axios from 'axios'
 
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
+import { isVariableStatement } from 'typescript';
 const storedUser = localStorage.getItem('user');
 const user_info = JSON.parse(storedUser);
-
-
+var user_image = ""
+// if(user_info.User_img && user_info.User_img.lenght > 0)
+// {
+  user_image = user_info.User_img.replace('public/', '')
+// }
+// else{
+//   user_image = "http://localhost:8000/uploads/OIP.jpeg"
+// }
 const Profile = () => {
+  const fileInputRef = useRef(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [error, setError] = useState("");
   const [success, seteditSuccess] = useState("");
   const [rerender, setRerender] = useState("false");
-
+  const [addsuccess, setaddSuccess] = useState(false);
+  const onDismissaddSuccess = () => setaddSuccess(false);
+  const onDismiss = () => setError(false);
   const history = useHistory();
 
   function EditProfile(e) {
+    
     e.preventDefault();
-    const id = e.target.id.value;
+    const id = user_info._id;
     const name = e.target.name.value;
-    const email = e.target.email.value;
+    // const email = e.target.email.value;
     const address = e.target.address.value;
     const phone_no = e.target.phone_no.value;
+    const bio = e.target.bio.value;
     const formData = new FormData();
-    // if(profile_pic)
-    // {
-     
-    //   formData.append('file', profile_pic);
-    // }
+    if(profile_pic)
+    {
+      formData.append('file', profile_pic);
+    }
     formData.append('name', name);
-    formData.append('email', email);
+    // formData.append('email', email);
     formData.append('address', address);
     formData.append('phone_no', phone_no);
+    formData.append('bio', bio);
     formData.append('id', id);
     e.preventDefault();
-    axios({     //edit Course on the base of id API Calling
+    axios({     //edit profile on the base of id API Calling
       method: 'post',
       withCredentials: true,
       sameSite: 'none',
@@ -56,17 +69,25 @@ const Profile = () => {
       data: formData,
      })
       .then(res => {
-        if (res.data == "success") {
-          seteditSuccess(true);
-          setRerender(!rerender);
+        if (res.data.indicator == "success") {
+          setaddSuccess(true);
 
+          if(profile_pic)
+          {
+            user_info.User_img=res.data.path;
+            localStorage.setItem('user', JSON.stringify(user_info));
+          }
+          user_info.name = name
+          user_info.phone_no = phone_no
+          user_info.address = address
+          user_info.bio = bio
+          localStorage.setItem("user", JSON.stringify(user_info))
+          setRerender(!rerender);
         }
         else {
-          setErrorMessage(res.data);
+          setErrorMessage(res.data.messege);          
           setError(true);
         }
-
-
       })
       .catch(error => {
         console.log(error)
@@ -77,16 +98,26 @@ const Profile = () => {
         setErrorMessage("Failed to connect to backend");
         setError(true);
         console.log(error);
-
       })
   };
-  // const storedUser = localStorage.getItem('user');
-  // const user_info = JSON.parse(storedUser);
+       const[profile_pic, setProfile_Pic]=useState();
+       const handleFileInputChange = (event) => {
+       const file_1 = event.target.files[0];
+       setProfile_Pic(file_1);
+       EditProfile();
+ };
+  
   return (
     <>
       <UserHeader />
       {/* Page content */}
       <Container className="mt--7" fluid>
+      <Alert color="success" isOpen={addsuccess} toggle={onDismissaddSuccess}>
+          <strong> Profile Information Updated successfully! </strong> 
+      </Alert>
+      <Alert color="danger" isOpen={error} toggle={onDismiss}>
+          <strong>Error! </strong> {errorMessage}
+        </Alert>
         <Row>
           <Col className="order-xl-2 mb-5 mb-xl-0" xl="4">
             <Card className="card-profile shadow">
@@ -97,7 +128,8 @@ const Profile = () => {
                       <img
                         alt="..."
                         className="rounded-circle"
-                        src={require("../../assets/img/theme/team-4-800x800.jpg")}
+                        //  src={require("../../assets/img/theme/team-4-800x800.jpg")}
+                        src={`http://localhost:8000/${user_image}`}
                       />
                     </a>
                   </div>
@@ -105,17 +137,23 @@ const Profile = () => {
               </Row>
               <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
                 <div className="d-flex justify-content-between">
-                  <Button
-                    className="mr-4"
-                    color="info"
-                    href="#pablo"
-                     onClick={(e) => e.preventDefault()}
-                    
-                    size="sm"
-                  >
-                    Connect
-                  </Button>
-                  <Button
+                <Button
+                      className="float-right"
+                      color="default"
+                      size="sm"
+                      onClick={() => fileInputRef.current.click()}
+                    >
+                      Edit Image
+                    </Button>
+                    <input
+                      id="fileInput"
+                      name="file"
+                      type="file"
+                      ref={fileInputRef}
+                      style={{ display: 'none' }}
+                      onChange={handleFileInputChange}
+                    />
+                  {/* <Button
                     className="float-right"
                     color="default"
                     href="#pablo"
@@ -123,7 +161,7 @@ const Profile = () => {
                     size="sm"
                   >
                     Message
-                  </Button>
+                  </Button> */}
                 </div>
               </CardHeader>
               <CardBody className="pt-0 pt-md-4">
@@ -163,12 +201,13 @@ const Profile = () => {
                     {user_info.address}
                   </div>
                   <hr className="my-4" />
-                  <p>
-                    {user_info.address}
+                  <p defaultValue={" "}>
+                    {user_info.bio}
                   </p>
-                  <a href="#pablo" onClick={(e) => e.preventDefault()}>
+
+                  {/* <a href="#pablo" onClick={(e) => e.preventDefault()}>
                     Show more
-                  </a>
+                  </a> */}
                 </div>
               </CardBody>
             </Card>
@@ -193,7 +232,7 @@ const Profile = () => {
                 </Row>
               </CardHeader>
               <CardBody>
-                <Form>
+                <Form role="form" onSubmit={EditProfile} >
                   <h6 className="heading-small text-muted mb-4">
                     User information
                   </h6>
@@ -211,7 +250,8 @@ const Profile = () => {
                             className="form-control-alternative"
                             defaultValue={user_info.name}
                             id="input-username"
-                            placeholder="Username"
+                            name="name"
+
                             type="text"
                           />
                         </FormGroup>
@@ -227,6 +267,8 @@ const Profile = () => {
                           <Input
                             className="form-control-alternative"
                             id="input-email"
+                            name="email"
+                            readOnly
                             placeholder={user_info.email}
                             type="email"
                           />
@@ -246,6 +288,7 @@ const Profile = () => {
                             className="form-control-alternative"
                             defaultValue={user_info.address}
                             id="input-first-name"
+                            name="address"
                             placeholder={user_info.address}
                             type="text"
                           />
@@ -263,6 +306,7 @@ const Profile = () => {
                             className="form-control-alternative"
                             defaultValue={user_info.phone_no}
                             id="input-last-name"
+                            name="phone_no"
                             placeholder={user_info.phone_no}
                             type="text"
                           />
@@ -278,7 +322,7 @@ const Profile = () => {
                   <div className="pl-lg-4">
                     <Row>
                       <Col md="12">
-                        {/* <FormGroup>
+                        <FormGroup>
                           <label
                             className="form-control-label"
                             htmlFor="input-address"
@@ -287,24 +331,43 @@ const Profile = () => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="Enter Bio"
-                            id="input-address"
+                            // defaultValue="Enter Bio"
+                            id="bio"
+                            name="bio"
                             placeholder="Enter Your  Bio"
                             type="text"
                           />
                           
-                        </FormGroup> */}
+                        </FormGroup>
                       </Col>
+                      {/* <Col lg="6">
+                        <FormGroup>
+                          <label
+                            className="form-control-label"
+                            htmlFor="input-first-name"
+                          >
+                            Profile Photo
+                          </label>
+                          <Input
+                            className="form-control-alternative"
+                            // defaultValue={user_info.address}
+                            id="picture"
+                            name="picture"
+                            // placeholder={user_info.address}
+                            type="text"
+                          />
+                        </FormGroup>
+                      </Col> */}
                     </Row>
                   </div>
                   <div style={{ paddingLeft:'260px', justifyContent: 'center',width:'120px' }}>
                   <Button
                             
                             color="info"
-                             href="#pablo"
                             // backgroung="#f86f2d"
                             // onClick={(e) => e.preventDefault()}
-                            onClick={EditProfile}
+                            // onClick={EditProfile}
+                            type="submit"
                           >
                             Save
                           </Button>

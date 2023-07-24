@@ -6,7 +6,22 @@ import "assets/front-css/animate.css"
 import "assets/front-css/owl.carousel.min.css"
 import "assets/front-css/owl.theme.default.min.css"
 import "assets/front-css/style.scss"
+import {
+  Button,
+  Card,
+  CardHeader,
+  CardBody,
+  FormGroup,
+  Form,
+  Input,
+  InputGroupAddon,
+  InputGroupText,
+  InputGroup,
+  Row,
+  Col,
+  Alert
 
+} from "reactstrap";
 // Images
 import bg_2 from "assets/front-images/bg_2.jpg"
 import contact from "assets/front-images/contact.avif"
@@ -23,7 +38,7 @@ const ContactUs = () => {
     axios({
       method: 'post',
       // withCredentials: true,
-      url: 'http://localhost:8000/ContacUs/Contactus',
+      url: 'http://localhost:8000/ContactUs/Contact_Us',
       data: { name:name,email: email, subject:subject,message:message}
     })
       .then(res => {
@@ -56,7 +71,6 @@ const ContactUs = () => {
       </div>
     </div>
 
-    
     <section className="ftco-section contact-section ftco-degree-bg">
       <div className="container">
         <div className="row d-flex mb-5 contact-info">
@@ -80,7 +94,7 @@ const ContactUs = () => {
         <div className="row block-9">
           <div className="col-md-6 pr-md-5">
           	<h4 className="mb-4">Do you have any questions?</h4>
-            <form action="#">
+            <Form role="form" onSubmit={handleSubmit}>
               <div className="form-group">
                 <input name="name" id="name" type="text" className="form-control" placeholder="Your Name" />
               </div>
@@ -94,9 +108,9 @@ const ContactUs = () => {
                 <textarea name="message" id="message" cols="30" rows="7" className="form-control" placeholder="Message"></textarea>
               </div>
               <div className="form-group">
-                <input type="submit" onClick={() => {handleSubmit()}} value="Send Message" className="btn btn-primary py-3 px-5" />
+                <input type="submit" value="Send Message" className="btn btn-primary py-3 px-5" />
               </div>
-            </form>
+            </Form>
           
           </div>
 

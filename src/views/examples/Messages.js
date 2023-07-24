@@ -19,32 +19,34 @@
 // // core components
 // import NewHeader from "components/Headers/NewHeader.js";
 // const storedUser = localStorage.getItem('user');
-// const user_info = JSON.parse(storedUser);
-// const [InformationTable, setInformationTable] = useState(false);
-// const [name, setName] = useState(null);
-// const [email, setEmail] = useState(null);
-// const [subject, setSubject] = useState(null);
-// const [message, setMessage] = useState(null);
-// const [id, setInformationid] = useState(null);
-// const [errorMessage, setErrorMessage] = useState("");
-// const [deletesuccess, setdeleteSuccess] = useState(false);
-// const [tempId, setTempId] = useState('');
-// const [tempName, setTempName] = useState('');
-// const [deletemodal, setdeleteModal] = useState(false);
-// const [error, setError] = useState(false);
-// const onDismissdeleteSuccess = () => setdeleteSuccess(false);
-// const DeletetoggleClose = () => {
-//     setdeleteModal(!deletemodal); 
-// }
-// const Deletetoggle = (event) => {
-//     setTempId(event.target.attributes.getNamedItem('data-id').value);
-//     setTempName(event.target.attributes.getNamedItem('data-name').value);
-//     setdeleteModal(!deletemodal);
-// };
+//     const user_info = JSON.parse(storedUser);
+
 // const Messages = () => {
+    
+//     const [InformationTable, setInformationTable] = useState(false);
+//     const [name, setName] = useState(null);
+//     const [email, setEmail] = useState(null);
+//     const [subject, setSubject] = useState(null);
+//     const [message, setMessage] = useState(null);
+//     const [id, setInformationid] = useState(null);
+//     const [errorMessage, setErrorMessage] = useState("");
+//     const [deletesuccess, setdeleteSuccess] = useState(false);
+//     const [tempId, setTempId] = useState('');
+//     const [tempName, setTempName] = useState('');
+//     const [deletemodal, setdeleteModal] = useState(false);
+//     const [error, setError] = useState(false);
+//     const onDismissdeleteSuccess = () => setdeleteSuccess(false);
+//     const DeletetoggleClose = () => {
+//         setdeleteModal(!deletemodal); 
+//     }
+//     const Deletetoggle = (event) => {
+//         setTempId(event.target.attributes.getNamedItem('data-id').value);
+//         setTempName(event.target.attributes.getNamedItem('data-name').value);
+//         setdeleteModal(!deletemodal);
+//     };
+
 //     function GetInformation(e) {
 //         axios({
-
 //             method: 'get',
 //             url: "http://localhost:8000/CotactUs/GetMessages",
 //         })

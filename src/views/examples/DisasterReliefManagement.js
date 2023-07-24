@@ -1,4 +1,4 @@
-import React, { useState,useEffect,userTa } from 'react';
+import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import {
@@ -32,6 +32,7 @@ import NewHeader from "components/Headers/NewHeader.js";
 import { post } from 'jquery';
 
 const DisasterReliefManagement =(args)=>{
+  const [role, setRole] = useState('NGO');
 const[usertable, setUsertable] =useState()
 const [modal, setModal] = useState(false);
 const toggle = () => setModal(!modal);
@@ -63,16 +64,12 @@ const editModalClose=()=>
 const [id, setInformationid] = useState(null);
 const [disasterType, setDisasterType] = useState(null);
 const [Title, setTitle]=useState(null);
-const[Area,setArea]=useState(null);
-const[xcoordinates, setCoordinatesX]=useState(null);
-const[ycoordinates, setCoordinatesY]=useState(null);
 const[Population,setPopulation]=useState(null);
-const[survivors,setSurvivors]=useState(null);
-const[deaths,setDeaths]=useState(null);
 const[date,setDate]=useState(null);
 const[shelters,setShelters]=useState(null);
 const[food,setFood]=useState(null);
 const[medicine,setMedicine]=useState(null);
+const [options, setOptions] = useState([]);
 const[gallery,setGallery]=useState(null);
 const[editmodal, setEditModal]=useState(false);
 const onDismisseditSuccess = () => seteditSuccess(false);
@@ -84,6 +81,17 @@ const [editsuccess, seteditSuccess] = useState(false);
 const DeletetoggleClose = () => {
   setdeleteModal(!deletemodal); 
 }
+useEffect(() => {
+  
+  // Fetch data from the API endpoint
+  fetch('http://localhost:8000/Information/GetInformation')
+    .then((response) => response.json())
+    .then((data) => {
+      // Assuming the data is an array of objects with id and name properties
+      setOptions(data);
+    })
+    .catch((error) => console.error('Error fetching data:', error));
+}, []);
     
 function GetInformation(e)
 {
@@ -93,9 +101,12 @@ function GetInformation(e)
     url:"http://localhost:8000/Relief_Information/GetInformation",
   })
   .then(res=>{
+    // console.log('get',res);
     if(res.data)
     {
       setInformationTable(res.data);
+      setUsertable(res.data);
+      
     }
   })
   .catch(error=>{
@@ -118,12 +129,7 @@ GetInformation();
         setInformationid(res.data._id);
         setDisasterType(res.data.dis_type);
         setTitle(res.data.dis_title);
-        setArea(res.data. dis_area);
-        setCoordinatesX(res.data.dis_coordinatesX);
-        setCoordinatesY(res.data.dis_coordinatesY);
         setPopulation(res.data.population);
-        setSurvivors(res.data.survivors);
-        setDeaths(res.data.deaths);
         setDate(res.data.date);
         setShelters(res.data.shelters);
         setFood(res.data.food);
@@ -142,14 +148,10 @@ GetInformation();
   };
   function EditInformation(e)
   {
+    // alert('here')
     const disasterType=e.target.DisasterType.value;
-    const title=e.target.Title.value;
-    const area=e.target.area.value;
-    const xcoordinates=e.target.xcoordinates.value;
-    const ycoordinates=e.target.ycoordinates.value;
+    const title=e.target.title.value;
     const population=e.target.Population.value;
-    const survivors=e.target.survivors.value;
-    const deaths=e.target.deaths.value;
     const date=e.target.date.value;
     const shelters=e.target.shelters.value;
     const food=e.target.food.value;
@@ -160,8 +162,8 @@ GetInformation();
       withCredentials: true,
       method:'post',
       url:"http://localhost:8000/Relief_Information/EditInformation",
-      data:{id:id,disasterType:disasterType, title:title , area:area, xcoordinates:xcoordinates,ycoordinates:ycoordinates,population:population
-        ,survivors:survivors,deaths:deaths,date:date,shelters:shelters,food:food,medicine:medicine,gallery:gallery},
+      data:{id:id,disasterType:disasterType, title:title ,population:population
+        ,date:date,shelters:shelters,food:food,medicine:medicine,gallery:gallery},
 
     })
     .then(res=>{
@@ -184,12 +186,11 @@ GetInformation();
       setErrorMessage("Failed to connect to backend");
       setError(true);
       console.log(error);
-     
     })
   };
   function DeleteInformation()
   {
-    axios({     //DeleteCourse API Calling
+    axios({     // DeleteCourse API Calling
        withCredentials: true,
       method:'get',
       url:"http://localhost:8000/Relief_Information/DeleteInformation?temp_id="+tempId
@@ -212,32 +213,28 @@ GetInformation();
       setError(true);
       setdeleteModal(!deletemodal); 
     })
-    
   };
 function AddInformation(e)
   {
+    alert('here')
     e.preventDefault();
     // console.log(e.target.category.value)
     const disasterType=e.target.disasterType.value;
     const title=e.target.title.value;
-    const area=e.target.area.value;
-    const xcoordinates=e.target.xcoordinates.value;
-    const ycoordinates=e.target.ycoordinates.value;
     const population=e.target.population.value;
-    const survivors=e.target.survivors.value;
-    const deaths=e.target.deaths.value;
     const date=e.target.date.value;
     const shelters=e.target.shelters.value;
     const food=e.target.food.value;
     const medicine=e.target.medicine.value;
     const gallery=e.target.gallery.value;
-    
-    axios({    //AddInformation API Calling
+    const ngoname=e.target.ngoname.value;
+    //AddInformation API Calling
+    axios({    
       method:'post',
        withCredentials: true,
       url:"http://localhost:8000/Relief_Information/AddInformation",
-      data:{disasterType:disasterType, title:title , area:area, xcoordinates:xcoordinates,ycoordinates:ycoordinates, population:population
-      ,survivors:survivors,deaths:deaths,date:date,shelters:shelters,food:food,medicine:medicine,gallery:gallery},
+      data:{ngoname:ngoname,disasterType:disasterType, title:title , population:population
+      ,date:date,shelters:shelters,food:food,medicine:medicine,gallery:gallery},
     })
     .then(res=>{
       if(res.data == "success")
@@ -263,12 +260,9 @@ function AddInformation(e)
         setErrorMessage("Failed to connect to backend")
         setError(true);
       }
-      
       closeModal();
     })
   }
-  
-   
 return (
     <>
      <NewHeader />
@@ -316,6 +310,21 @@ return (
                     />
                   </FormGroup>
                 </Col>
+                {/* <Col md={6}>
+                  <FormGroup>
+                    <Label for="DisasterTitle">
+                      NGO Name
+                    </Label>
+                    <Input
+                      id="ngoname"
+                      name="ngoname"
+                      placeholder="Enter Title"
+                      type="select"
+                      defaultValue={Title}
+                    />
+                  </FormGroup>
+                </Col> */}
+      
                 <Col md={6}>
                   <FormGroup>
                     <Label for="DisasterTitle">
@@ -323,14 +332,14 @@ return (
                     </Label>
                     <Input
                       id="Title"
-                      name="Title"
+                      name="title"
                       placeholder="Enter Title"
                       type="text"
                       defaultValue={Title}
                     />
                   </FormGroup>
                 </Col>
-                <Col md={6}>
+                {/* <Col md={6}>
                   <FormGroup>
                     <Label for="startdate">
                       Disaster Area
@@ -343,8 +352,8 @@ return (
                       defaultValue={Area}
                     />
                   </FormGroup>
-                </Col>
-                <Col md={6}>
+                </Col> */}
+                {/* <Col md={6}>
                   <FormGroup>
                     <Label for="Area XCoordinates">
                      X Coordinates
@@ -357,8 +366,8 @@ return (
                       defaultValue={xcoordinates}
                     />
                   </FormGroup>
-                </Col>
-                <Col md={12}>
+                </Col> */}
+                {/* <Col md={12}>
                   <FormGroup>
                     <Label for="Area YCoordinates">
                     Y Coordinates
@@ -371,7 +380,7 @@ return (
                       defaultValue={ycoordinates}
                     />
                   </FormGroup>
-                </Col>
+                </Col> */}
               </Row>
               <Row>
                 <Col md={6}>
@@ -388,7 +397,7 @@ return (
                 />
               </FormGroup>
               </Col>
-              <Col md={6}>
+              {/* <Col md={6}>
               <FormGroup>
                 <Label for="Survivors">
                 Families Surved
@@ -401,8 +410,8 @@ return (
                   defaultValue={survivors}
                 />
               </FormGroup>
-              </Col>
-              <Col md={6}>
+              </Col> */}
+              {/* <Col md={6}>
               <FormGroup>
                 <Label for="Deaths">
                 Individual Surved
@@ -415,7 +424,7 @@ return (
                   defaultValue={deaths}
                 />
               </FormGroup>
-              </Col>
+              </Col> */}
               <Col md={6}>
               <FormGroup>
                 <Label for="Date">
@@ -556,8 +565,32 @@ return (
           <ModalHeader  className="text-center" toggle={toggle}><b>Add Relied Activities Information</b></ModalHeader>
           <ModalBody>
               <Row >
-                <Col md={6}>
+
+              {/* <Col md={6}> */}
+              {role === 'NGO' ? (
                   <FormGroup>
+                    <Label for="Disaster Type">
+                      NGO Name*
+                    </Label>
+                    <Input
+                      id="NgoName"
+                      name="ngoname"
+                      // placeholder="Enter information type"
+                      type="select"
+                    >
+                    <option value=""> </option>
+                  {options.map((option) => (
+                  <option key={option._id} value={option._id} style={{  color: '#333'}}>
+                  {option.dis_title}
+                  </option>
+                  ))}
+                     </Input>
+                  </FormGroup>
+                // </Col>
+                ) : (
+                // <Col md={6}>
+                  <FormGroup>
+                    
                     <Label for="Disaster Type">
                       Disaster Name*
                     </Label>
@@ -566,10 +599,13 @@ return (
                       name="disasterType"
                       placeholder="Enter information type"
                       type="select"
+                      
 
                     >
+                      
                       {/* {usertable ?
                         usertable
+                          
                           .filter(row => row.Role === 'NGO')
                           .map((row, index) => {
                             return (
@@ -581,15 +617,21 @@ return (
                         :
                         <h1>No information Selected Yet</h1>
                       } */}
-                    {/* <Input type="select" name="DisasterType" id="disasterType"  placeholder="Enter Information type" >
+                    {/* <Input type="select" name="disasterType" id="disasterType"  placeholder="Enter Information type" > */}
                     <option value="">Enter Information type</option>
-                    <option value="option1">Floods2023</option>
+                    
+                  {options.map((option) => (
+                  <option key={option._id} value={option._id} style={{  color: '#333'}}>
+                  {option.dis_title}
+                  </option>
+                  ))}
+                    {/* <option value="option1">Floods2023</option>
                      <option value="option2">Landsliding2023</option>
                      <option value="option3">Earthquakejune2023</option> */}
                      </Input>
                   </FormGroup>
-                </Col>
-                <Col md={6}>
+                // </Col>
+                <Col md={12}>
                   <FormGroup>
                     <Label for="Disaster Title">
                       Information Title*
@@ -603,18 +645,18 @@ return (
                     />
                   </FormGroup>
                 </Col>
-                <Col md={6}>
+                {/* <Col md={6}>
                   <FormGroup>
                     <Label for="Disaster Area">
                       Disaster Area*
-                    </Label>
+                    </Label> */}
                     {/* <Input
                       id="area"
                       name="area"
                       placeholder="Enter Disaster area"
                       type="text"
                     /> */}
-                    <Input type="select" name="area" id="area"    placeholder="Enter Disaster Area" required >
+                    {/* <Input type="select" name="area" id="area"    placeholder="Enter Disaster Area" required >
                     <option value="">Enter Disaster Area</option>
                     <option value="option1">Lahore</option>
                      <option value="option2">Sargodha</option>
@@ -632,8 +674,8 @@ return (
                      <option value="option3">Abbotabad</option>
                      </Input>
                   </FormGroup>
-                </Col>
-                <Col md={6}>
+                </Col> */}
+                {/* <Col md={6}>
                   <FormGroup>
                     <Label for="Area XCoordinates">
                      X Coordinates*
@@ -646,8 +688,8 @@ return (
                       required
                     />
                   </FormGroup>
-                </Col>
-                <Col md={12}>
+                </Col> */}
+                {/* <Col md={12}>
                   <FormGroup>
                     <Label for="Area YCoordinates">
                     Y Coordinates*
@@ -660,7 +702,7 @@ return (
                       required
                     />
                   </FormGroup>
-                </Col>
+                </Col> */}
               </Row>
               <Row>
                 <Col md={6}>
@@ -673,33 +715,9 @@ return (
                   name="population"
                   placeholder="Enter Estimated Population"
                   type='number'
+                  min="0"
+                  max="10000000"
                   required
-                />
-              </FormGroup>
-              </Col>
-              <Col md={6}>
-              <FormGroup>
-                <Label for="Survivors">
-                Families Surved*
-                </Label>
-                <Input
-                  id="survivors"
-                  name="survivors"
-                  placeholder="Enter Estimated survivors"
-                  type='text'
-                />
-              </FormGroup>
-              </Col>
-              <Col md={6}>
-              <FormGroup>
-                <Label for="Deaths">
-                Individual Served*
-                </Label>
-                <Input
-                  id="deaths"
-                  name="deaths"
-                  placeholder="Enter Estimated deaths"
-                  type='text'
                 />
               </FormGroup>
               </Col>
@@ -728,7 +746,9 @@ return (
                   id="shelters"
                   name="shelters"
                   placeholder="Enter Estimated shelters( for familes)"
-                  type='text'
+                  type='number'
+                  min="0"
+                  max="1000000"
                   required
                 />
               </FormGroup>
@@ -742,12 +762,13 @@ return (
                   id="food"
                   name="food"
                   placeholder="Enter Required food ( for individuals)"
-                  type='text'
+                  type='number'
+                  min="0"
+                  max="10000000"
                   required
                 />
               </FormGroup>
               </Col>
-             
               <Col md={6}>
               <FormGroup>
                 <Label for="Medicine">
@@ -757,7 +778,9 @@ return (
                   id="medicine"
                   name="medicine"
                   placeholder="Enter Required medicine ( for individuals)"
-                  type='text'
+                  type='number'
+                  min="0"
+                  max="10000000"
                   required
                 />
               </FormGroup>
@@ -772,47 +795,14 @@ return (
                   name="gallery"
                   placeholder="Upload Disaster Pictures(If Any)"
                   type='text'
-                  
                 />
               </FormGroup>
               </Col>
               </Row>
-              {/* <Row>
-                <Col md={12}>
-                <FormGroup>
-                  <Label for="category">
-                    Course Category
-                  </Label>
-                  <Input
-                    id="category"
-                    name="category"
-                    type="select"
-                  >  
-                    <option value="English">
-                      English
-                    </option>
-                    <option value="Science">
-                      Science
-                    </option>
-                    <option value="Technology">
-                      Technology
-                    </option>
-                    <option value="Visa">
-                      Visa 
-                    </option>
-                    <option value="Mathematics">
-                      Mathematics
-                    </option>
-                  </Input>
-                </FormGroup>
-              </Col>
-              </Row> */}
-
-            
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" type="submit" onClick={toggle}>
-              Add Information
+            <Button color="primary" type="submit" >
+              Add Information 111
             </Button>{' '}
             <Button color="secondary" onClick={toggle}>
               Cancel
@@ -833,7 +823,6 @@ return (
               Cancel
             </Button>
           </ModalFooter>
-
           </Modal>
     
     <Row>
@@ -847,7 +836,7 @@ return (
                   <div className="col text-right">
                     <Button 
                       color="primary"
-                      onClick={toggle}
+                       onClick={toggle}
                       size="md"
                     >
                       Add new Information
@@ -857,7 +846,6 @@ return (
               </CardHeader>
               {/* <CardHeader className="border-0">
                 <h3 className="mb-0">Courses</h3>
-               
               </CardHeader> */}
               <Table className="align-items-center table-dark table-flush" responsive>
                {/* AllCourses.map(function(item, i){
@@ -868,12 +856,12 @@ return (
                   <tr>
                     <th scope="col">Information Type</th>
                     <th scope="col">Information Title</th>
-                    <th scope="col">Information Area</th>
+                    {/* <th scope="col">Information Area</th>
                     <th scope="col">Area XCoordinates</th>
-                    <th scope="col">Area YCoordinates</th>
+                    <th scope="col">Area YCoordinates</th> */}
                     <th scope="col">Population</th>
-                    <th scope="col">Individual Surved</th>
-                    <th scope="col">Families surved</th>
+                    {/* <th scope="col">Individual Surved</th>
+                    <th scope="col">Families surved</th> */}
                     <th scope="col">Date</th>
                     <th scope="col">Shelters Provided</th>
                     <th scope="col">Food Provided</th>
@@ -883,41 +871,34 @@ return (
                     <th scope="col" />
                   </tr>
                 </thead>
-
                 <tbody>
                 { InformationTable ?
                   InformationTable.map((row, index) => {
                   return(
                   <tr key={index}>
-                 
-                 
                     <th scope="row">
                       {/* <i className="ni ni-book-bookmark text-blue"/> */}
                       <span className="mb-0 text-sm">
                       {row.dis_type}
                       </span>
-
                     </th>
                     <td>{row.dis_title}</td>
-                    
-
-                    <td>
+                    {/* <td> */}
                       {/* <Badge color="" className="badge-dot">
                         <i className="bg-info" /> */}
-                       {row.dis_area}
-                      
+                       {/* {row.dis_area} */}
                       {/* </Badge> */}
-                    </td>
-                    <td>
+                    {/* </td>
+                    <td> */}
                       {/* <Badge color="" className="badge-dot">
                         <i className="bg-info" /> */}
-                       {row.dis_coordinatesX}
+                       {/* {row.dis_coordinatesX} */}
                       {/* </Badge> */}
-                    </td> 
-                    <td>{row.dis_coordinatesY}</td>
+                    {/* </td>  */}
+                    {/* <td>{row.dis_coordinatesY}</td> */}
                     <td>{row.population}</td>
-                    <td>{row.survivors}</td>
-                    <td>{row.deaths}</td>
+                    {/* <td>{row.survivors}</td>
+                    <td>{row.deaths}</td> */}
                     <td>{row.date}</td>
                     <td>{row.shelters}</td>
                     <td>{row.food}</td>

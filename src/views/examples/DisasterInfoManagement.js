@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import {
   Container,
   Col,
@@ -31,6 +31,8 @@ import {
 import NewHeader from "components/Headers/NewHeader.js";
 import { post } from 'jquery';
 const DisasterInfoManagement =(args)=>{
+
+
 const [modal, setModal] = useState(false);
 const toggle = () => setModal(!modal);
 const closeModal = () => setModal(false);
@@ -137,7 +139,6 @@ GetInformation();
         setMedicine(res.data.medicine);
         setGallery(res.data.gallery);
         setEditModal(!editmodal);
-
        
       }
         
@@ -239,7 +240,7 @@ function AddInformation(e)
     const shelters=e.target.shelters.value;
     const food=e.target.food.value;
     const medicine=e.target.medicine.value;
-    const gallery=e.target.gallery.value;
+     const gallery=e.target.gallery.value;
     
     axios({    //AddInformation API Calling
       method:'post',
@@ -563,9 +564,7 @@ return (
           </Modal>
     <Modal isOpen={modal} toggle={toggle} {...args} size='lg'>
         <Form  role="form" onSubmit={AddInformation}>
-        
           <ModalHeader  className="text-center" toggle={toggle}><b>Add new Disaster Information</b></ModalHeader>
-          
           <ModalBody>
               <Row >
                 <Col md={6}>
@@ -579,11 +578,11 @@ return (
                       placeholder="Enter Disaster type"
                       type="text"
                     />  */}
-                     <Input type="select" name="DisasterType" id="disasterType"  placeholder="Enter Disaster type" required>
-                    <option value="">Enter Disaster type</option>
-                    <option value="option1">Local</option>
-                     <option value="option2">Regional</option>
-                     <option value="option3">International</option>
+                     <Input type="select" name="DisasterType" id="disasterType"  placeholder="Enter Disaster type" required >
+                      <option value="">Enter Disaster type</option>
+                      <option value="option1">SHIPA</option>
+                      <option value="option2">Regional</option>
+                      <option value="option3">International</option>
                     </Input>
                   </FormGroup> 
                 </Col>
@@ -595,7 +594,7 @@ return (
                     <Input
                       id="title"
                       name="title"
-                      placeholder="Enter Disaster title"
+                      placeholder="Enter Disaster title 1111"
                       type="text"
                       required
                     />
@@ -634,7 +633,7 @@ return (
                 <Col md={6}>
                   <FormGroup>
                     <Label for="Area XCoordinates">
-                     X Coordinates*
+                     X Coordinates
                     </Label>
                     <Input
                       id="xcoordinates"
@@ -648,7 +647,7 @@ return (
                 <Col md={12}>
                   <FormGroup>
                     <Label for="Area YCoordinates">
-                    Y Coordinates*
+                    Y Coordinates
                     </Label>
                     <Input
                       id="ycoordinates"
@@ -673,7 +672,7 @@ return (
                   type='number'
                   required
                   min="0"
-                  max="1000000"
+                  max="10000000"
                 />
               </FormGroup>
               </Col>
@@ -687,6 +686,8 @@ return (
                   name="survivors"
                   placeholder="Enter Estimated survivors"
                   type='number'
+                  min="0"
+                  max="10000000"
 
                 />
               </FormGroup>
@@ -701,7 +702,9 @@ return (
                   name="deaths"
                   placeholder="Enter Estimated deaths"
                   type='number'
-                  required
+                  min="0"
+                  max="1000000"
+                
                 />
               </FormGroup>
               </Col>
@@ -716,7 +719,7 @@ return (
                   placeholder="Choose date"
                   type='date'
                   required
-                  min="2023-01-01" // Add the minimum date allowed here
+                  min="2023-01-01" 
                   max="2023-12-31"
                 />
               </FormGroup>
@@ -731,6 +734,8 @@ return (
                   name="shelters"
                   placeholder="Enter Estimated shelters( for familes)"
                   type='number'
+                  min="0"
+                  max="1000000"
                   required
                 />
               </FormGroup>
@@ -745,6 +750,8 @@ return (
                   name="food"
                   placeholder="Enter Required food ( for individuals)"
                   type='number'
+                  min="0"
+                  max="1000000"
                   required
                 />
               </FormGroup>
@@ -760,6 +767,8 @@ return (
                   name="medicine"
                   placeholder="Enter Required medicine ( for individuals)"
                   type='number'
+                  min="0"
+                  max="1000000"
                   required
                 />
               </FormGroup>
@@ -812,7 +821,7 @@ return (
             
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" type="submit" onClick={toggle}>
+            <Button color="primary" type="submit">
               Add Disaster
             </Button>{' '}
             <Button color="secondary" onClick={toggle}>

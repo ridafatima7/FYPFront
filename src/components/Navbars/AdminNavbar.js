@@ -44,7 +44,14 @@ const AdminNavbar = (props) => {
   }
   const storedUser = localStorage.getItem('user');
   const user_info = JSON.parse(storedUser);
-  
+  var user_image = ""
+// if(user_info.User_img && user_info.User_img.lenght > 0)
+// {
+  user_image = user_info.User_img.replace('public/', '')
+// }
+// else{
+//   user_image = "http://localhost:8000/uploads/OIP.jpeg"
+// }
     //const [isloggedout, setloggedOut]=useState(false);
     const [error, setError] = useState(false);
     function handleSubmit(e) {
@@ -94,7 +101,8 @@ const AdminNavbar = (props) => {
                   <span className="avatar avatar-sm rounded-circle">
                     <img
                       alt="..."
-                      src={require("../../assets/img/theme/girl.jpeg")}
+                      // src={require("../../assets/img/theme/girl.jpeg")}
+                      src={`http://localhost:8000/${user_image}`}
                     />
                   </span>
                   <Media className="ml-2 d-none d-lg-block">
