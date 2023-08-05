@@ -29,9 +29,12 @@ import Home from "views/frontpages/Home";
 import About from "views/frontpages/About";
 import ContactUs from "views/frontpages/ContactUs";
 import Donate from "views/frontpages/Donate";
+import DisasterDetail from "views/frontpages/DisasterDetail.js";
 import Donation from "views/examples/DonationData.js";
 import Disasters from "views/frontpages/Disasters.js";
 import ReliefActivities from "views/frontpages/ReliefActivities.js";
+import ReliefactivityDetail from "views/frontpages/ReliefActivityDetail";
+import Register from "views/examples/Register";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
@@ -42,11 +45,14 @@ root.render(
       {/* <Redirect from="/" to="/admin/index" /> */}
       <Route exact path="/" render={(props) => <Home {...props} />} />
       <Route path="/about-us" render={(props) => <About {...props} />} />
+      <Route path="/register" render={(props) => <Register {...props} />} />
       <Route path="/contact-us" render={(props) => <ContactUs {...props} />} />
       <Route path="/donate" render={(props) => <Donate {...props} />} />
       <Route path="/disasters" render={(props) => <Disasters {...props} />} />
+      <Route path="/disasterdetail" render={(props) => <DisasterDetail {...props} />} />
       <Route path="/relief_Activities" render={(props) => <ReliefActivities {...props} />} />
       <Route path="/donations" render={(props) => <Donation {...props} />} />
+      <Route path="/reliefActivitydetail" render={(props) => <ReliefactivityDetail {...props} />} />
 
     </Switch>
   </BrowserRouter>

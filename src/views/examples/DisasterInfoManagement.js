@@ -38,6 +38,7 @@ const toggle = () => setModal(!modal);
 const closeModal = () => setModal(false);
 const [errorMessage, setErrorMessage] = useState("");
 const [error, setError] = useState(false);
+const onDismissError = () => setError(false);
 const [InformationTable,setInformationTable]=useState(false);
 const [deletesuccess, setdeleteSuccess] = useState(false);
 const [tempId, setTempId] = useState('');
@@ -49,13 +50,8 @@ const onDismissaddSuccess = () => setaddSuccess(false);
 const [addsuccess, setaddSuccess] = useState(false);
 const Deletetoggle = (event) => { 
   setTempId(event.target.attributes.getNamedItem('data-id').value); 
-  
   setTempName(event.target.attributes.getNamedItem('data-name').value);
   setdeleteModal(!deletemodal); 
-
-  
-  
-  
 };
 const edittoggle1=(event)=>
   {
@@ -65,11 +61,10 @@ const edittoggle1=(event)=>
   {
     setEditModal(!editmodal); 
   }
-  
-
 const [id, setInformationid] = useState(null);
   const [disasterType, setDisasterType] = useState(null);
   const [Title, setTitle]=useState(null);
+  const [Description, setDescription]=useState(null);
   const[Area,setArea]=useState(null);
   const[xcoordinates, setCoordinatesX]=useState(null);
   const[ycoordinates, setCoordinatesY]=useState(null);
@@ -95,7 +90,7 @@ const DeletetoggleClose = () => {
 function GetInformation(e)
 {
   axios({ 
-
+    withCredentials:true,
     method:'get',
     url:"http://localhost:8000/Information/GetInformation",
   })
@@ -115,7 +110,6 @@ GetInformation();
 }, []);
   function FindInformation(id)
   {
-
     axios({     //FindOneInformation on the base of id API Calling
       withCredentials: true,
       method:'get',
@@ -127,6 +121,7 @@ GetInformation();
         setInformationid(res.data._id);
         setDisasterType(res.data.dis_type);
         setTitle(res.data.dis_title);
+        setDescription(res.data.description);
         setArea(res.data. dis_area);
         setCoordinatesX(res.data.dis_coordinatesX);
         setCoordinatesY(res.data.dis_coordinatesY);
@@ -139,7 +134,6 @@ GetInformation();
         setMedicine(res.data.medicine);
         setGallery(res.data.gallery);
         setEditModal(!editmodal);
-       
       }
         
     })
@@ -154,6 +148,7 @@ GetInformation();
   {
     const disasterType=e.target.DisasterType.value;
     const title=e.target.Title.value;
+    const Description=e.target.Description.value;
     const area=e.target.area.value;
     const xcoordinates=e.target.xcoordinates.value;
     const ycoordinates=e.target.ycoordinates.value;
@@ -170,9 +165,8 @@ GetInformation();
       withCredentials: true,
       method:'post',
       url:"http://localhost:8000/Information/EditInformation",
-      data:{id:id,disasterType:disasterType, title:title , area:area, xcoordinates:xcoordinates,ycoordinates:ycoordinates,population:population
+      data:{id:id,disasterType:disasterType, title:title ,Description:Description, area:area, xcoordinates:xcoordinates,ycoordinates:ycoordinates,population:population
         ,survivors:survivors,deaths:deaths,date:date,shelters:shelters,food:food,medicine:medicine,gallery:gallery},
-
     })
     .then(res=>{
       if(res.data == "success")
@@ -230,6 +224,7 @@ function AddInformation(e)
     // console.log(e.target.category.value)
     const disasterType=e.target.disasterType.value;
     const title=e.target.title.value;
+    const Description=e.target.Description.value;
     const area=e.target.area.value;
     const xcoordinates=e.target.xcoordinates.value;
     const ycoordinates=e.target.ycoordinates.value;
@@ -241,12 +236,29 @@ function AddInformation(e)
     const food=e.target.food.value;
     const medicine=e.target.medicine.value;
      const gallery=e.target.gallery.value;
+     if(survivors>population || deaths>population || shelters>population )
+     {
+         if(survivors>population){
+          setErrorMessage("Survivors should not be greater than population !");
+          setError(true);
+         }
+         else if(deaths>population ){
+          setErrorMessage("Deaths should not be greater than population !");
+          setError(true);
+         }
+         else 
+         {
+          setErrorMessage("Shelters should not be greater than population !");
+          setError(true);
+         }
+
+     }
     
     axios({    //AddInformation API Calling
       method:'post',
        withCredentials: true,
       url:"http://localhost:8000/Information/AddInformation",
-      data:{disasterType:disasterType, title:title , area:area, xcoordinates:xcoordinates,ycoordinates:ycoordinates, population:population
+      data:{disasterType:disasterType, title:title ,Description:Description, area:area, xcoordinates:xcoordinates,ycoordinates:ycoordinates, population:population
       ,survivors:survivors,deaths:deaths,date:date,shelters:shelters,food:food,medicine:medicine,gallery:gallery},
     })
     .then(res=>{
@@ -286,14 +298,15 @@ return (
     <Alert color="danger" isOpen={deletesuccess} toggle={onDismissdeleteSuccess}>
            <strong> Information Deleted! </strong> 
    </Alert>
-  
      <Alert color="success" isOpen={addsuccess} toggle={onDismissaddSuccess}>
           <strong> Information added! </strong> 
     </Alert>
     <Alert color="success" isOpen={editsuccess} toggle={onDismisseditSuccess}>
           <strong> Information Updated successfully! </strong> 
-        </Alert>
-   
+    </Alert>
+    <Alert color="danger" isOpen={error} toggle={onDismissError}>
+           <strong> {errorMessage}</strong> 
+   </Alert>
     <Modal isOpen={editmodal} toggle={edittoggle1} {...args} size='lg'>
         <Form  role="form" onSubmit={EditInformation} >
           <ModalHeader toggle={edittoggle1}>Update Inforamtion</ModalHeader>
@@ -317,13 +330,19 @@ return (
                     <Label for="DisasterType">
                       Disaster Type
                     </Label>
-                    <Input
+                    {/* <Input
                       id="DisasterType"
                       name="DisasterType"
                       placeholder="Update DisasterType"
                       type="text"
                      defaultValue={disasterType}
-                    />
+                    /> */}
+                    <Input type="select" name="DisasterType" id="disasterType"  placeholder="Enter Disaster type">
+                      <option value="">{disasterType}</option>
+                      <option value="Provincial">Provincial</option>
+                      <option value="Local">Local</option>
+                      <option value="National">National</option>
+                    </Input>
                   </FormGroup>
                 </Col>
                 <Col md={6}>
@@ -343,15 +362,47 @@ return (
                 </Col>
                 <Col md={6}>
                   <FormGroup>
-                    <Label for="startdate">
+                    <Label for="area">
                       Area
                     </Label>
-                    <Input
+                    {/* <Input
                       id="Area"
                       name="area"
                       placeholder="Enter area"
                       type="text"
                       defaultValue={Area}
+                    /> */}
+                    <Input type="select" name="area" id="area" defaultValue={Area} > 
+                    {/* <option value="">{Area}</option> */}
+                    <option value="Lahore">Lahore</option>
+                     <option value="sargodha">Sargodha</option>
+                     <option value="Multan">Multan</option>
+                     <option value="Swaat">Swaat</option>
+                     <option value="Krachi">Krachi</option>
+                     <option value="Kalaam">Kalaam</option>
+                     <option value="Murree">Murree</option>
+                     <option value="Islamabad">Islamabad</option>
+                     <option value="Faislbbad">Faislbbad</option>
+                     <option value="Gujranwala">Gujranwala</option>
+                     <option value="Sakkhar">Sakkhar</option>
+                     <option value="Hiadrabad">Hiadrabad</option>
+                     <option value="Haripur">Haripur</option>
+                     <option value="Abbotabad">Abbotabad</option>
+                      <option value="Rawlpindi">Rawlpindi</option>
+                     </Input>
+                  </FormGroup>
+                </Col>
+                <Col md={6}>
+                  <FormGroup>
+                    <Label for="Area XCoordinates">
+                     Description
+                    </Label>
+                    <Input
+                      id="Description"
+                      name="Description"
+                      placeholder="Enter Description"
+                      type="text"
+                      defaultValue={Description}
                     />
                   </FormGroup>
                 </Col>
@@ -369,7 +420,7 @@ return (
                     />
                   </FormGroup>
                 </Col>
-                <Col md={12}>
+                <Col md={6}>
                   <FormGroup>
                     <Label for="Area YCoordinates">
                     Y Coordinates
@@ -580,9 +631,9 @@ return (
                     />  */}
                      <Input type="select" name="DisasterType" id="disasterType"  placeholder="Enter Disaster type" required >
                       <option value="">Enter Disaster type</option>
-                      <option value="option1">SHIPA</option>
-                      <option value="option2">Regional</option>
-                      <option value="option3">International</option>
+                      <option value="Provincial">Provincial</option>
+                      <option value="Local">Local</option>
+                      <option value="National">National</option>
                     </Input>
                   </FormGroup> 
                 </Col>
@@ -594,7 +645,7 @@ return (
                     <Input
                       id="title"
                       name="title"
-                      placeholder="Enter Disaster title 1111"
+                      placeholder="Enter Disaster title"
                       type="text"
                       required
                     />
@@ -613,21 +664,37 @@ return (
                     /> */}
                     <Input type="select" name="area" id="area"  placeholder="Enter Disaster Area" required>
                     <option value="">Enter Disaster Area</option>
-                    <option value="option1">Lahore</option>
-                     <option value="option2">Sargodha</option>
-                     <option value="option3">Multan</option>
-                     <option value="option3">Swaat</option>
-                     <option value="option3">Krachi</option>
-                     <option value="option3">Kalaam</option>
-                     <option value="option3">Murree</option>
-                     <option value="option3">Islamabad</option>
-                     <option value="option3">Faislbbad</option>
-                     <option value="option3">Gujranwala</option>
-                     <option value="option3">Sakkhar</option>
-                     <option value="option3">Hiadrabad</option>
-                     <option value="option3">Haripur</option>
-                     <option value="option3">Abbotabad</option>
+                    <option value="Lahore">Lahore</option>
+                     <option value="sargodha">Sargodha</option>
+                     <option value="Multan">Multan</option>
+                     <option value="Swaat">Swaat</option>
+                     <option value="Krachi">Karachi</option>
+                     <option value="Kalaam">Kalaam</option>
+                     <option value="Murree">Murree</option>
+                     <option value="Islamabad">Islamabad</option>
+                     <option value="Chitral">Chitral</option>
+                     <option value="Faislbbad">Faislbbad</option>
+                     <option value="Gujranwala">Gujranwala</option>
+                     <option value="Sakkhar">Sakkhar</option>
+                     <option value="Hiadrabad">Haidrabad</option>
+                     <option value="Haripur">Haripur</option>
+                     <option value="Abbotabad">Abbotabad</option>
+                      <option value="Rawlpindi">Rawlpindi</option>
                      </Input>
+                  </FormGroup>
+                </Col>
+                <Col md={6}>
+                  <FormGroup>
+                    <Label for="Area XCoordinates">
+                    Description
+                    </Label>
+                    <Input
+                      id="Description"
+                      name="Description"
+                      placeholder="Enter Disaster Description "
+                      type="text"
+                      required
+                    />
                   </FormGroup>
                 </Col>
                 <Col md={6}>
@@ -644,7 +711,7 @@ return (
                     />
                   </FormGroup>
                 </Col>
-                <Col md={12}>
+                <Col md={6}>
                   <FormGroup>
                     <Label for="Area YCoordinates">
                     Y Coordinates
@@ -878,6 +945,7 @@ return (
                   <tr>
                     <th scope="col">Disaster Type</th>
                     <th scope="col">Disaster Title</th>
+                    {/* <th scope="col">Description</th> */}
                     <th scope="col">Disaster Area</th>
                     <th scope="col">Area XCoordinates</th>
                     <th scope="col">Area YCoordinates</th>
@@ -899,18 +967,14 @@ return (
                   InformationTable.map((row, index) => {
                   return(
                   <tr key={index}>
-                 
-                 
                     <th scope="row">
                       {/* <i className="ni ni-book-bookmark text-blue"/> */}
                       <span className="mb-0 text-sm">
                       {row.dis_type}
                       </span>
-
                     </th>
                     <td>{row.dis_title}</td>
-                    
-
+                    {/* <td>{row.description}</td> */}
                     <td>
                       {/* <Badge color="" className="badge-dot">
                         <i className="bg-info" /> */}
@@ -951,12 +1015,10 @@ return (
                 }
                 </tbody>
               </Table>
-
             </Card>
           </div>
         </Row>
         </Container>
-
     </>
 )
 }

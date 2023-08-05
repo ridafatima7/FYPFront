@@ -33,7 +33,8 @@ import {
   Navbar,
   Nav,
   Container,
-  Media
+  Media,
+  Alert
 } from "reactstrap";
 
 const AdminNavbar = (props) => {
@@ -45,24 +46,31 @@ const AdminNavbar = (props) => {
   const storedUser = localStorage.getItem('user');
   const user_info = JSON.parse(storedUser);
   var user_image = ""
-// if(user_info.User_img && user_info.User_img.lenght > 0)
-// {
+if(user_info.User_img ) // && user_info.User_img.lenght > 0
+{
   user_image = user_info.User_img.replace('public/', '')
-// }
-// else{
-//   user_image = "http://localhost:8000/uploads/OIP.jpeg"
-// }
+}
+else{
+  user_image = "/uploads/OIP.jpeg"
+}
     //const [isloggedout, setloggedOut]=useState(false);
     const [error, setError] = useState(false);
+    const [addsuccess, setaddSuccess] = useState(false);
+    const onDismissaddSuccess = () => setaddSuccess(false);
+
     function handleSubmit(e) {
       e.preventDefault();
     
       axios.post("http://localhost:8000/auth/logout")
         .then(res => {
           if (res.data === "success") {
-            localStorage.clear(); // Clear local storage
+            localStorage.clear(); 
+            setaddSuccess(true)
             // <Redirect to="/auth/login" />; 
-            history.push('/auth/login');
+            setaddSuccess(true)
+            history.push('/auth/login?Message=LoggedOutSuccessfully');
+            
+
           } else {
             setError(true);
           }
@@ -74,8 +82,12 @@ const AdminNavbar = (props) => {
     
   return (
     <>
+
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
         <Container fluid>
+        <Alert color="success" isOpen={addsuccess} toggle={onDismissaddSuccess}>
+          <strong> Logged out successfully! </strong> 
+       </Alert>
           <Link
             className="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
             to="/"

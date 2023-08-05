@@ -39,7 +39,7 @@ const UserHeader = () => {
           <Row>
             <Col lg="7" md="10">
               <h1 className="display-2 text-white">Hello Pakistan</h1>
-              <p className="text-white mt-0 mb-5">
+              <p className="text-white mt-0 mb-9">
                 We are going to make disaster information cell
               </p>
               {/* <Button

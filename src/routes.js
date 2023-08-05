@@ -24,8 +24,9 @@ import DisasterInfoManagement from "views/examples/DisasterInfoManagement";
 import DisasterReliefManagement from "views/examples/DisasterReliefManagement";
 import RegisterasNGO from "views/examples/RegisterasNGO.js";
 import Tables from "views/examples/Tables.js";
+import Home from "views/frontpages/Home.js";
 import Messages from "views/examples/Messages.js";
-import DonationData from "views/examples/DonationData.js";
+import Donation from "views/examples/DonationAdmin.js";
 import Icons from "views/examples/Icons.js";
 
 var routes = [
@@ -107,5 +108,21 @@ var routes = [
     component: Messages,
     layout: "/admin"
   },
+  {
+    path:"/Donations",
+    name:"Donations",
+    // icon: "ni ni-tv-2 text-primary",
+    icon: "ni ni-tv-2 text-primary",
+    component: Donation ,
+    layout: "/admin"
+  },
+  {
+    path:"/",
+    name:"Go to Website",
+    // icon: "ni ni-tv-2 text-primary",
+    icon: "ni ni-planet text-primary",
+    component: Donation,
+    //  layout: "/auth"
+  }
 ];
 export default routes;

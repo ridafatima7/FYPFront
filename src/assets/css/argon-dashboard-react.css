@@ -7397,7 +7397,8 @@ button.bg-darker:focus {
 }
 
 .align-self-stretch {
-  align-self: stretch !important;
+  align-self: stretch !important; 
+  
 }
 
 @media (min-width: 576px) {

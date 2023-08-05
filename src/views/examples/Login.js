@@ -17,7 +17,8 @@
 */
 
 // reactstrap components
-import { useState } from 'react';
+import { useState,useEffect} from 'react';
+import { useLocation,Link  } from 'react-router-dom';
 import axios from 'axios'
 import {
   Button,
@@ -36,45 +37,93 @@ import {
 
 } from "reactstrap";
 import { Redirect } from 'react-router-dom';
-
 const Login = () => {
   const [islogged, setlogin] = useState(false);
   const [error, setError] = useState(false);
+  const [Success, setSuccess] = useState(false);
+  const onDismissSuccess = () => setSuccess(false);
+  const [errorMessage ,setErrorMessage]=useState("")
+  const location = useLocation();
   const [show, setShow] = useState(false);
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const message = queryParams.get('Message');
+    if (message) 
+    {
+      if(message==='LoggedOutSuccessfully')
+      {
+        setSuccess(true);
+        setErrorMessage('LoggedOut Successfully')
+      }
+      else{
+        setSuccess(true);
+      setErrorMessage('Account Registered Successfully')
+      }
+      
+    }
+  }, [location.search]);
+
+  const handleSubmit = (e) => 
+  {
     e.preventDefault();
     const email = e.target.elements.email.value;
     const password = e.target.elements.password.value;
-    // axios.post('http://localhost:8000/auth/get_data?name=rida').then(res =>{console.log(res)})
-    axios({
-      method: 'post',
-      withCredentials: true,
-      url: 'http://localhost:8000/auth/validate',
-      data: { email: email, password: password }
-    })
-      .then(res => {
-        localStorage.setItem("user", JSON.stringify(res.data))
-        setlogin(true)
-      })
-      .catch(error => {
-        console.log(error);
+    if( email === '' || password==''){
+      if(email==='' &&  password=='')
+      {
         setError(true)
+        setErrorMessage('Please Enter your Credientials !')
+      }
+      else if(email==='')
+      {
+        setError(true)
+        setErrorMessage('Please Enter your Email !')
+      }
+      else{
+        setError(true)
+        setErrorMessage('Please Enter your Pssword !')
+      }
+      return;
+    }
+    else
+    {
+       // axios.post('http://localhost:8000/auth/get_data?name=rida').then(res =>{console.log(res)})
+       axios({
+       method: 'post',
+       withCredentials: true,
+       url: 'http://localhost:8000/auth/validate',
+       data: { email: email, password: password }
+       })
+      .then(res => {
+          localStorage.setItem("user", JSON.stringify(res.data))
+          setlogin(true)
+       })
+      .catch(error => {
+          console.log(error);
+          setError(true)
+          setErrorMessage('Invalid Credientials')
       })
+    }
+    
   }
+   const onDismiss = () => setError(false);
+   if (islogged) 
+   {
+     return <Redirect to="/admin/index?Message=LoggedInSuccessfully" />;
+   }
+  
 
-  const onDismiss = () => setError(false);
-
-
-  if (islogged) {
-    return <Redirect to="/admin/index" />;
-  }
   return (
     <>
-      <Col lg="5" md="7">
+      <Col lg="5" md="9">
         <Card className="bg-secondary shadow border-0">
+        
           <CardBody className="px-lg-5 ">
+          <Alert color="success" isOpen={Success} toggle={onDismissSuccess}>
+              <strong>!- </strong>{errorMessage}
+            </Alert>
             <Alert color="danger" isOpen={error} toggle={onDismiss}>
-              <strong>Error ! </strong>Invalid crediendials
+              <strong>Error ! </strong>{errorMessage}
             </Alert>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' , paddingTop: '20px' }}>
               <h1 style={{color:'blue'}}>Sign in</h1>
@@ -166,17 +215,18 @@ const Login = () => {
                   htmlFor=" customCheckLogin"
                 >
                   <span className="text-muted">Remember me</span>
+                  style={{background:'#f86f2d'}}
                 </label>
               </div> */}
               <div className="text-center">
-                <Button className="my-4" style={{background:'#f86f2d'}} type="submit">
+                <Button className="my-4" color='info' type="submit">
                   Sign in
                 </Button>
               </div>
             </Form>
           </CardBody>
         </Card>
-        <Row className="mt-3">
+        {/* <Row className="mt-3">
           <Col xs="6">
             <a
               className="text-light"
@@ -187,15 +237,16 @@ const Login = () => {
             </a>
           </Col>
           <Col className="text-right" xs="6">
-            <a
+            <Link
               className="text-light"
               href="#pablo"
+             to={"/register?id=" } 
               onClick={(e) => e.preventDefault()}
             >
               <small>Create new account</small>
-            </a>
+            </Link>
           </Col>
-        </Row>
+        </Row> */}
       </Col>
     </>
   );

@@ -19,16 +19,7 @@ import axios from 'axios'
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
 import { isVariableStatement } from 'typescript';
-const storedUser = localStorage.getItem('user');
-const user_info = JSON.parse(storedUser);
-var user_image = ""
-// if(user_info.User_img && user_info.User_img.lenght > 0)
-// {
-  user_image = user_info.User_img.replace('public/', '')
-// }
-// else{
-//   user_image = "http://localhost:8000/uploads/OIP.jpeg"
-// }
+
 const Profile = () => {
   const fileInputRef = useRef(null);
   const [errorMessage, setErrorMessage] = useState("");
@@ -39,7 +30,65 @@ const Profile = () => {
   const onDismissaddSuccess = () => setaddSuccess(false);
   const onDismiss = () => setError(false);
   const history = useHistory();
+  if(!localStorage.getItem("user"))
+  {
+      history.push("/auth")
+  }
 
+  const storedUser = localStorage.getItem('user');
+  const user_info = JSON.parse(storedUser);
+  var user_image = ""
+  if(user_info.User_img)
+  {
+    user_image = user_info.User_img.replace('public/', '')
+  }
+  else{
+    user_image = "/uploads/OIP.jpeg"
+  }
+  function EditPicture(e)
+  {
+    const id = user_info._id;
+    const formData = new FormData();
+    if(profile_pic)
+    {
+      formData.append('file', profile_pic);
+    }
+    e.preventDefault();
+    axios({     
+      method: 'post',
+      withCredentials: true,
+      sameSite: 'none',
+      url: "http://localhost:8000/auth/EditPicture",
+      data: formData,
+     })
+     .then(res => {
+      if (res.data.indicator == "success") {
+        setaddSuccess(true);
+
+        if(profile_pic)
+        {
+          user_info.User_img=res.data.path;
+          localStorage.setItem('user', JSON.stringify(user_info));
+        }
+
+        setRerender(!rerender);
+      }
+      else {
+        setErrorMessage(res.data.messege);          
+        setError(true);
+      }
+    })
+      .catch(error => {
+        console.log(error)
+        if (error.response.data == "Not logged in") {
+          localStorage.clear(); 
+          history.push('/auth/login');
+        }
+        setErrorMessage("Failed to connect to backend");
+        setError(true);
+        console.log(error);
+      })
+  }
   function EditProfile(e) {
     
     e.preventDefault();
@@ -69,7 +118,8 @@ const Profile = () => {
       data: formData,
      })
       .then(res => {
-        if (res.data.indicator == "success") {
+        if (res.data.indicator == "success") 
+        {
           setaddSuccess(true);
 
           if(profile_pic)
@@ -84,7 +134,8 @@ const Profile = () => {
           localStorage.setItem("user", JSON.stringify(user_info))
           setRerender(!rerender);
         }
-        else {
+        else
+         {
           setErrorMessage(res.data.messege);          
           setError(true);
         }
@@ -92,7 +143,7 @@ const Profile = () => {
       .catch(error => {
         console.log(error)
         if (error.response.data == "Not logged in") {
-          localStorage.clear(); // Clear local storage
+          localStorage.clear(); 
           history.push('/auth/login');
         }
         setErrorMessage("Failed to connect to backend");
@@ -104,14 +155,15 @@ const Profile = () => {
        const handleFileInputChange = (event) => {
        const file_1 = event.target.files[0];
        setProfile_Pic(file_1);
-       EditProfile();
+        EditProfile();
+      // EditPicture();
  };
   
   return (
     <>
       <UserHeader />
       {/* Page content */}
-      <Container className="mt--7" fluid>
+      <Container className="mt--9" fluid>
       <Alert color="success" isOpen={addsuccess} toggle={onDismissaddSuccess}>
           <strong> Profile Information Updated successfully! </strong> 
       </Alert>
@@ -160,7 +212,7 @@ const Profile = () => {
                     onClick={(e) => e.preventDefault()}
                     size="sm"
                   >
-                    Message
+                    Remove Picture
                   </Button> */}
                 </div>
               </CardHeader>
@@ -251,7 +303,6 @@ const Profile = () => {
                             defaultValue={user_info.name}
                             id="input-username"
                             name="name"
-
                             type="text"
                           />
                         </FormGroup>
@@ -336,6 +387,7 @@ const Profile = () => {
                             name="bio"
                             placeholder="Enter Your  Bio"
                             type="text"
+                            defaultValue={user_info.bio}
                           />
                           
                         </FormGroup>

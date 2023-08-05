@@ -32,13 +32,19 @@ import {
   InputGroupText,
   InputGroup,
   Row,
-  Col
+  Col,
+  Alert
 } from "reactstrap";
 
 const Register = () => {
   const [isregistered, setRegister]=useState(false);
-  const [error, setError] = useState(false);
+  const [Error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const onDismissError = () => setError(false);
+  const [AlertMessage, setAlertMessage] = useState(false);
+  const [usernameMessage,setAlertUsername ] = useState(false);
+  const onDismissMessage = () => setAlertMessage(false);
+  const onDismissUsername = () => setAlertUsername(false);
   const history = useHistory();
   const handleSubmit=(e)=>{
     e.preventDefault();
@@ -53,44 +59,61 @@ const Register = () => {
     const account_no=e.target.elements.accountno.value;
     const description=e.target.elements.description.value;
     // axios.post('http://localhost:8000/auth/get_data?name=rida').then(res =>{console.log(res)})
-    axios({
-      method:'post',
-      url:'http://localhost:8000/auth/register',
-      data:{name:name,username:username,email:email,password:password,confirm_password:confirm_password,phone_no:phone_no,address:address,accountno:account_no,description:description,role:role}
-    })
-    .then(res=>{
-      console.log(res);
-      // setRegister(true);
-      if(res.data=="Account registered successfully")
-      {
-       setRegister(true);
-
-      }
-      else
-      {
-        setErrorMessage(res.data);
-        setError(true);
-      }
-       console.log(res);
-      
-     
-    })
-    .catch(error=>{
-      console.log(error);
-    })
-    if(isregistered)
+    if(password===confirm_password)
     {
-      // return <Redirect to="/auth/login" />;  
-     history.push('/auth/login'); 
-   }
+       axios({
+         method:'post',
+         url:'http://localhost:8000/auth/register?Message=Account Successfully registered',
+         data:{name:name,username:username,email:email,password:password,phone_no:phone_no,address:address,accountno:account_no,description:description,role:role}
+       })
+      .then(res=>{
+        //  console.log(res);
+        // setRegister(true);
+         if(res.data=="Account registered successfully")
+         {
+            setRegister(true);
+         }
+         else if(res.data=="Username already exists!")
+         {
+          setError(true);
+          setErrorMessage("Username already exists!");
+         }
+         else if(res.data=="Already have an account")
+         {
+            setError(true);
+            setErrorMessage("Email already exists!");
+         }
+         else
+         {
+           setErrorMessage(res.data);
+           setError(true);
+         }
+      console.log(res);
+      })
+      .catch(error=>{
+        console.log(error);
+       })
+       // was set here !
+       
+      
+    }
+    else
+    {
+      setAlertMessage(true);
+      console.log('Please retype same passwords !')
+    }
+    
  }
+ if(isregistered)
+    {
+         // return <Redirect to="/auth/login" />;  
+         history.push('/auth/login?Message=AccountRegisteredSuccessfully'); 
+    }
+    
   return (
     <>
       <Col lg="6" md="8">
         <Card className="bg-secondary shadow border-0">
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' , paddingTop: '40px' }}>
-              <h1 style={{color:'blue'}}>Register </h1>
-            </div>
           {/* <CardHeader className="bg-transparent pb-5"> */}
             {/* <div className="text-muted text-center mt-2 mb-4">
               <small>Sign up with</small>
@@ -133,6 +156,18 @@ const Register = () => {
             </div>
           </CardHeader> */}
           <CardBody className="px-lg-5 ">
+          <Alert color="danger" isOpen={AlertMessage} toggle={onDismissMessage}>
+              <strong> Please Enter Correct password  </strong> 
+            </Alert>
+            {/* <Alert color="danger" isOpen={usernameMessage} toggle={onDismissUsername}>
+              <strong> UserName Already Exists, Try another </strong> 
+            </Alert> */}
+            <Alert color="danger" isOpen={Error} toggle={onDismissError}>
+              <strong> {errorMessage}</strong> 
+            </Alert>
+            {/* <div style={{ }}> */}
+              <h1 style={{color:'blue', display: 'flex', justifyContent: 'center', alignItems: 'center' , paddingTop: '40px'}}>Register </h1>
+            {/* </div> */}
             <div className="text-center text-muted mb-4">
               <small>sign up with credentials</small>
             </div>
@@ -147,7 +182,8 @@ const Register = () => {
                   <Input
                    name="name"
                    placeholder=" NGO_Name"
-                    type="text" />
+                    type="text"
+                    required  />
                 </InputGroup>
               </FormGroup>
               <FormGroup>
@@ -160,7 +196,8 @@ const Register = () => {
                   <Input
                    name="username"
                    placeholder="User_name"
-                    type="text" />
+                    type="text" 
+                    required />
                 </InputGroup>
               </FormGroup>
               <FormGroup>
@@ -174,7 +211,8 @@ const Register = () => {
                     name="email"
                     placeholder="Email"
                     type="email"
-                    autoComplete="new-email"
+                    autoComplete="email"
+                    required
                   />
                 </InputGroup>
               </FormGroup>
@@ -195,7 +233,8 @@ const Register = () => {
                     name="password"
                     placeholder="Password"
                     type="password"
-                    autoComplete="new-password"
+                    autoComplete="password"
+                    required
                   />
                 </InputGroup>
               </FormGroup>
@@ -216,7 +255,8 @@ const Register = () => {
                     name="confirm_password"
                     placeholder="Confirm Password"
                     type="password"
-                    autoComplete="new-password"
+                    autoComplete="password"
+                    required
                   />
                 </InputGroup>
               </FormGroup>
@@ -236,7 +276,8 @@ const Register = () => {
                   <Input
                    name="phone_no"
                    placeholder="Enter Phone Number"
-                    type="text" />
+                    type="Number" 
+                    required />
                 </InputGroup>
               </FormGroup>
               <FormGroup>
@@ -249,7 +290,8 @@ const Register = () => {
                   <Input
                    name="address"
                    placeholder="Address"
-                    type="text" />
+                    type="text"
+                    required />
                 </InputGroup>
               </FormGroup>
               <FormGroup>
@@ -261,8 +303,9 @@ const Register = () => {
                   </InputGroupAddon>
                   <Input
                    name="accountno"
-                   placeholder="Account Number (+92300000000)"
-                    type="text" />
+                   placeholder="Account Number (UAN30070000)"
+                    type="text"
+                    required />
                 </InputGroup>
               </FormGroup>
               <FormGroup>
@@ -275,7 +318,8 @@ const Register = () => {
                   <Input
                    name="description"
                    placeholder="Description"
-                    type="text" />
+                    type="text"
+                    required />
                 </InputGroup>
               </FormGroup>
               {/* <Row className="my-4">
@@ -302,7 +346,8 @@ const Register = () => {
                 </Col> */}
               {/* </Row> */}
               <div className="text-center">
-                <Button className="mt-4" style={{background:'#f86f2d'}}  type="submit" >
+                <Button className="mt-4"  color="info" type="submit" > 
+                 {/* style={{background:'#f86f2d'}} */}
                   Create account
                 </Button>
               </div>

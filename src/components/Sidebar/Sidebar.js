@@ -68,11 +68,17 @@ const Sidebar = (props) => {
   const closeCollapse = () => {
     setCollapseOpen(false);
   };
+const storedUser = localStorage.getItem('user');
+const user_info = JSON.parse(storedUser);
+  const ngo="NGO"
+   let goToWebsiteAdded = false;
+  const deo="DEO"
+  const admin="admin"
   // creates the links that appear in the left menu / Sidebar
   const createLinks = (routes) => {
     return routes.map((prop, key) => {
-      // if(prop.name=="Dashboard")
-      // {
+      if(prop.name=="Dashboard" || prop.name=="Go to Website" ||  ( prop.name=="Disaster Information Management" && deo == user_info.role )  || prop.name=="User Profile" || prop.name=="Disaster Relief  Management" || ( prop.name=="Messages" && ngo == user_info.role ) || ( prop.name=="Donations" && ngo == user_info.role ) )
+      {
       return (
         <NavItem key={key}>
           <NavLink
@@ -86,8 +92,9 @@ const Sidebar = (props) => {
           </NavLink>
         </NavItem>
       );
-      // }
+      }
     });
+    
   };
 
   const { bgColor, routes, logo } = props;
@@ -169,15 +176,15 @@ const Sidebar = (props) => {
                 <i className="ni ni-settings-gear-65" />
                 <span>Settings</span>
               </DropdownItem>
-              <DropdownItem to="/admin/user-profile" tag={Link}>
+              {/* <DropdownItem to="/admin/user-profile" tag={Link}>
                 <i className="ni ni-calendar-grid-58" />
                 <span>Activity</span>
-              </DropdownItem>
-              <DropdownItem to="/admin/user-profile" tag={Link}>
+              </DropdownItem> */}
+              {/* <DropdownItem to="/admin/user-profile" tag={Link}>
                 <i className="ni ni-support-16" />
                 <span>Support</span>
               </DropdownItem>
-              <DropdownItem divider />
+              <DropdownItem divider /> */}
               <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
                 <i className="ni ni-user-run" />
                 <span>Logout</span>
@@ -258,14 +265,14 @@ const Sidebar = (props) => {
               </NavLink>
             </NavItem> */}
           </Nav>
-          <Nav className="mb-md-3" navbar>
+          {/* <Nav className="mb-md-3" navbar>
             <NavItem className="active-pro active">
               <NavLink href="https://www.creative-tim.com/product/argon-dashboard-pro-react?ref=adr-admin-sidebar">
                 <i className="ni ni-spaceship" />
                 Upgrade to PRO
               </NavLink>
             </NavItem>
-          </Nav>
+          </Nav> */}
         </Collapse>
       </Container>
     </Navbar>

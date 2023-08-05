@@ -34,8 +34,9 @@ const About = () => {
     <section className="ftco-section">
     	<div className="container">
     		<div className="row d-flex">
-    			<div className="col-md-6 d-flex ftco-animate">
-    				<div className="img img-about align-self-stretch" style={{backgroundImage: "url('" + aboutus + "')"}}></div>
+    			<div className="col-md-6 " style={{backgroundImage: "url('" + aboutus + "')", height: "550px",width: "500px",backgroundSize: "cover"}}>
+				{/* <div className="overlay" style={{backgroundImage: "url('" + aboutus + "')",    display: "visible"}}></div> */}
+    				{/* <div className="img img-about align-self-stretch" style={{backgroundImage: "url('" + aboutus + "')"}}></div> */}
     			</div>
     			<div className="col-md-6 pl-md-5 ftco-animate">
     				<h2 className="mb-4">Welcome to <b>Disaster Information Cell</b> Established Since 2010</h2>
@@ -47,7 +48,7 @@ const About = () => {
     	</div>
     </section>
 
-     <section className="ftco-counter ftco-intro ftco-intro-2" id="section-counter">
+     {/* <section className="ftco-counter ftco-intro ftco-intro-2" id="section-counter">
     	<div className="container">
     		<div className="row no-gutters">
     			<div className="col-md-5 d-flex justify-content-center counter-wrap ftco-animate">
@@ -79,7 +80,7 @@ const About = () => {
           </div>
     		</div>
     	</div>
-    </section>
+    </section> */}
 
     {/* <section className="ftco-section bg-light">
       <div className="container">

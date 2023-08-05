@@ -19,11 +19,11 @@ const Footer = () => {
             <div className="ftco-footer-widget mb-4">
               <h2 className="ftco-heading-2">About Us</h2>
               <p>DIC manage complete spectrum of disasters by adopting a disaster impact reduction perspective in development planning at all levels, and through enhancing institutional capacities for disaster preparedness, response and recovery.</p>
-              <ul className="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+              {/* <ul className="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                 <li className="ftco-animate"><a href="#"><span className="icon-twitter"></span></a></li>
                 <li className="ftco-animate"><a href="#"><span className="icon-facebook"></span></a></li>
                 <li className="ftco-animate"><a href="#"><span className="icon-instagram"></span></a></li>
-              </ul>
+              </ul> */}
             </div>
           </div>
           <div className="col-md-4">
@@ -81,7 +81,6 @@ const Footer = () => {
         </div>
         <div className="row">
           <div className="col-md-12 text-center">
-
             <p>Disaster Information Cell Copyright  &copy;<script>document.write(new Date().getFullYear());</script> 2023. All rights reserved.<i className="icon-heart" aria-hidden="true"></i>
              </p>
           </div>

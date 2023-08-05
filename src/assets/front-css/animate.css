@@ -1676,6 +1676,17 @@ Copyright (c) 2015 Daniel Eden
     transform: translate3d(-2000px, 0, 0);
   }
 }
+.drop_caps
+{
+  color: #40c4ff;
+    float: left;
+    font-family: Geometria;
+    font-size: 60px;
+    font-weight: 400;
+    margin: 18px 30px 20px 20px;
+    position: relative;
+}
+
 
 .fadeOutLeftBig {
   -webkit-animation-name: fadeOutLeftBig;

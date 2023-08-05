@@ -21,7 +21,7 @@ import NewHeader from "components/Headers/NewHeader.js";
 const storedUser = localStorage.getItem('user');
 const user_info = JSON.parse(storedUser);
 
-const Messages = () => {
+const DonationAdmin= () => {
 
     const [InformationTable, setInformationTable] = useState(false);
     const [name, setName] = useState(null);
@@ -47,8 +47,9 @@ const Messages = () => {
 
     function GetInformation(e) {
         axios({
+            // withCredentials : true,
             method: 'get',
-            url: "http://localhost:8000/ContactUs/GetMessages",
+            url: "http://localhost:8000/donations/getDonation",
         })
             .then(res => {
                 if (res.data) {
@@ -64,34 +65,11 @@ const Messages = () => {
     useEffect(() => {
         GetInformation();
     }, []);
-    function FindInformation(id) {
-
-        axios({     //FindOneInformation on the base of id API Calling
-            withCredentials: true,
-            method: 'get',
-            url: "http://localhost:8000/ContactUs/FindMessages?temp_id=" + id
-        })
-            .then(res => {
-                if (res.data) {
-                    setInformationid(res.data._id);
-                    setName(res.data.name);
-                    setEmail(res.data.email);
-                    setSubject(res.data.subject);
-                    setMessage(res.data.message);
-                }
-            })
-            .catch(error => {
-
-                console.log(error);
-                //   setError(true);
-                //   setEditModal(!editmodal); 
-            })
-    };
-    function DeleteMessages() {
+    function DeleteDonation() {
         axios({     // DeleteMessage API Calling
             withCredentials: true,
             method: 'get',
-            url: "http://localhost:8000/ContactUs/deleteMessages?temp_id=" + tempId
+            url: "http://localhost:8000/donations/deleteDonation?temp_id=" + tempId
         })
             .then(res => {
                 if (res.data.indicator == "success") {
@@ -115,7 +93,7 @@ const Messages = () => {
             <NewHeader />
             <Container className="mt--9" fluid>
                 <Alert color="danger" isOpen={deletesuccess} toggle={onDismissdeleteSuccess}>
-                    <strong> Information Deleted! </strong>
+                    <strong> Donation record Deleted! </strong>
                 </Alert>
                 <Row>
                     <div className="col">
@@ -123,18 +101,18 @@ const Messages = () => {
                             <CardHeader className="bg-transparent border-0">
                                 <Row className="align-items-center">
                                     <div className="col">
-                                        <h3 className="text-white mb-0"><b>Messages</b></h3>
+                                        <h3 className="text-white mb-0"><b>Donations</b></h3>
                                     </div>
                                 </Row>
                             </CardHeader>
-                            
+
                             <Modal isOpen={deletemodal} toggle={DeletetoggleClose} size='sm'>
-                                <ModalHeader toggle={DeletetoggleClose} onClick={DeleteMessages}>Delete Information</ModalHeader>
+                                <ModalHeader toggle={DeletetoggleClose} onClick={DeleteDonation}>Delete Information</ModalHeader>
                                 <ModalBody>
                                     Are you sure you want to delete <b>{tempName}</b>?
                                 </ModalBody>
                                 <ModalFooter>
-                                    <Button color="danger" onClick={DeleteMessages}>
+                                    <Button color="danger" onClick={DeleteDonation}>
                                         Delete
                                     </Button>{' '}
                                     <Button color="secondary" onClick={DeletetoggleClose}>
@@ -149,8 +127,9 @@ const Messages = () => {
                                     <tr>
                                         <th scope="col">Name</th>
                                         <th scope="col">Email</th>
-                                        <th scope="col">Subject</th>
-                                        <th scope="col">Message</th>
+                                        <th scope="col">Address</th>
+                                        <th scope="col">Username</th>
+                                        <th scope="col">Phone No</th>
                                         <th scope="col">Action</th>
                                         <th scope="col" />
                                     </tr>
@@ -167,10 +146,13 @@ const Messages = () => {
                                                     </th>
                                                     <td>{row.email}</td>
                                                     <td>
-                                                        {row.subject}
+                                                        {row.address}
                                                     </td>
                                                     <td>
-                                                        {row.message}
+                                                        {row.username}
+                                                    </td>
+                                                    <td>
+                                                        {row.phone_no}
                                                     </td>
                                                     <td>
                                                         {/* <Button color="primary" onClick={() => { FindInformation(row._id) }}>
@@ -184,7 +166,7 @@ const Messages = () => {
                                         })
                                         :
                                         <tr>
-                                            <td span="5">No Messages found!</td>
+                                            <td span="5">No Donation record found!</td>
                                         </tr>
                                     }
                                 </tbody>
@@ -197,4 +179,4 @@ const Messages = () => {
     );
 };
 
-export default Messages;
+export default DonationAdmin;

@@ -69,7 +69,7 @@ const Admin = (props) => {
       <Sidebar
         {...props}
         routes={routes}
-        style={{ width: '200px', height: '200' }} // not functional
+        style={{ width: '200px', height: '200px' }} // not functional
         logo={{
           
           innerLink: "/admin/index",

@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import { useState } from "react";
+import { useState,useEffect } from "react";
 // node.js library that concatenates classes (strings)
 import classnames from "classnames";
 // javascipt plugin for creating charts
@@ -35,7 +35,8 @@ import {
   Table,
   Container,
   Row,
-  Col
+  Col,
+  Alert
 } from "reactstrap";
 
 // core components
@@ -47,10 +48,24 @@ import {
 } from "variables/charts.js";
 
 import Header from "components/Headers/Header.js";
+import { useLocation } from 'react-router-dom';
 
 const Index = (props) => {
   const [activeNav, setActiveNav] = useState(1);
+  const [Success, setSuccess] = useState(false);
+  const onDismissSuccess = () => setSuccess(false);
+  const [SuccessMessage ,setSuccessMessage]=useState("")
+  const location = useLocation();
   const [chartExample1Data, setChartExample1Data] = useState("data1");
+  
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const message = queryParams.get('Message');
+    if (message) {
+      setSuccess(true);
+      setSuccessMessage('LoggedIn Successfully')
+    }
+  }, [location.search]);
 
   if (window.Chart) {
     parseOptions(Chart, chartOptions());
@@ -64,8 +79,13 @@ const Index = (props) => {
   return (
     <>
       <Header />
-      {/* Page content */}
+     
       <Container className="mt--7" fluid>
+      <div>
+      <Alert color="success" isOpen={Success} toggle={onDismissSuccess}>
+              <strong>!- </strong>{SuccessMessage}
+       </Alert>
+      </div>
         <Row>
           <Col className="mb-5 mb-xl-0" xl="8">
             <Card className="bg-gradient-default shadow">
