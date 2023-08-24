@@ -30,11 +30,12 @@ import About from "views/frontpages/About";
 import ContactUs from "views/frontpages/ContactUs";
 import Donate from "views/frontpages/Donate";
 import DisasterDetail from "views/frontpages/DisasterDetail.js";
-import Donation from "views/examples/DonationData.js";
+import Donation from "views/frontpages/Donate.js";
 import Disasters from "views/frontpages/Disasters.js";
 import ReliefActivities from "views/frontpages/ReliefActivities.js";
 import ReliefactivityDetail from "views/frontpages/ReliefActivityDetail";
 import Register from "views/examples/Register";
+import DEORegister from "views/examples/DEORegistration";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
@@ -46,6 +47,7 @@ root.render(
       <Route exact path="/" render={(props) => <Home {...props} />} />
       <Route path="/about-us" render={(props) => <About {...props} />} />
       <Route path="/register" render={(props) => <Register {...props} />} />
+      <Route path="/deoRegister" render={(props) => <DEORegister {...props} />} />
       <Route path="/contact-us" render={(props) => <ContactUs {...props} />} />
       <Route path="/donate" render={(props) => <Donate {...props} />} />
       <Route path="/disasters" render={(props) => <Disasters {...props} />} />

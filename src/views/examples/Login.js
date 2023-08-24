@@ -55,9 +55,14 @@ const Login = () => {
         setSuccess(true);
         setErrorMessage('LoggedOut Successfully')
       }
+      else if(message==='AccountRegisteredSuccessfully')
+      {
+        setSuccess(true);
+        setErrorMessage('Account Registered Successfully')
+      }
       else{
         setSuccess(true);
-      setErrorMessage('Account Registered Successfully')
+        setErrorMessage('Account registration request has sent')
       }
       
     }
@@ -95,13 +100,28 @@ const Login = () => {
        data: { email: email, password: password }
        })
       .then(res => {
+        console.log("Password is incorrect")
+        if(res.data==="Password is incorrect")
+         { console.log("Password is incorrect")
+            setError(true)
+            setErrorMessage("Incorrect Password");
+         }
+         else if(res.data==="Email not found")
+         {
+           setError(true);
+           setErrorMessage("Incorrect Email");
+         }
+         else 
+         {
           localStorage.setItem("user", JSON.stringify(res.data))
           setlogin(true)
+         }
+         
        })
       .catch(error => {
           console.log(error);
-          setError(true)
-          setErrorMessage('Invalid Credientials')
+           setError(true)
+           setErrorMessage('Server Failure !')
       })
     }
     
@@ -109,13 +129,13 @@ const Login = () => {
    const onDismiss = () => setError(false);
    if (islogged) 
    {
-     return <Redirect to="/admin/index?Message=LoggedInSuccessfully" />;
+     return <Redirect to="/admin/user-profile?Message=LoggedInSuccessfully" />;
    }
   
 
   return (
     <>
-      <Col lg="5" md="9">
+      <Col lg="5" md="10">
         <Card className="bg-secondary shadow border-0">
         
           <CardBody className="px-lg-5 ">

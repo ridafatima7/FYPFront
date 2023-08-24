@@ -6,6 +6,7 @@ import "assets/front-css/animate.css"
 import "assets/front-css/owl.carousel.min.css"
 import "assets/front-css/owl.theme.default.min.css"
 import fourth from "assets/front-images/disaster6.jpg"
+import alternative1 from "assets/front-images/alternative1.jpeg"
 import  three from "assets/front-images/disaster3.jpg"
 import  two from "assets/front-images/disaster2.jpeg"
 import  seven from "assets/front-images/disaster7.jpeg"
@@ -18,9 +19,18 @@ const DisasterDetail = () => {
     const [disasterDetail, setDisasterDetail] = useState([]);
 	const [Title, setTitle]=useState(null);
 	const[date,setDate]=useState(null);
-	const[gallery,setGallery]=useState(null);
-    const[Description,setDescription]=useState(null);
-	
+	const[gallery,setGallery1]=useState(null);
+	const[gallery2,setGallery2]=useState(null);
+	const[gallery3,setGallery3]=useState(null);
+	const[gallery4,setGallery4]=useState(null);
+    const[description,setDescription]=useState(null);
+	const[survivors,setSurvivors]=useState(null);
+    const[deaths,setDeaths]=useState(null);
+    const[shelters,setShelters]=useState(null);
+    const[food,setFood]=useState(null);
+    const[medicine,setMedicine]=useState(null);
+	const[Population,setPopulation]=useState(null);
+
   useEffect(() => {
     const search = window.location.search;
 	const params = new URLSearchParams(search);
@@ -30,22 +40,27 @@ const DisasterDetail = () => {
 	//.then(res=>{
    .then((data) => {
 	if(data){
-		console.log('res.data=')
+		// console.log('res.data=')
 	    console.log(data[0]._id)
 		setTitle(data[0].dis_title);
 		setDate(data[0].date);
-		setGallery(data[0].gallery);
-
-		setDescription(data[0].description)
+		const temp_img2 = data[0].gallery[1].replace('public/', '')
+		setGallery2('http://localhost:8000/' + temp_img2);
+		const temp_img3= data[0].gallery[2].replace('public/', '')
+		setGallery3('http://localhost:8000/' + temp_img3);
+        const temp_img4 = data[0].gallery[3].replace('public/', '')
+		setGallery4('http://localhost:8000/' + temp_img4);
+		setDescription(data[0].Description)
+		
 		// setInformationid(data._id);
         // setDisasterType(res.data.dis_type);
         // setArea(res.data. dis_area);
-        // setPopulation(res.data.population);
-        // setSurvivors(res.data.survivors);
-        // setDeaths(res.data.deaths);
-        // setShelters(res.data.shelters);
-        // setFood(res.data.food);
-        // setMedicine(res.data.medicine);
+         setPopulation(data[0].population);
+         setSurvivors(data[0].survivors);
+         setDeaths(data[0].deaths);
+         setShelters(data[0].shelters);
+         setFood(data[0].food);
+         setMedicine(data[0].medicine);
         
 	}
 	  })
@@ -83,7 +98,7 @@ const DisasterDetail = () => {
             .map((row,index) => ( */}
 				<div className="col-lg-8 offset-lg-2 text-center">
 					<div className="breadcrumb-text">
-						<h1> {Title}</h1>
+						<h1><i className="fa fa-quote-left" aria-hidden="true"></i> {Title}<i className="fa fa-quote-right" aria-hidden="true"></i></h1>
 					</div>
 				</div>
             {/* ))} */}
@@ -99,11 +114,16 @@ const DisasterDetail = () => {
              
 				<div className="col-lg-8">
 					<div className="single-article-section">
+					
 						<div className="single-article-text" >
                        
-                        <div className="overlay " style={{backgroundImage: "url('" + seven + "')", height: "500px",width: "1100px",backgroundSize: "cover"}}></div>
-							<div className="single-artcile-bg" ></div>
-                            
+                        {/* <div className="overlay " style={{backgroundImage: "url('" + seven + "')", height: "500px",width: "1100px",backgroundSize: "cover"}}></div> */}
+						{gallery2 ?
+						<img className="overlay" style={{backgroundSize: "cover", height: "500px",width: "1100px"}} src={gallery2} alt="" />
+						 :
+						<img className="overlay" style={{backgroundSize: "cover", height: "500px",width: "1100px"}} src={seven} alt="" />
+						}
+                            <div className="single-artcile-bg" ></div>
 							<p className="blog-meta"style={{ paddingTop: "10px" }} >
 								{/* <span className="author" ><i className="fas fa-user"></i> Admin</span> */}
 								<span className="date"><i className="fas fa-calendar"></i> {date}</span>
@@ -112,12 +132,35 @@ const DisasterDetail = () => {
 							</p>
                             <div style={{ paddingTop: "1px" }}>
 							<h2 >{Title}</h2>
-                            <p>{gallery}</p>
-							<p> {Description}</p>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint soluta, similique quidem fuga vel voluptates amet doloremque corrupti. Perferendis totam voluptates eius error fuga cupiditate dolorum? Adipisci mollitia quod labore aut natus nobis. Rerum perferendis, nobis hic adipisci vel inventore facilis rem illo, tenetur ipsa voluptate dolorem, cupiditate temporibus laudantium quidem recusandae expedita dicta cum eum. Quae laborum repellat a ut, voluptatum ipsa eum. Culpa fugiat minus laborum quia nam!</p>
+							<p> {description}</p>
+							<div style={{ display: 'flex', alignItems: 'center' }}>
+							<h6 style={{ margin: 0, marginRight: '15px' }}>Population:</h6>
+							<p style={{ margin: 0 }}>{Population}</p>
+							</div>
+							<div style={{ display: 'flex', alignItems: 'center' }}>
+							<h6 style={{ margin: 0, marginRight: '15px' }}>Casualities:</h6>
+							<p style={{ margin: 0 }}>{deaths}</p>
+							</div>
+							<div style={{ display: 'flex', alignItems: 'center' }}>
+							<h6 style={{ margin: 0, marginRight: '15px' }}>Survivors:</h6>
+							<p style={{ margin: 0 }}>{survivors}</p>
+							</div>
+							<div style={{ display: 'flex', alignItems: 'center' }}>
+							<h6 style={{ margin: 0, marginRight: '15px' }}>Shelters Required:</h6>
+							<p style={{ margin: 0 }}>{shelters}</p>
+							</div>
+							<div style={{ display: 'flex', alignItems: 'center' }}>
+							<h6 style={{ margin: 0, marginRight: '15px' }}>Food Required:</h6>
+							<p style={{ margin: 0 }}>{food}</p>
+							</div>
+							<div style={{ display: 'flex', alignItems: 'center' }}>
+							<h6 style={{ margin: 0, marginRight: '15px' }}>Medicine Required:</h6>
+							<p style={{ margin: 0 }}>{medicine}</p>
+							</div>
+							{/* <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint soluta, similique quidem fuga vel voluptates amet doloremque corrupti. Perferendis totam voluptates eius error fuga cupiditate dolorum? Adipisci mollitia quod labore aut natus nobis. Rerum perferendis, nobis hic adipisci vel inventore facilis rem illo, tenetur ipsa voluptate dolorem, cupiditate temporibus laudantium quidem recusandae expedita dicta cum eum. Quae laborum repellat a ut, voluptatum ipsa eum. Culpa fugiat minus laborum quia nam!</p>
 							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, praesentium, dicta. Dolorum inventore molestias velit possimus, dolore labore aliquam aperiam architecto quo reprehenderit excepturi ipsum ipsam accusantium nobis ducimus laudantium.</p>
 							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum est aperiam voluptatum id cupiditate quae corporis ex. Molestias modi mollitia neque magni voluptatum, omnis repudiandae aliquam quae veniam error! Eligendi distinctio, ab eius iure atque ducimus id deleniti, vel alias sint similique perspiciatis saepe necessitatibus non eveniet, quo nisi soluta.</p>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt beatae nemo quaerat, doloribus obcaecati odio!</p>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt beatae nemo quaerat, doloribus obcaecati odio!</p> */}
                             <div style={{ paddingTop: "30px" }}>
                             </div> 
                            <div>
@@ -130,9 +173,13 @@ const DisasterDetail = () => {
 				<div className="col-lg-4">
 					<div className="sidebar-section" style={{ paddingTop: "630px" }}>
 						<div className="recent-posts">
-							<h4>Disaster Pictures 1</h4>
-                            <div className="overlay" style={{backgroundImage: "url('" + three + "')",backgroundSize: "cover", height: "150px",width: "340px"}}></div>
-
+							{/* <h4>Disaster Pictures 1</h4> */}
+                            {/* <div className="overlay" style={{backgroundImage: "url('" + three + "')",backgroundSize: "cover", height: "150px",width: "340px"}}></div> */}
+							{gallery3 ?
+                           <img className="overlay" style={{backgroundSize: "cover", height: "150px",width: "340px"}} src={gallery3} alt=""/>
+						   :
+                           <img className="overlay" style={{backgroundSize: "cover", height: "150px",width: "340px"}} src={three} alt=""/>
+							}
 							{/* <ul>
 								<li><a href="single-news.html">You will vainly look for fruit on it in autumn.</a></li>
 								<li><a href="single-news.html">A man's worth has its season, like tomato.</a></li>
@@ -141,10 +188,16 @@ const DisasterDetail = () => {
 								<li><a href="single-news.html">Why the berries always look delecious</a></li>
 							</ul> */}
 						</div>
-						<div className="archive-posts">
-							<h4>Disaster Pictures 2</h4>
-                            <div className="overlay" style={{backgroundImage: "url('" + two + "')",backgroundSize: "cover", height: "150px",width: "340px"}}></div>
+						<div style={{ marginTop: "40px"}} className="archive-posts">
+							{/* <h4>Disaster Pictures 2</h4> */}
+							
+                            {/* <div className="overlay" style={{backgroundImage: "url('" + two + "')",backgroundSize: "cover", height: "150px",width: "340px"}}></div> */}
+							{gallery4 ?
+							<img className="overlay" style={{backgroundSize: "cover", height: "150px",width: "340px"}} src={gallery4} alt=""/>
+                             :
+							 <img className="overlay" style={{backgroundSize: "cover", height: "150px",width: "340px"}} src={two} alt=""/>
 
+							}
 							{/* <ul>
 								<li><a href="single-news.html">JAN 2019 (5)</a></li>
 								<li><a href="single-news.html">FEB 2019 (3)</a></li>

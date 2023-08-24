@@ -12,9 +12,11 @@ import {
   Col,
   Alert
 } from "reactstrap";
-import { useState} from 'react';
+import { useState,useEffect} from 'react';
 import { Redirect,Link,useHistory} from 'react-router-dom';
 import axios from 'axios'
+import { useLocation } from 'react-router-dom';
+import InputMask from 'react-input-mask';
 
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
@@ -28,6 +30,10 @@ const Profile = () => {
   const [rerender, setRerender] = useState("false");
   const [addsuccess, setaddSuccess] = useState(false);
   const onDismissaddSuccess = () => setaddSuccess(false);
+  const [Success, setSuccess] = useState(false);
+  const onDismissSuccess = () => setSuccess(false);
+  const [SuccessMessage ,setSuccessMessage]=useState("")
+  const location = useLocation();
   const onDismiss = () => setError(false);
   const history = useHistory();
   if(!localStorage.getItem("user"))
@@ -94,10 +100,11 @@ const Profile = () => {
     e.preventDefault();
     const id = user_info._id;
     const name = e.target.name.value;
-    // const email = e.target.email.value;
+    const email = e.target.email.value;
     const address = e.target.address.value;
     const phone_no = e.target.phone_no.value;
-    const bio = e.target.bio.value;
+    const username = e.target.username.value;
+    const description = e.target.description.value;
     const formData = new FormData();
     if(profile_pic)
     {
@@ -106,11 +113,13 @@ const Profile = () => {
     formData.append('name', name);
     // formData.append('email', email);
     formData.append('address', address);
+    formData.append('email', email);
+    formData.append('username', username);
     formData.append('phone_no', phone_no);
-    formData.append('bio', bio);
+    formData.append('description', description);
     formData.append('id', id);
     e.preventDefault();
-    axios({     //edit profile on the base of id API Calling
+    axios({     
       method: 'post',
       withCredentials: true,
       sameSite: 'none',
@@ -118,7 +127,7 @@ const Profile = () => {
       data: formData,
      })
       .then(res => {
-        if (res.data.indicator == "success") 
+        if (res.data.indicator === "success") 
         {
           setaddSuccess(true);
 
@@ -129,10 +138,20 @@ const Profile = () => {
           }
           user_info.name = name
           user_info.phone_no = phone_no
+          user_info.username = username
           user_info.address = address
-          user_info.bio = bio
+          user_info.email = email
+          user_info.description = description
           localStorage.setItem("user", JSON.stringify(user_info))
           setRerender(!rerender);
+        }
+        else if (res.data.message === "Email already exists.") {
+          setError(true);
+          setErrorMessage("Email already exists.");
+        } 
+        else if (res.data.message === "Username already exists.") {
+          setError(true);
+          setErrorMessage("Username already exists.");
         }
         else
          {
@@ -146,7 +165,7 @@ const Profile = () => {
           localStorage.clear(); 
           history.push('/auth/login');
         }
-        setErrorMessage("Failed to connect to backend");
+        setErrorMessage("Failed to connect to backend"); // same isues as in login etc
         setError(true);
         console.log(error);
       })
@@ -158,18 +177,32 @@ const Profile = () => {
         EditProfile();
       // EditPicture();
  };
+ useEffect(() => {
+  const queryParams = new URLSearchParams(location.search);
+  const message = queryParams.get('Message');
+  if (message) {
+    setSuccess(true);
+    setSuccessMessage('LoggedIn Successfully')
+  }
+}, [location.search]);
   
   return (
     <>
       <UserHeader />
       {/* Page content */}
       <Container className="mt--9" fluid>
+     
       <Alert color="success" isOpen={addsuccess} toggle={onDismissaddSuccess}>
-          <strong> Profile Information Updated successfully! </strong> 
+          <strong> Profile Updated Successfully! </strong> 
       </Alert>
       <Alert color="danger" isOpen={error} toggle={onDismiss}>
           <strong>Error! </strong> {errorMessage}
         </Alert>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Alert color="success" isOpen={Success} toggle={onDismissSuccess} style={{ width: '300px', height: '60px' }}>
+              <strong>!- </strong>{SuccessMessage}
+       </Alert>
+      </div>
         <Row>
           <Col className="order-xl-2 mb-5 mb-xl-0" xl="4">
             <Card className="card-profile shadow">
@@ -203,6 +236,7 @@ const Profile = () => {
                       type="file"
                       ref={fileInputRef}
                       style={{ display: 'none' }}
+                      accept=".png, .jpg, .jpeg"
                       onChange={handleFileInputChange}
                     />
                   {/* <Button
@@ -254,7 +288,7 @@ const Profile = () => {
                   </div>
                   <hr className="my-4" />
                   <p defaultValue={" "}>
-                    {user_info.bio}
+                    {user_info.description}
                   </p>
 
                   {/* <a href="#pablo" onClick={(e) => e.preventDefault()}>
@@ -271,7 +305,7 @@ const Profile = () => {
                   <Col xs="8">
                     <h3 className="mb-0">My account</h3>
                   </Col>
-                  <Col className="text-right" xs="4">
+                  {/* <Col className="text-right" xs="4">
                     <Button
                       color="primary"
                       href="#pablo"
@@ -280,13 +314,13 @@ const Profile = () => {
                     >
                       Settings
                     </Button>
-                  </Col>
+                  </Col> */}
                 </Row>
               </CardHeader>
               <CardBody>
                 <Form role="form" onSubmit={EditProfile} >
                   <h6 className="heading-small text-muted mb-4">
-                    User information
+                    Account information
                   </h6>
                   <div className="pl-lg-4">
                     <Row>
@@ -301,9 +335,10 @@ const Profile = () => {
                           <Input
                             className="form-control-alternative"
                             defaultValue={user_info.name}
-                            id="input-username"
+                            id="name"
                             name="name"
                             type="text"
+                            style={{ color: 'black' }}
                           />
                         </FormGroup>
                       </Col>
@@ -317,17 +352,123 @@ const Profile = () => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            id="input-email"
+                            id="email"
                             name="email"
-                            readOnly
-                            placeholder={user_info.email}
+                            defaultValue={user_info.email}
                             type="email"
+                            style={{ color: 'black' }}
                           />
                         </FormGroup>
                       </Col>
                     </Row>
                     <Row>
                       <Col lg="6">
+                        <FormGroup>
+                          <label
+                            className="form-control-label"
+                            htmlFor="username"
+                          >
+                            Username
+                          </label>
+                          <Input
+                            className="form-control-alternative"
+                            defaultValue={user_info.username}
+                            id="username"
+                            name="username"
+                            style={{ color: 'black' }}
+                            type="text"
+                          />
+                        </FormGroup>
+                      </Col>
+                      <Col lg="6">
+                        <FormGroup>
+                          <label
+                            className="form-control-label"
+                            htmlFor="input-last-name"
+                          >
+                            Phone No
+                          </label>
+                          <InputMask
+                         style={{
+                          border: 'none',
+                          boxShadow: 'none',
+                          padding: '0.375rem 0.75rem',
+                          height: '40px',
+                          width: '285px',
+                          borderRadius: '8px',
+                        
+                         }}
+                         className="form-control-alternative"
+                       mask="0399-9999999" 
+                       maskChar="_"
+                       id="phone_no"
+                       name="phone_no"
+                       placeholder="Enter phone No"
+                       type="text"
+                      defaultValue={user_info.phone_no}
+                      />
+                          {/* <Input
+                            className="form-control-alternative"
+                            defaultValue={user_info.phone_no}
+                            id="input-last-name"
+                            name="phone_no"
+                            placeholder={user_info.phone_no}
+                            style={{ color: 'black' }}
+                            type="text"
+                          /> */}
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                  </div>
+                  <hr className="my-4" />
+                  {/* Address */}
+                  <h6 className="heading-small text-muted mb-4">
+                    User information
+                  </h6>
+                  <div className="pl-lg-4">
+                    <Row>
+                    {user_info.role === "NGO" && (
+                    <Col lg="12">
+                        <FormGroup>
+                          <label
+                            className="form-control-label"
+                            htmlFor="accountno"
+                          >
+                            Account No
+                          </label>
+                          <InputMask
+                         style={{
+                          border: 'none',
+                          boxShadow: 'none',
+                          padding: '0.375rem 0.75rem',
+                          height: '40px',
+                          width: '560px',
+                          borderRadius: '8px', 
+                          // border: '1px solid #ccc'
+                         }}
+                         className="form-control-alternative"
+                       mask="0399-9999999" 
+                       maskChar="_"
+                       id="accountno"
+                       name="accountno"
+                       placeholder="Enter Account No"
+                       type="text"
+                      defaultValue={user_info.account_no}
+                 
+                      
+                      />
+                          {/* <Input
+                            className="form-control-alternative"
+                            defaultValue={user_info.account_no}
+                            id="accountno"
+                            name="accountno"
+                            style={{ color: 'black' }}
+                            type="text"
+                          /> */}
+                        </FormGroup>
+                      </Col>
+                    )}
+                    <Col lg="12">
                         <FormGroup>
                           <label
                             className="form-control-label"
@@ -342,54 +483,27 @@ const Profile = () => {
                             name="address"
                             placeholder={user_info.address}
                             type="text"
+                            style={{ color: 'black' }}
                           />
                         </FormGroup>
                       </Col>
-                      <Col lg="6">
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-last-name"
-                          >
-                            Phone No
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            defaultValue={user_info.phone_no}
-                            id="input-last-name"
-                            name="phone_no"
-                            placeholder={user_info.phone_no}
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                  </div>
-                  <hr className="my-4" />
-                  {/* Address */}
-                  <h6 className="heading-small text-muted mb-4">
-                    Contact information
-                  </h6>
-                  <div className="pl-lg-4">
-                    <Row>
                       <Col md="12">
                         <FormGroup>
                           <label
                             className="form-control-label"
                             htmlFor="input-address"
                           >
-                            Bio
+                            Description
                           </label>
-                          <Input
+                          <textarea
                             className="form-control-alternative"
-                            // defaultValue="Enter Bio"
-                            id="bio"
-                            name="bio"
+                            id="description"
+                            style={{ width: '600px',height: '89px'}} 
+                            name="description"
                             placeholder="Enter Your  Bio"
                             type="text"
-                            defaultValue={user_info.bio}
+                            defaultValue={user_info.description}
                           />
-                          
                         </FormGroup>
                       </Col>
                       {/* <Col lg="6">

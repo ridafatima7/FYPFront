@@ -19,6 +19,7 @@ import React from "react";
 import { useLocation, Route, Switch, Redirect } from "react-router-dom";
 // reactstrap components
 import { Container, Row, Col } from "reactstrap";
+import logo from "assets/img/brand/LOGO2.png"
 
 // core components
 import AuthNavbar from "components/Navbars/AuthNavbar.js";
@@ -66,10 +67,17 @@ const Auth = (props) => {
             <div className="header-body text-center mb-7">
               <Row className="justify-content-center">
                 <Col lg="5" md="6">
-                  <h1 className="text-white">Disaster Information Cell</h1>
-                  <p className="text-lead text-light">
+                <h1 className="text-white">Disaster Information Cell</h1>
+                <p className="text-lead text-light">
                     It is information based system for disaster handling
                   </p>
+                  {/* <img
+                  alt="..."
+                 src={require('../assets/img/brand/LOGO2.png')}
+                 style={{ width: '100px', height: '100px' }}
+                  />
+                  */}
+                  
                 </Col>
               </Row>
             </div>
@@ -91,7 +99,7 @@ const Auth = (props) => {
           </div>
         </div>
         {/* Page content */}
-        <Container className="mt--8 pb-5">
+        <Container className="mt--9 pb-5">
           <Row className="justify-content-center">
             <Switch>
               {getRoutes(routes)}

@@ -25,8 +25,9 @@ import {
 // Images
 import bg_2 from "assets/front-images/bg_2.jpg"
 import contact from "assets/front-images/contact.avif"
+import contactUs from "assets/front-images/ContactUs1.jpg"
 
-const ContactUs = () => {
+const ContactUs = (args) => {
   const [Error, setError] = useState(false);
   const [Name, setName] = useState(['']);
   const [alertMessage, setAlert] = useState(false);
@@ -51,7 +52,10 @@ const ContactUs = () => {
         console.log(res);
         setAlert(true)
           setMessage('Message Sent successfully')
-          setName('');
+          e.target.elements.name.value = '';
+          e.target.elements.email.value = '';
+          e.target.elements.subject.value = '';
+          e.target.elements.message.value = '';
         // localStorage.setItem("user", JSON.stringify(res.data))
         // setlogin(true)
       })
@@ -89,18 +93,16 @@ const ContactUs = () => {
             <h2 className="h4">Contact Information</h2>
           </div>
           <div className="w-100"></div>
-          <div className="col-md-3">
+          <div className="col-md-4">
             <p><span>Address:</span> Constitutional Avenue, Islamabad.</p>
           </div>
           <div className="col-md-3">
-            <p><span>Phone:</span> <a href="tel://1234567920">+923056787654</a></p>
+            <p><span>Phone:</span> +92305678765</p>
           </div>
-          <div className="col-md-3">
-            <p><span>Email:</span> <a href="mailto:info@yoursite.com">disaster@gmail.com</a></p>
+          <div className="col-md-4">
+            <p><span>Email:</span> <a style={{marginRight:"40px"}} href="http://mail.google.com">DisasterInformationCell@gmail.com</a></p>
           </div>
-          <div className="col-md-3">
-            <p><span>Website</span> <a href="#">yoursite.com</a></p>
-          </div>
+         
         </div>
         <div>
         <Alert color="success" isOpen={Error} toggle={onDismisserror}>
@@ -114,7 +116,7 @@ const ContactUs = () => {
           
           <div className="col-md-6 pr-md-5">
           	<h4 className="mb-4">Do you have any questions?</h4>
-            <Form role="form" onSubmit={handleSubmit} >
+            <Form role="form" onSubmit={handleSubmit} {...args}>
               <div className="form-group">
                 <input name="name"  id="name" type="text" className="form-control" placeholder="Your Name" required />
               </div>
@@ -159,7 +161,8 @@ const ContactUs = () => {
 
           {/* <div className="col-md-6" id="map"></div> */}
           <div style={{paddingTop:'58px'}} className=" col-md-6">
-          <div style={{backgroundImage: "url('" + contact + "')",width: '550px',height:'390px'}}>
+          <div>
+            <img style={{width: '550px',height:'390px',backgroundSize:'cover'}} src={contactUs}></img>
           </div>
           </div>
         </div>

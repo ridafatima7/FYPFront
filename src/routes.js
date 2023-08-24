@@ -27,7 +27,15 @@ import Tables from "views/examples/Tables.js";
 import Home from "views/frontpages/Home.js";
 import Messages from "views/examples/Messages.js";
 import Donation from "views/examples/DonationAdmin.js";
+import DonationReports from "views/Reports/DonationReport.js";
+import NGOReports from "views/Reports/NgoReport.js";
+import DisasterReports from "views/Reports/DisasterReport";
 import Icons from "views/examples/Icons.js";
+import AllReports from "views/Reports/AllReports";
+import NGOs from "views/examples/Users.js/NGOs";
+import DEO from "views/examples/Users.js/DEO";
+import AllUsers from "views/examples/Users.js/AllUsers";
+import DEORegistration from "views/examples/DEORegistration";
 
 var routes = [
   {
@@ -72,11 +80,19 @@ var routes = [
     component: Login,
     layout: "/auth"
   },
+  
   {
     path: "/register",
     name: "Register",
     icon: "ni ni-circle-08 text-pink",
     component: Register,
+    layout: "/auth"
+  },
+  {
+    path: "/deoRegister",
+    name: "deoRegister",
+    icon: "ni ni-circle-08 text-pink",
+    component:DEORegistration,
     layout: "/auth"
   },
   {
@@ -101,8 +117,8 @@ var routes = [
   //   layout: "/admin"
   // },
   {
-    path:"/Messages",
-    name:"Messages",
+    path:"/Feedback",
+    name:"Feedback",
     // icon: "ni ni-tv-2 text-primary",
     icon: "ni ni-email-83 text-pink",
     component: Messages,
@@ -116,13 +132,42 @@ var routes = [
     component: Donation ,
     layout: "/admin"
   },
+  // {
+  //   path:"/",
+  //   name:"Go to Website",
+  //   // icon: "ni ni-tv-2 text-primary",
+  //   icon: "ni ni-planet text-primary",
+  //   component: Donation,
+  //   //  layout: "/auth"
+  // },
   {
-    path:"/",
-    name:"Go to Website",
+    path:"/reports",
+    name:"Reports",
     // icon: "ni ni-tv-2 text-primary",
-    icon: "ni ni-planet text-primary",
-    component: Donation,
-    //  layout: "/auth"
+    icon: "ni ni-book-bookmark text-primary",
+    component: AllReports,
+      layout: "/admin"
+  },
+  {
+    path:"/users",
+    name:"Users",
+    icon: "ni ni-single-02 text-yellow",
+    component: AllUsers,
+      layout: "/admin"
+  },
+  {
+    path:"/DEO",
+    name:"DEO",
+    icon: "ni ni-book-bookmark text-primary",
+    component: DEO,
+      layout: "/admin"
+  },
+  {
+    path:"/ngos",
+    name:"NGOs",
+    icon: "ni ni-book-bookmark text-primary",
+    component: NGOs,
+      layout: "/admin"
   }
 ];
 export default routes;

@@ -86,7 +86,7 @@ const Header = () => {
                                 <li className={splitLocation[1] === "relief_activities" ? "nav-item active" : "nav-item"}><Link to="/relief_activities" className="nav-link">Relief Operations</Link></li>
                                 { user_info ?
                                 <li style={{ display: 'flex', alignItems: 'center' }}>
-                                    <Link to={"/admin/index"} style={{ height: '40px',marginRight: '10px' }} className="btn btn-primary py-2 px-4 d-none d-sm-block">Dashboard</Link>
+                                    <Link to={"/admin/user-profile"} style={{ height: '40px',marginRight: '10px' }} className="btn btn-primary py-2 px-4 d-none d-sm-block">Dashboard</Link>
                                     <Button onClick={handleSubmit} style={{ height: '40px',background:'#f86f2d'}} className="btn btn-primary py-2 px-4 d-none d-lg-block">LogOut</Button>
                                 </li>
                                 :

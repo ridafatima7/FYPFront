@@ -48,6 +48,7 @@ const [deletesuccess, setdeleteSuccess] = useState(false);
 const [tempId, setTempId] = useState('');
 const [tempName, setTempName] = useState('');
 const [deletemodal, setdeleteModal] = useState(false);
+const [isCustomError, setIsCustomError] = useState(false)
 const[rerender,setRerender]=useState(false);
 const onDismissdeleteSuccess = () => setdeleteSuccess(false);
 const onDismissaddSuccess = () => setaddSuccess(false);
@@ -75,7 +76,7 @@ const[description,setDescription]=useState(null);
 const[shelters,setShelters]=useState(null);
 const[food,setFood]=useState(null);
 const[medicine,setMedicine]=useState(null);
-const [options, setOptions] = useState([]);
+const [Options, setOptions] = useState([]);
 const[selectedFiles,setSelectedFiles]=useState(null);
 const[editmodal, setEditModal]=useState(false);
 const onDismisseditSuccess = () => seteditSuccess(false);
@@ -87,13 +88,22 @@ const [editsuccess, seteditSuccess] = useState(false);
 const DeletetoggleClose = () => {
   setdeleteModal(!deletemodal); 
 }
+const [filtered_Information, setFilteredInformation] = useState('');
+const [currentInformation, setCurrentinformation] = useState("No Information Selected Yet")
+const handleInformationChange = (e) => {
+  const filteredInformation = InformationTable.filter(
+    (Information) => Information.dis_title === e.target.value
+  );
+  setFilteredInformation(filteredInformation);
+  setCurrentinformation(e.target.value)
+};
 useEffect(() => {
   
    GetInformation();
    axios({     
     withCredentials: true,
     method:'get',
-    url:"http://localhost:8000/Information/GetInformation"
+    url:"http://localhost:8000/Information/GetInformationDetail"
   })
   //  .then((response) => response.json())
     .then((res) => {
@@ -157,7 +167,6 @@ function GetInformation(e)
         setSelectedFiles(res.data.gallery);
         setEditModal(!editmodal);
       }
-        
     })
     .catch(error=>{
       console.log(error);
@@ -168,56 +177,89 @@ function GetInformation(e)
   const handleFileInputChange = (event) => {
     const newFiles = [...event.target.files]
     console.log(newFiles)
-    setSelectedFiles(newFiles)
-    
+    if (newFiles.length < 4 || newFiles.length > 4)
+    {
+     setIsCustomError(true);
+     setErrorMessage("You must have to add 4 images !");
+     setError(true);
+     return;
+    }
+    else
+    {
+      setSelectedFiles(newFiles)
+    }
   };
 
   function EditInformation(e)
   {
      // alert('here')
+     e.preventDefault();
     const disasterType=e.target.DisasterType.value;
     const title=e.target.title.value;
     const Description=e.target.Description.value;
-    const population=e.target.Population.value;
+    const population=parseInt(e.target.Population.value);
     const date=e.target.date.value;
-    const shelters=e.target.shelters.value;
-    const food=e.target.food.value;
-    const medicine=e.target.medicine.value;
-    const gallery=e.target.gallery.value;
+    const shelters=parseInt(e.target.shelters.value);
+    const food=parseInt(e.target.food.value);
+    const medicine=parseInt(e.target.medicine.value);
     const ngoname=e.target.ngoname.value;
-    e.preventDefault();
-    axios({     // edit Information on the base of id API Calling
-      withCredentials: true,
-      method:'post',
-      url:"http://localhost:8000/Relief_Information/EditInformation",
-      data:{id:id,ngoname:ngoname,disasterType:disasterType, title:title ,Description:Description,population:population
-        ,date:date,shelters:shelters,food:food,medicine:medicine,gallery:gallery},
-    })
-    .then(res=>{
-      if(res.data == "success")
-      {
-        seteditSuccess(true); 
-        GetInformation();
-        setRerender(!rerender);
-      }
-      else
-      {
-        setErrorMessage(res.data);
-        setError(true);
-        console.log("Failed to connect to backend")
-      }
-      setEditModal(!editmodal); 
-    })
-    .catch(error=>{
-
-      setErrorMessage("Failed to connect to backend");
+    if(shelters > population)
+    {
       setError(true);
-      console.log(error);
-    })
+      setErrorMessage("Shelters cannot be greater than the popuation!")
+      console.log("Shelters cannot be greater than the popuation!")
+      // return;
+    }
+    else{
+      
+      selectedFiles.forEach((file) => {
+        formData.append('files', file);
+      });
+      formData.append('ngoname',ngoname );
+      formData.append('disasterType', disasterType);
+      formData.append('Description',Description);
+      formData.append('population',population);
+      formData.append('title',title);
+      formData.append('date',date);
+      formData.append('shelters',shelters);
+      formData.append('food',food);
+      formData.append('medicine',medicine);
+      formData.append('id', id);
+      axios({     
+        withCredentials: true,
+        method:'post',
+        url:"http://localhost:8000/Relief_Information/EditInformation",
+        // data:{id:id,ngoname:ngoname,disasterType:disasterType, title:title ,Description:Description,population:population
+        //   ,date:date,shelters:shelters,food:food,medicine:medicine,gallery:gallery},
+        data:formData,
+      })
+      .then(res=>{
+        if(res.data == "success")
+        {
+          seteditSuccess(true); 
+          GetInformation();
+          setRerender(!rerender);
+        }
+        else
+        {
+          setErrorMessage(res.data);
+          setError(true);
+          console.log("Failed to connect to backend")
+        }
+        setEditModal(!editmodal); 
+      })
+      .catch(error=>{
+  
+        setErrorMessage("Failed to connect to backend");
+        setError(true);
+        console.log(error);
+      })
+    }
+   
   };
   function DeleteInformation()
   {
-    axios({     // DeleteCourse API Calling
+    axios({     
        withCredentials: true,
       method:'get',
       url:"http://localhost:8000/Relief_Information/DeleteInformation?temp_id="+tempId
@@ -226,10 +268,12 @@ function GetInformation(e)
       if(res.data.indicator=="success")
       {
         setdeleteSuccess(true);
+        GetInformation();
       }
       else{
         setError(true);
         setErrorMessage(res.data.messege.message);
+       
       }
       setdeleteModal(!deletemodal); 
       
@@ -243,8 +287,6 @@ function GetInformation(e)
   };
 function AddInformation(e)
   {
-    
-    
     e.preventDefault();
     console.log(selectedFiles)
     // return
@@ -257,12 +299,7 @@ function AddInformation(e)
     const shelters=parseInt(e.target.shelters.value);
     const food=parseInt(e.target.food.value);
     const medicine=parseInt(e.target.medicine.value);
-    // const gallery=e.target.gallery.value;
-    const thumbnail=e.target.thumbnail.value;
     const ngoname=e.target.ngoname.value;
-    // const files = selectedFiles
-    // console.log(shelters);
-    // console.log(population);
     if(shelters > population)
     {
       setError(true);
@@ -273,11 +310,9 @@ function AddInformation(e)
     //AddInformation API Calling
     else
     {
-        // formData = new formData()
         selectedFiles.forEach((file) => {
           formData.append('files', file);
         });
-        // formData.append('files',selectedFiles );
         formData.append('ngoname',ngoname );
         formData.append('disasterType', disasterType);
         formData.append('Description',Description);
@@ -321,31 +356,44 @@ function AddInformation(e)
      })
   }
 }
+const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  let month = currentDate.getMonth() + 1;
+  if (month < 10) {
+    month = '0' + month;
+  }
+  let day = currentDate.getDate();
+  if (day < 10) {
+    day = '0' + day;
+  }
+  const formattedDate = `${year}-${month}-${day}`;
+
 return (
     <>
      <NewHeader />
      <Container className="mt--9" fluid>
-    <Alert color="danger" isOpen={deletesuccess} toggle={onDismissdeleteSuccess}>
+    <Alert color="success" isOpen={deletesuccess} toggle={onDismissdeleteSuccess}>
            <strong> Information Deleted! </strong> 
    </Alert>
-   <Alert color="danger" isOpen={Error} toggle={onDismissError}>
-           <strong> {errorMessage} </strong> 
-   </Alert>
-  
      <Alert color="success" isOpen={addsuccess} toggle={onDismissaddSuccess}>
           <strong> Information added! </strong> 
     </Alert>
     <Alert color="success" isOpen={editsuccess} toggle={onDismisseditSuccess}>
           <strong> Information Updated successfully! </strong> 
-        </Alert>
-   
+    </Alert>
     <Modal isOpen={editmodal} toggle={edittoggle1} {...args} size='lg'>
         <Form  role="form" onSubmit={EditInformation} >
-          <ModalHeader toggle={edittoggle1}>Update Inforamtion</ModalHeader>
-          <Alert color="danger" isOpen={Error} toggle={onDismissError}>
-           <strong> {errorMessage} </strong> 
-          </Alert>
-          <ModalBody>        
+          <ModalHeader style={{ marginTop:'25px' }} toggle={edittoggle1}><b style={{ fontSize: '18px',marginLeft:'296px',marginTop:'48px' }}>Update Inforamtion</b></ModalHeader>        
+          <ModalBody> 
+          {Error ? 
+           <Alert color="danger" isOpen={Error} toggle={onDismissError}>
+           <strong> {errorMessage}</strong> 
+           </Alert>
+          
+          : 
+          <></>
+            //  <h4 style={{color: 'red'}}></h4> 
+          }      
               <Row>
                 <Col md={6}>
                   <FormGroup>
@@ -415,6 +463,9 @@ return (
                       name="title"
                       placeholder="Enter Title"
                       type="text"
+                      maxLength="50"
+                      minLength="30"
+                      style={{ color: 'black' }}
                       defaultValue={Title}
                     />
                   </FormGroup>
@@ -429,6 +480,8 @@ return (
                       name="Description"
                       placeholder="Enter Disaster title"
                       type="text"
+                      minLength="50"
+                      style={{ color: 'black' }}
                       defaultValue={description}
                     />
                   </FormGroup>
@@ -487,7 +540,10 @@ return (
                   name="Population"
                   placeholder="Total Population"
                   type='number'
+                  min="0"
+                  max="10000000"
                   defaultValue={Population}
+                  style={{ color: 'black' }}
                 />
               </FormGroup>
               </Col>
@@ -527,9 +583,9 @@ return (
                 <Input
                   id="date"
                   name="date"
-                  placeholder="Choose date"
                   type='date'
-                  defaultValue={date}
+                  defaultValue={formattedDate}
+                  readOnly
                 />
               </FormGroup>
               </Col>
@@ -541,9 +597,12 @@ return (
                 <Input
                   id="shelters"
                   name="shelters"
-                  placeholder="Enter Estimated shelters( for familes)"
-                  type='text'
+                  placeholder="Enter Estimated shelters"
+                  type='number'
+                  min="0"
+                  max="10000000"
                   defaultValue={shelters}
+                  style={{ color: 'black' }}
                 />
               </FormGroup>
               </Col>
@@ -555,13 +614,15 @@ return (
                 <Input
                   id="food"
                   name="food"
-                  placeholder="Enter Required food ( for individuals)"
-                  type='text'
+                  placeholder="Enter Required food "
+                  type='number'
+                  min="0"
+                  max="10000000"
                   defaultValue={food}
+                  style={{ color: 'black' }}
                 />
               </FormGroup>
               </Col>
-             
               <Col md={6}>
               <FormGroup>
                 <Label for="Medicine">
@@ -570,9 +631,12 @@ return (
                 <Input
                   id="medicine"
                   name="medicine"
-                  placeholder="Enter Required medicine ( for individuals)"
-                  type='text'
+                  placeholder="Enter Required medicine "
+                  type='number'
+                  min="0"
+                  max="10000000"
                   defaultValue={medicine}
+                  style={{ color: 'black' }}
                 />
               </FormGroup>
               </Col>
@@ -596,12 +660,14 @@ return (
                 Gallery
                 </Label>
                 <Input
-                  id="gallery"
-                  name="gallery"
-                  placeholder="Upload Disaster Pictures(If Any)"
+                  onChange={handleFileInputChange}
+                  id="files"
+                  name="files"
                   type='file'
+                  accept=".png, .jpg, .jpeg"
                   multiple
                 />
+                <span>First image will be taken as Thumbnail</span>
               </FormGroup>
               </Col>
               </Row>
@@ -656,7 +722,7 @@ return (
         <Modal isOpen={deletemodal} toggle={DeletetoggleClose} {...args} size='sm'>
           <ModalHeader toggle={DeletetoggleClose} >Delete Information</ModalHeader>
           <ModalBody>
-            Are you sure you want to delete <b>{tempName}</b>?
+            Are you sure you want to delete this information?
           </ModalBody>
           <ModalFooter>
             <Button color="danger" onClick={() => {DeleteInformation()}}>
@@ -670,13 +736,18 @@ return (
           </Modal>
     <Modal isOpen={modal} toggle={toggle} {...args} size='lg'>
         <Form  role="form" onSubmit={AddInformation}>
-          <ModalHeader  className="text-center" toggle={toggle}><b>Add Relied Activities Information</b></ModalHeader>
+          <ModalHeader style={{ marginTop:'25px' }} className="text-center" toggle={toggle}><b style={{ fontSize: '18px',marginLeft:'235px',marginTop:'48px' }}>Add Relied Activities Information</b></ModalHeader>
 
           <ModalBody>
-          {/* <Alert color="danger" isOpen={Error} toggle={onDismissError}>
-           <strong> {errorMessage} </strong> 
-          </Alert>
-   */}
+          {Error ? 
+           <Alert color="danger" isOpen={Error} toggle={onDismissError}>
+           <strong> {errorMessage}</strong> 
+           </Alert>
+          
+          : 
+          <></>
+          //  <h4 style={{color: 'red'}}></h4> 
+        }      
               <Row >
               {role === 'NGO' ? (
               <Col md={6}>
@@ -782,7 +853,7 @@ return (
                       } */}
                     {/* <Input type="select" name="disasterType" id="disasterType"  placeholder="Enter Information type" > */}
                     <option value="">Enter Disaster Name</option>
-                  {options.map((options) => (
+                  {Options.map((options) => (
                   <option key={options._id} value={options.dis_title} style={{  color: '#333'}}>
                   {options.dis_title}
                   </option>
@@ -800,6 +871,8 @@ return (
                       name="title"
                       placeholder="Enter Disaster title"
                       type="text"
+                      maxLength="50"
+                      minLength="30"
                       required 
                     />
                   </FormGroup>
@@ -814,6 +887,7 @@ return (
                       name="Description"
                       placeholder="Enter Disaster Description"
                       type="text"
+                      minLength={50}
                       required 
                     />
                   </FormGroup>
@@ -902,11 +976,10 @@ return (
                 <Input
                   id="date"
                   name="date"
-                  placeholder="Choose date"
                   type='date'
-                  min="2023-01-01" // Add the minimum date allowed here
-                  max="2023-12-31"
+                 defaultValue={formattedDate}
                   required
+                  readOnly
                 />
               </FormGroup>
               </Col>
@@ -918,7 +991,7 @@ return (
                 <Input
                   id="shelters"
                   name="shelters"
-                  placeholder="Enter Estimated shelters( for familes)"
+                  placeholder="Enter Estimated shelters"
                   type='number'
                   min="0"
                   max="1000000"
@@ -934,7 +1007,7 @@ return (
                 <Input
                   id="food"
                   name="food"
-                  placeholder="Enter Required food ( for individuals)"
+                  placeholder="Enter Required food "
                   type='number'
                   min="0"
                   max="10000000"
@@ -950,7 +1023,7 @@ return (
                 <Input
                   id="medicine"
                   name="medicine"
-                  placeholder="Enter Required medicine ( for individuals)"
+                  placeholder="Enter Required medicine "
                   type='number'
                   min="0"
                   max="10000000"
@@ -960,19 +1033,6 @@ return (
               </Col>
               <Col md={6}>
               <FormGroup>
-                <Label for="thumbnail">
-                Thumbnail
-                </Label>
-                <Input
-                  id="thumbnail"
-                  name="thumbnail"
-                  placeholder="Upload Thumbnail"
-                  type='file'
-                />
-              </FormGroup>
-              </Col>
-              <Col md={12}>
-              <FormGroup>
                 <Label for="files">
                 Gallery
                 </Label>
@@ -980,10 +1040,13 @@ return (
                   onChange={handleFileInputChange}
                   id="files"
                   name="files"
+                  required
                   placeholder="Upload Disaster Pictures(If Any)"
                   type='file'
+                  accept=".png, .jpg, .jpeg"
                   multiple
                 />
+                <span>First image will be taken as thumbnail</span>
               </FormGroup>
               </Col>
               </Row>
@@ -1001,7 +1064,7 @@ return (
         <Modal isOpen={deletemodal} toggle={DeletetoggleClose} {...args} size='sm'>
           <ModalHeader toggle={DeletetoggleClose} onClick={DeleteInformation}>Delete Information</ModalHeader>
           <ModalBody>
-            Are you sure you want to delete <b>{tempName}</b>?
+            Are you sure you want to delete this information ?
           </ModalBody>
           <ModalFooter>
             <Button color="danger"  onClick={DeleteInformation}>
@@ -1021,7 +1084,32 @@ return (
                   <div className="col">
                   <h3 className="text-white mb-0"><b>Relief Information</b></h3>
                   </div>
-                  <div className="col text-right">
+                  <Row>
+                  {/* <row>
+                  <div className="col text-right"> */}
+                  <div className="col">
+                    <Input
+                      id="user"
+                      name="user"
+                      type="select"
+                      onChange={handleInformationChange}
+                      value={currentInformation}
+                    >
+                      <option value="No Information Selected Yet">No Information Selected Yet</option>
+                      {InformationTable && InformationTable.length > 0 ? (
+                        [...new Set(InformationTable.map(row => row.dis_title))].map((dis_title, index) => (
+                          <option key={index} value={dis_title}>
+                            {dis_title}
+                          </option>
+                        ))
+                      ) : 
+                      (
+                        <option disabled>No Information Added yet!</option>
+                      )}
+                    </Input>
+                    <Label for="user"> Search Information By Title</Label>
+                  </div>
+                  <div className="col">  
                     <Button 
                       color="primary"
                        onClick={toggle}
@@ -1030,6 +1118,7 @@ return (
                       Add new Information
                     </Button>
                   </div>
+                  </Row>
                 </Row>
               </CardHeader>
               {/* <CardHeader className="border-0">
@@ -1042,68 +1131,48 @@ return (
                 }) */}
                 <thead className="thead-dark">
                   <tr>
-                   <th scope="col">NGO Name</th>
-                    <th scope="col">Disaster</th>
-                    <th scope="col">Information Title</th>
-                    {/* <th scope="col">Description</th> */}
-                    {/* <th scope="col">Information Area</th>
-                    <th scope="col">Area XCoordinates</th>
-                    <th scope="col">Area YCoordinates</th> */}
+                   <th scope="col" style={{ textAlign: 'center' }}>NGO Name</th>
+                    <th scope="col" style={{ textAlign: 'center' }}>Disaster</th>
+                    <th scope="col" style={{ textAlign: 'center' }}>Information Title</th>
                     <th scope="col">Population</th>
-                    {/* <th scope="col">Individual Surved</th>
-                    <th scope="col">Families surved</th> */}
-                    <th scope="col">Date</th>
+                    <th scope="col" style={{ textAlign: 'center' }}>Date</th>
                     <th scope="col">Shelters Provided</th>
                     <th scope="col">Food Provided</th>
                     <th scope="col">Medicines Provided</th>
-                    <th scope="col">Gallery</th>
-                    <th scope="col">Action</th>
+                    <th scope="col" style={{ textAlign: 'center' }}>Action</th>
                     <th scope="col" />
                   </tr>
                 </thead>
                 <tbody>
-                { InformationTable ?
-                  InformationTable
-                  .map((row, index) => {
-                  return(
+                {filtered_Information.length > 0 ?
+                    filtered_Information.map((row, index) => {
+                      return (
                   <tr key={index}>
                     <th scope="row">
-                      {/* <i className="ni ni-book-bookmark text-blue"/> */}
-                      {/* <span className="mb-0 text-sm"> */}
-                      {/* {row.dis_type} */}
+                      <i className="ni ni-book-bookmark text-blue"/>
+                      <span className="mb-0 text-sm">
                       <td>{row.Ngo_Name}</td>
-                      {/* </span> */}
+                      </span>
                     </th>
-                    <td scope="row">
-                      {/* <i className="ni ni-book-bookmark text-blue"/> */}
-                      {/* <span className="mb-0 text-sm"> */}
+                    <td scope="row" style={{ textAlign: 'center' }}>
                       {row.dis_type}
-                      
-                      {/* </span> */}
                     </td>
-                    <td>{row.dis_title}</td>
-                    {/* <td>{row.description}</td> */}
-                    {/* <td> */}
-                      {/* <Badge color="" className="badge-dot">
-                        <i className="bg-info" /> */}
-                       {/* {row.dis_area} */}
-                      {/* </Badge> */}
-                    {/* </td>
-                    <td> */}
-                      {/* <Badge color="" className="badge-dot">
-                        <i className="bg-info" /> */}
-                       {/* {row.dis_coordinatesX} */}
-                      {/* </Badge> */}
-                    {/* </td>  */}
-                    {/* <td>{row.dis_coordinatesY}</td> */}
-                    <td>{row.population}</td>
-                    {/* <td>{row.survivors}</td>
-                    <td>{row.deaths}</td> */}
-                    <td>{row.date}</td>
-                    <td>{row.shelters}</td>
-                    <td>{row.food}</td>
-                    <td>{row.medicine}</td>
-                    <td>{row.gallery}</td>
+                    <td style={{ textAlign: 'center' }}>
+                    <Badge color="" className="badge-dot">
+                        <i className="bg-info" />
+                      {row.dis_title}
+                      </Badge></td>
+                    <td style={{ textAlign: 'center' }}>
+                      {row.population}
+                      </td>
+                    <td style={{ textAlign: 'center' }}>
+                       <Badge color="" className="badge-dot">
+                        <i className="bg-info" />
+                      {row.date}
+                       </Badge></td>
+                    <td style={{ textAlign: 'center' }}>{row.shelters}</td>
+                    <td style={{ textAlign: 'center' }}>{row.food}</td>
+                    <td style={{ textAlign: 'center' }}>{row.medicine}</td>
                     <td>
                       <Button color="primary" onClick={() => {FindInformation(row._id)}}>
                       <i className="ni ni-active-40"></i>
@@ -1116,10 +1185,51 @@ return (
                   </tr> )
                       })
                       :
-                      <tr>
-                        <td span="5">No Information found!</td>
-                      </tr>
-                }
+                      InformationTable && InformationTable.length > 0 && currentInformation == "No Information Selected Yet" ? (
+                        InformationTable.map((row, index) => (
+                          <tr key={index}>
+                          <th scope="row">
+                            <i className="ni ni-book-bookmark text-blue"/>
+                            <span className="mb-0 text-sm">
+                            <td>{row.Ngo_Name}</td>
+                            </span>
+                          </th>
+                          <td scope="row" style={{ textAlign: 'center' }}>
+                            {row.dis_type}
+                          </td>
+                          <td style={{ textAlign: 'center' }}>
+                          <Badge color="" className="badge-dot">
+                              <i className="bg-info" />
+                            {row.dis_title}
+                            </Badge></td>
+                          <td style={{ textAlign: 'center' }}>
+                            {row.population}
+                            </td>
+                          <td style={{ textAlign: 'center' }}>
+                             <Badge color="" className="badge-dot">
+                              <i className="bg-info" />
+                            {row.date}
+                             </Badge></td>
+                          <td style={{ textAlign: 'center' }}>{row.shelters}</td>
+                          <td style={{ textAlign: 'center' }}>{row.food}</td>
+                          <td style={{ textAlign: 'center' }}>{row.medicine}</td>
+                          <td>
+                            <Button color="primary" onClick={() => {FindInformation(row._id)}}>
+                            <i className="ni ni-active-40"></i>
+                            </Button>
+                            <Button data-id={row._id} data-name={row.dis_title}color="danger" onClick={Deletetoggle}> 
+                              <i className="ni ni-fat-remove"></i>
+                            </Button>
+                          </td>
+      
+                        </tr>
+                        ))
+                        ) 
+                        :
+                        <tr>
+                            <td span="5">No Relief Information Added yet!</td>
+                        </tr>
+                      }
                 </tbody>
               </Table>
 

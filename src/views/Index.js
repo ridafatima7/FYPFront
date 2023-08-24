@@ -81,8 +81,8 @@ const Index = (props) => {
       <Header />
      
       <Container className="mt--7" fluid>
-      <div>
-      <Alert color="success" isOpen={Success} toggle={onDismissSuccess}>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Alert color="success" isOpen={Success} toggle={onDismissSuccess} style={{ width: '300px', height: '60px' }}>
               <strong>!- </strong>{SuccessMessage}
        </Alert>
       </div>

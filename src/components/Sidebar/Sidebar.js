@@ -74,10 +74,14 @@ const user_info = JSON.parse(storedUser);
    let goToWebsiteAdded = false;
   const deo="DEO"
   const admin="admin"
+  const Donor="Donor"
   // creates the links that appear in the left menu / Sidebar
   const createLinks = (routes) => {
     return routes.map((prop, key) => {
-      if(prop.name=="Dashboard" || prop.name=="Go to Website" ||  ( prop.name=="Disaster Information Management" && deo == user_info.role )  || prop.name=="User Profile" || prop.name=="Disaster Relief  Management" || ( prop.name=="Messages" && ngo == user_info.role ) || ( prop.name=="Donations" && ngo == user_info.role ) )
+      if( prop.name=="Go to Website" ||   ( prop.name=="Disaster Information Management" && deo == user_info.role || prop.name=="Disaster Information Management" && admin == user_info.role )  || prop.name=="User Profile" || prop.name=="Disaster Relief  Management" ||
+       ( prop.name=="Feedback" && admin == user_info.role ) || 
+       ( prop.name=="Donations" && admin == user_info.role || prop.name=="Donations" && Donor == user_info.role) ||  
+       prop.name=="Reports"  || ( prop.name=="Users" && admin == user_info.role ) )
       {
       return (
         <NavItem key={key}>
@@ -92,6 +96,7 @@ const user_info = JSON.parse(storedUser);
           </NavLink>
         </NavItem>
       );
+      
       }
     });
     
@@ -133,6 +138,7 @@ const user_info = JSON.parse(storedUser);
               alt={logo.imgAlt}
               className="navbar-brand-img"
               src={logo.imgSrc}
+              // style={{ width: '120px', height: '240px' }}
             />
           </NavbarBrand>
         ) : null}
@@ -239,7 +245,18 @@ const user_info = JSON.parse(storedUser);
             </InputGroup>
           </Form>
           {/* Navigation */}
-          <Nav navbar>{createLinks(routes)}</Nav>
+          <Nav navbar>{createLinks(routes)}
+          <NavItem key="go-to-website">
+            <NavLink
+              to="/"
+              tag={NavLinkRRD}
+              onClick={closeCollapse}
+            >
+              <i className="ni ni-planet text-primary" />
+              <p style={{"color": "rgba(0, 0, 0, 0.5)", fontSize: "0.9rem", marginBottom: 0}}>Go to website</p>
+            </NavLink>
+          </NavItem>
+          </Nav>
           {/* Divider */}
           <hr className="my-3" />
           {/* Heading */}

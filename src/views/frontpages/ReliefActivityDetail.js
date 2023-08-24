@@ -18,38 +18,61 @@ const ReliefActivityDetail = () => {
     const [disasterDetail, setDisasterDetail] = useState([]);
     const [Title, setTitle] = useState(null);
     const [date, setDate] = useState(null);
+    const [Description, setDescription] = useState(null);
+    const [NGO, setNGO] = useState(null);
     const [gallery, setGallery] = useState(null);
-
-
-    //   useEffect(() => {
-    //     const search = window.location.search;
-    // 	const params = new URLSearchParams(search);
-    // 	const id = params.get('id');
-    //     fetch('http://localhost:8000/Relief_Information/Reliefactivity?id=' +id) 
-    //   .then((response) => response.json())
+    const[shelters,setShelters]=useState(null);
+    const[food,setFood]=useState(null);
+    const[medicine,setMedicine]=useState(null);
+    const[disaster,setDisaster]=useState(null);
+    const[usertable, setUsertable] =useState();
+    const[gallery2,setGallery2]=useState(null);
+	const[gallery3,setGallery3]=useState(null);
+	const[gallery4,setGallery4]=useState(null);
+    const ngo='';
+      useEffect(() => {
+        const search = window.location.search;
+    	const params = new URLSearchParams(search);
+    	const id = params.get('id');
+        fetch('http://localhost:8000/Relief_Information/Reliefactivity?id=' +id) 
+        .then((response) => response.json())
     // .then(res=>{
-    //   .then((data) => {
-    // if(res.data){
-    //     console.log(res.data)
-    //     setTitle(res.data.dis_title);
-    //     setDate(res.data.date);
-    // 	console.log(res.data.dis_title)
-    //     setGallery(res.data.gallery);
-    // setInformationid(data._id);
-    // setDisasterType(res.data.dis_type);
-
-    // setArea(res.data. dis_area);
-    // setPopulation(res.data.population);
-    // setSurvivors(res.data.survivors);
-    // setDeaths(res.data.deaths);
-    // setShelters(res.data.shelters);
-    // setFood(res.data.food);
-    // setMedicine(res.data.medicine);
-    // 	}
-    // 	  })
-    //       .catch((error) => console.error('Error fetching data:', error));
-
-    //   }, []);
+       .then((data) => {
+       if(data){
+        console.log(data)
+        setTitle(data[0].dis_title);
+        setDate(data[0].date);
+        setNGO(data[0].Ngo_Name);
+        setDescription(data[0].description)
+        setShelters(data[0].shelters);
+        setFood(data[0].food);
+        setMedicine(data[0].medicine);
+        setDisaster(data[0].dis_type)
+        fetchNGOData(data[0].Ngo_Name);
+        const temp_img2 = data[0].gallery[1].replace('public/', '')
+		setGallery2('http://localhost:8000/' + temp_img2);
+		const temp_img3= data[0].gallery[2].replace('public/', '')
+		setGallery3('http://localhost:8000/' + temp_img3);
+        const temp_img4 = data[0].gallery[3].replace('public/', '')
+		setGallery4('http://localhost:8000/' + temp_img4);
+    	}
+    	  })
+          .catch((error) => console.error('Error fetching data:', error));
+      }, []);
+      const fetchNGOData = (ngo) => {
+        axios({
+          withCredentials: true,
+          method: 'get',
+          url: 'http://localhost:8000/auth/get_user?NGO=' + ngo,
+        })
+          .then((response) => {
+            setUsertable(response.data);
+            console.log(response);
+          })
+          .catch((error) => {
+            console.error('Error fetching data:', error);
+          });
+      };
     return (
         <>
 
@@ -70,7 +93,6 @@ const ReliefActivityDetail = () => {
                         </div>
                     </div>
                     </div>
-
                     <section className="single-blog-area">
                         <div className="container">
                             <div className="row">
@@ -79,44 +101,100 @@ const ReliefActivityDetail = () => {
                                         <div className="col-md-12">
                                             <div className="blog-area">
                                                 <div className="blog-area-part" style={{  paddingTop:"40px"}}>
-                                                    <h2 style={{ textAlign:"center"}}>SANAMA SAEED NGO</h2>
+                                                    {/* <h2 style={{ textAlign:"center"}}>{NGO}</h2> */}
+                                                    <div style={{  paddingTop:0}} className="text-center">
+                                                    <h3><i className="fa fa-quote-left" aria-hidden="true"></i> {Title}<i className="fa fa-quote-right" aria-hidden="true"></i></h3>
+                                                    </div>
                                                     <div className="for-style">
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi </p>
+                                                    {/* {usertable ? 
+                                                    <p>{usertable.description}</p>
+                                                    : 
+                                                    <></>
+                                                    }       */}
+                                                    {/* <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi </p> */}
                                                     </div>
-                                                    <div className="overlay" style={{ backgroundImage: "url('" + three + "')",  paddingTop:"60px",height: "500px",width: "1050px",backgroundSize: "cover" }} data-stellar-background-ratio="0.5"></div>
-                                                    
-                                                    <p style={{  paddingTop:"40px"}} >Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                                                    <h3><i className="fa fa-quote-left" aria-hidden="true"></i>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labo<i className="fa fa-quote-right" aria-hidden="true"></i></h3>
-                                                    <div className="row" >
-                                                        <div className="col-md-6" style={{  paddingTop:"25px", paddingRight:"300px", paddingLeft:"110px"}}>
-                                                            <div className="image-one">
-                                                            <div className="overlay" style={{ backgroundImage: "url('" + two + "')" , height: "300px",width: "400px",backgroundSize: "cover"}} data-stellar-background-ratio="0.5"></div>
-                                                            </div>
+                                                    {/* <div className="overlay" style={{ backgroundImage: "url('" + three + "')",  paddingTop:"60px",height: "500px",width: "1050px",backgroundSize: "cover" }} data-stellar-background-ratio="0.5"></div>    */}
+                                                    {gallery2 ?
+                                                    <div style={{paddingTop:"20px"}}>
+                                                        <img style={{height: "500px",width: "1050px",backgroundSize: "cover"}} src={gallery2} />
+                                                    </div>
+                                                    :
+                                                    <div style={{paddingTop:"20px"}}>
+                                                        <img style={{height: "500px",width: "1050px",backgroundSize: "cover"}} src={seven} />
+                                                    </div>
+                                                    }
+                                                    {/* <p style={{  paddingTop:"40px"}} >{Description}</p> */}
+                                                    <div style={{  paddingTop:"20px"}} >
+                                                    {/* <h3><i className="fa fa-quote-left" aria-hidden="true"></i> {Title}<i className="fa fa-quote-right" aria-hidden="true"></i></h3> */}
+                                                    <p style={{  paddingTop:"20px"}} >{Description}</p>
+                                                    </div>
+                                                  
+                                                    <div className="row"  >
+                                                        <div className="col-md-4" style={{  paddingTop:"105px", paddingRight:"50px", paddingLeft:"50px"}}>
+                                                          <h3>Relief work Detail</h3>  
+                                                        <div style={{ display: 'flex', alignItems: 'center' }}>
+							                                <h6 style={{ margin: 0, marginRight: '15px' }}>Disaster:</h6>
+							                                 <p style={{ margin: 0 }}>{disaster}</p>
                                                         </div>
-                                                        <div className="col-md-6" style={{  paddingTop:"25px"}}>
+							                            <div style={{ display: 'flex', alignItems: 'center' }}>
+							                                 <h6 style={{ margin: 0, marginRight: '15px' }}>Shelters Provided:</h6>
+							                                  <p style={{ margin: 0 }}>{shelters}</p>
+							                             </div>
+							                             <div style={{ display: 'flex', alignItems: 'center' }}>
+							                                 <h6 style={{ margin: 0, marginRight: '15px' }}>Food Provided(Items):</h6>
+							                                 <p style={{ margin: 0 }}>{food}</p>
+							                             </div>
+							                            <div style={{ display: 'flex', alignItems: 'center' }}>
+							                                <h6 style={{ margin: 0, marginRight: '15px' }}>Medicines Provided(Items):</h6>
+							                                <p style={{ margin: 0 }}>{medicine}</p>
+							                           
+                                                            {/* <div className="overlay" style={{ backgroundImage: "url('" + two + "')" , height: "300px",width: "400px",backgroundSize: "cover"}} data-stellar-background-ratio="0.5"></div> */}
+                                                        </div>
+                                                        </div>
+                                                        <div className="col-md-4" style={{  paddingTop:"25px", paddingRight:"50px", paddingLeft:"50px"}}>
+                                                            <div className="image-one">	
+                                                            { gallery3 ? 						                              
+                                                            <div>
+                                                              <img style={{height: "300px",width: "300px",backgroundSize: "cover"}} src={gallery3} />
+                                                           </div>
+                                                           :
+                                                           <div>
+                                                             <img style={{height: "300px",width: "300px",backgroundSize: "cover"}} src={three} />
+                                                          </div>
+                                                            }
+                                                             {/* <div className="overlay" style={{ backgroundImage: "url('" + two + "')" , height: "300px",width: "300px",backgroundSize: "cover"}} data-stellar-background-ratio="0.5"></div>  */}
+                                                             </div>
+                                                        </div>
+                                                        <div className="col-md-4" style={{  paddingTop:"25px"}}>
                                                             <div className="image-two"  >
-                                                            <div className="overlay" style={{ backgroundImage: "url('" + seven + "')" , height: "300px",width: "400px",backgroundSize: "cover"}} data-stellar-background-ratio="0.5"></div>
-
+                                                            { gallery4 ? 
+                                                            <div>
+                                                               <img style={{height: "300px",width: "300px",backgroundSize: "cover"}} src={gallery4} />
+                                                           </div>
+                                                           :
+                                                           <div>
+                                                             <img style={{height: "300px",width: "300px",backgroundSize: "cover"}} src={two} />
+                                                          </div>
+                                                            }
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <p style={{  paddingTop:"40px"}}>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui <a href="#">officia deserunt mollit</a> anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium </p>
-                                                   
+                                                    {/* <p style={{  paddingTop:"40px"}}>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui <a href="#">officia deserunt mollit</a> anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium </p>     */}
                                                 </div>
-                                                <div className="ads-area" style={{  paddingBottom:"25px"}}>
+                                                <div className="ads-area pb-4" style={{  paddingBottom:"70px"}}>
                                                     {/* <div style={{ backgroundImage: "url('" + fourth + "')" }} ></div>
                                                     <p>Your Ad Banner Goes Here</p> */}
+                                                    <div>
+                                                    <p></p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </section>
-               
-
                 <Footer />
             </div>
         </>

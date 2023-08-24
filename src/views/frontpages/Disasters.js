@@ -15,11 +15,20 @@ import Footer from "./Footer"
 
 const Disasters = () => {
   const [disasters, setDisasters] = useState([]);
+  const[gallery,setGallery1]=useState(null);
+   const temp_img= "";
+   const search = window.location.search;
+	const params = new URLSearchParams(search);
+	const id = params.get('id');
   useEffect(() => {
     
-    fetch('http://localhost:8000/Information/GetInformationHome') 
+    fetch('http://localhost:8000/Information/GetInformationDetail') 
       .then((response) => response.json())
-      .then((data) => setDisasters(data))
+      .then((data) => {
+       setDisasters(data);
+      //  const temp_img1 = data[0].gallery[0].replace('public/', '')
+	   	// setGallery1('http://localhost:8000/' + temp_img1);
+  })
       .catch((error) => console.error('Error fetching data:', error));
 
       
@@ -46,96 +55,17 @@ const Disasters = () => {
         <section className="ftco-section">
           <div className="container">
             <div className="row">
-              {/* <div className="col-md-4 d-flex ftco-animate">
-                <div className="blog-entry align-self-stretch">
-                  <a href="blog-single.html" className="block-20" style={{ backgroundImage: "url('" + cause_1 + "')" }} >
-                  </a>
-                  <div className="text p-4 d-block">
-                    <div className="meta mb-3">
-                      <div><a href="#">Sep. 10, 2018</a></div>
-                      <div><a href="#">Admin</a></div>
-                      <div><a href="#" className="meta-chat"><span className="icon-chat"></span> 3</a></div>
-                    </div>
-                    <h3 className="heading mb-4"><a href="#">World Wide Donation</a></h3>
-                    <p className="time-loc"><span className="mr-2"><i className="icon-clock-o"></i> 10:30AM-03:30PM</span> <span><i className="icon-map-o"></i> Venue Main Campus</span></p>
-                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                    <p><a href="event.html">Join Event <i className="ion-ios-arrow-forward"></i></a></p>
-                  </div>
-                </div>
-              </div> */}
-              {/* <div className="col-md-4 d-flex ftco-animate">
-                <div className="blog-entry align-self-stretch">
-                  <a href="blog-single.html" className="block-20" style={{ backgroundImage: "url('" + cause_2 + "')" }}>
-                  </a>
-                  <div className="text p-4 d-block">
-                    <div className="meta mb-3">
-                      <div><a href="#">Sep. 10, 2018</a></div>
-                      <div><a href="#">Admin</a></div>
-                      <div><a href="#" className="meta-chat"><span className="icon-chat"></span> 3</a></div>
-                    </div>
-                    <h3 className="heading mb-4"><a href="#">World Wide Donation</a></h3>
-                    <p className="time-loc"><span className="mr-2"><i className="icon-clock-o"></i> 10:30AM-03:30PM</span> <span><i className="icon-map-o"></i> Venue Main Campus</span></p>
-                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                    <p><a href="event.html">Join Event <i className="ion-ios-arrow-forward"></i></a></p>
-                  </div>
-                </div>
-              </div> */}
-              {/* <div className="col-md-4 d-flex ftco-animate">
-                <div className="blog-entry align-self-stretch">
-                  <a href="blog-single.html" className="block-20" style={{ backgroundImage: "url('" + cause_3 + "')" }}>
-                  </a>
-                  <div className="text p-4 d-block">
-                    <div className="meta mb-3">
-                      <div><a href="#">Sep. 10, 2018</a></div>
-                      <div><a href="#">Admin</a></div>
-                      <div><a href="#" className="meta-chat"><span className="icon-chat"></span> 3</a></div>
-                    </div>
-                    <h3 className="heading mb-4"><a href="#">World Wide Donation</a></h3>
-                    <p className="time-loc"><span className="mr-2"><i className="icon-clock-o"></i> 10:30AM-03:30PM</span> <span><i className="icon-map-o"></i> Venue Main Campus</span></p>
-                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                    <p><a href="event.html">Join Event <i className="ion-ios-arrow-forward"></i></a></p>
-                  </div>
-                </div>
-              </div> */}
-              {/* <div className="col-md-4 d-flex ftco-animate">
-                <div className="blog-entry align-self-stretch">
-                  <a href="blog-single.html" className="block-20" style={{ backgroundImage: "url('" + cause_4 + "')" }}>
-                  </a>
-                  <div className="text p-4 d-block">
-                    <div className="meta mb-3">
-                      <div><a href="#">Sep. 10, 2018</a></div>
-                      <div><a href="#">Admin</a></div>
-                      <div><a href="#" className="meta-chat"><span className="icon-chat"></span> 3</a></div>
-                    </div>
-                    <h3 className="heading mb-4"><a href="#">World Wide Donation</a></h3>
-                    <p className="time-loc"><span className="mr-2"><i className="icon-clock-o"></i> 10:30AM-03:30PM</span> <span><i className="icon-map-o"></i> Venue Main Campus</span></p>
-                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                    <p><a href="event.html">Join Event <i className="ion-ios-arrow-forward"></i></a></p>
-                  </div>
-                </div>
-              </div> */}
-              {/* <div className="col-md-4 d-flex ftco-animate">
-                <div className="blog-entry align-self-stretch">
-                  <a href="blog-single.html" className="block-20" style={{ backgroundImage: "url('" + cause_5 + "')" }}>
-                  </a>
-                  <div className="text p-4 d-block">
-                    <div className="meta mb-3">
-                      <div><a href="#">Sep. 10, 2018</a></div>
-                      <div><a href="#">Admin</a></div>
-                      <div><a href="#" className="meta-chat"><span className="icon-chat"></span> 3</a></div>
-                    </div>
-                    <h3 className="heading mb-4"><a href="#">World Wide Donation</a></h3>
-                    <p className="time-loc"><span className="mr-2"><i className="icon-clock-o"></i> 10:30AM-03:30PM</span> <span><i className="icon-map-o"></i> Venue Main Campus</span></p>
-                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                    <p><a href="event.html">Join Event <i className="ion-ios-arrow-forward"></i></a></p>
-                  </div>
-                </div>
-              </div> */}
+             
               {disasters.map((disaster) => (
               <div key={disaster._id} className="col-md-4 d-flex ftco-animate">
                 <div className="blog-entry align-self-stretch" style={{width: "100%"}}>
-                  <Link to={"/disasterdetail?id=" + disaster._id } className="block-20" style={{ backgroundImage: "url('" + cause_1 + "')" }}>
+                {/* { disasters.gallery  && disasters.gallery.length > 0 ?  */}
+                  <Link to={"/disasterdetail?id=" + disaster._id } className="block-20" ><img src={'http://localhost:8000/'+disaster.gallery[0].replace('public/', '')} alt="" style={{width: '400px',height: '260px',objectFit: 'cover' }} />
                   </Link>
+                   {/* :
+                 <Link to={"/disasterdetail?id=" + disaster._id } className="block-20" ><img src={cause_5} alt="" style={{width: '400px',height: '260px',objectFit: 'cover' }} />
+                 </Link>
+                }  */}
                   <div className="text p-4 d-block">
                     <div className="meta mb-3">
                       <div>{disaster.date}</div>
@@ -145,28 +75,13 @@ const Disasters = () => {
                     </div>
                     <h3 className="heading mb-4 "> <Link to={"/disasterdetail?id=" + disaster._id } >{disaster.dis_title}</Link></h3>
                     <p className="time-loc"><span className="mr-2"><i className="icon-clock-o"></i> </span> {disaster.dis_area}<span style={{ paddingLeft: "4px" }} ><i className="icon-map-o"></i>{disaster.dis_type} </span></p>
-                    {/* <p>{disaster.Description.substring(0, 100)}</p> */}
+                     <p>{disaster.Description ? disaster.Description.substring(0,100): disaster.Description}</p> 
                     <p><Link to={"/disasterdetail?id=" + disaster._id }>Read More <i className="ion-ios-arrow-forward"></i></Link></p>
                   </div>
                 </div>
               </div>
               ))}
             </div>
-            {/* <div className="row mt-5">
-              <div className="col text-center">
-                <div className="block-27">
-                  <ul>
-                    <li><a href="#">&lt;</a></li>
-                    <li className="active"><span>1</span></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">&gt;</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div> */}
           </div>
         </section>
         <Footer />

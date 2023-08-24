@@ -18,8 +18,11 @@
 
 // reactstrap components
 import { Button, Container, Row, Col } from "reactstrap";
+import Profile from "assets/front-images/disaster2.webp"
 
 const UserHeader = () => {
+  const storedUser = localStorage.getItem('user');
+  const user_info = JSON.parse(storedUser);
   return (
     <>
       <div
@@ -27,7 +30,7 @@ const UserHeader = () => {
         style={{
           minHeight: "600px",
           backgroundImage:
-            "url(" + require("../../assets/img/theme/profile-cover.jpg") + ")",
+            "url(" + require("../../assets/front-images/disaster2.webp") + ")",
           backgroundSize: "cover",
           backgroundPosition: "center top"
         }}
@@ -38,9 +41,9 @@ const UserHeader = () => {
         <Container className="d-flex align-items-center" fluid>
           <Row>
             <Col lg="7" md="10">
-              <h1 className="display-2 text-white">Hello Pakistan</h1>
+              <h1 className="display-1 text-white">{user_info.name}</h1>
               <p className="text-white mt-0 mb-9">
-                We are going to make disaster information cell
+              {user_info.description}
               </p>
               {/* <Button
                 color="info"

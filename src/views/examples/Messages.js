@@ -10,11 +10,14 @@ import {
     Input,
     Container,
     Row,
+    Label,
     Modal, ModalHeader, ModalBody, ModalFooter, Alert,
-    Col
+    Col,
+    Badge
 } from "reactstrap";
 
 import axios from 'axios'
+import { v4 as uuidv4 } from 'uuid';
 
 // core components
 import NewHeader from "components/Headers/NewHeader.js";
@@ -44,7 +47,19 @@ const Messages = () => {
         setTempName(event.target.attributes.getNamedItem('data-name').value);
         setdeleteModal(!deletemodal);
     };
+    const [filtered_users, setFilteredUsers] = useState('');
+    const [currentUser, setCurrentUser] = useState("No Email Selected Yet")
 
+    const handleUserChange = (e) => {
+        const email = e.target.value;
+        setCurrentUser(email);
+        if (email === "No Email Selected Yet") {
+            setFilteredUsers(InformationTable);
+          } else {
+            const filteredUsers = InformationTable.filter((user) => user.email === email);
+            setFilteredUsers(filteredUsers);
+          }
+    };
     function GetInformation(e) {
         axios({
             method: 'get',
@@ -96,6 +111,7 @@ const Messages = () => {
             .then(res => {
                 if (res.data.indicator == "success") {
                     setdeleteSuccess(true);
+                    GetInformation();
                 }
                 else {
                     setError(true);
@@ -114,8 +130,8 @@ const Messages = () => {
         <>
             <NewHeader />
             <Container className="mt--9" fluid>
-                <Alert color="danger" isOpen={deletesuccess} toggle={onDismissdeleteSuccess}>
-                    <strong> Information Deleted! </strong>
+                <Alert color="success" isOpen={deletesuccess} toggle={onDismissdeleteSuccess}>
+                    <strong> Feedback has Deleted! </strong>
                 </Alert>
                 <Row>
                     <div className="col">
@@ -123,15 +139,42 @@ const Messages = () => {
                             <CardHeader className="bg-transparent border-0">
                                 <Row className="align-items-center">
                                     <div className="col">
-                                        <h3 className="text-white mb-0"><b>Messages</b></h3>
+                                        <h3 className="text-white mb-0"><b>Feedback</b></h3>
                                     </div>
+                                    <Row>
+                                        <div className="col text-right">
+                                            <div className="col">
+                                                <Input
+                                                    id="user"
+                                                    name="user"
+                                                    type="select"
+                                                    onChange={handleUserChange}
+                                                    value={currentUser}
+                                                >
+                                                    <option value="No Email Selected Yet">No Email Selected Yet</option>
+                                                    {InformationTable && InformationTable.length > 0 ? (
+                                                        [...new Set(InformationTable.map(row => row.email))].map((email, index) => (
+                                                            <option key={index} value={email}>
+                                                                {email}
+                                                            </option>
+                                                        ))
+                                                    ) : (
+                                                        <option disabled>No feeback has given yet!</option>
+                                                    )}
+                                                </Input>
+                                                <Label for="user" style={{marginRight:'36px'}}> Search Feedback by Email</Label>
+                                            </div>
+                                        </div>
+                                    </Row>
+
+
                                 </Row>
                             </CardHeader>
-                            
+
                             <Modal isOpen={deletemodal} toggle={DeletetoggleClose} size='sm'>
                                 <ModalHeader toggle={DeletetoggleClose} onClick={DeleteMessages}>Delete Information</ModalHeader>
                                 <ModalBody>
-                                    Are you sure you want to delete <b>{tempName}</b>?
+                                    Are you sure you want to delete this information ?
                                 </ModalBody>
                                 <ModalFooter>
                                     <Button color="danger" onClick={DeleteMessages}>
@@ -147,32 +190,50 @@ const Messages = () => {
                             <Table className="align-items-center table-dark table-flush" responsive>
                                 <thead className="thead-dark">
                                     <tr>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Subject</th>
-                                        <th scope="col">Message</th>
+                                        <th scope="col" style={{ textAlign: 'center' }}>Name</th>
+                                        <th scope="col" style={{ textAlign: 'center' }}>Email</th>
+                                        <th scope="col" style={{ textAlign: 'center' }}>Subject</th>
+                                        <th scope="col" style={{ textAlign: 'center' }}>Message</th>
                                         <th scope="col">Action</th>
                                         <th scope="col" />
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {InformationTable ?
-                                        InformationTable.map((row, index) => {
-                                            return (
+                                {filtered_users.length > 0 ?
+                                                filtered_users.map((row, index) => {
+                                                return (
+                                            // const uniqueId = `dis_${index + 1}`;
+                                                // <tr key={uniqueId}>
                                                 <tr key={index}>
+                                                    {/* <td>
+                                                <i className="ni ni-book-bookmark text-blue"/>
+                                                    <span className="mb-0 text-sm">
+                                                    {uniqueId}
+                                                    </span>
+                                                </td> */}
                                                     <th scope="row">
+                                                        <i className="ni ni-book-bookmark text-blue" />
                                                         <span className="mb-0 text-sm">
-                                                            {row.name}
+
+                                                            <td>{row.name}</td>
                                                         </span>
                                                     </th>
-                                                    <td>{row.email}</td>
+                                                    <td style={{ textAlign: 'center' }}>
+                                                        <Badge color="" className="badge-dot">
+                                                            <i className="bg-info" />
+                                                            {row.email}
+                                                        </Badge>
+                                                    </td>
                                                     <td>
                                                         {row.subject}
                                                     </td>
-                                                    <td>
-                                                        {row.message}
+                                                    <td style={{ textAlign: 'center' }}>
+                                                        <Badge color="" className="badge-dot">
+                                                            <i className="bg-info" />
+                                                            {row.message}
+                                                        </Badge>
                                                     </td>
-                                                    <td>
+                                                    <td style={{ textAlign: 'center' }}>
                                                         {/* <Button color="primary" onClick={() => { FindInformation(row._id) }}>
                                                             <i className="ni ni-active-40"></i>
                                                         </Button> */}
@@ -180,13 +241,57 @@ const Messages = () => {
                                                             <i className="ni ni-fat-remove"></i>
                                                         </Button>
                                                     </td>
-                                                </tr>)
-                                        })
-                                        :
-                                        <tr>
-                                            <td span="5">No Messages found!</td>
-                                        </tr>
-                                    }
+                                                </tr>
+                                                  )
+                                                })
+                                                :
+                                                InformationTable && InformationTable .length > 0 && currentUser == "No Email Selected Yet" ? (
+                                                    InformationTable .map((row, index) => (
+                                                        <tr key={index}>
+                                                        {/* <td>
+                                                    <i className="ni ni-book-bookmark text-blue"/>
+                                                        <span className="mb-0 text-sm">
+                                                        {uniqueId}
+                                                        </span>
+                                                    </td> */}
+                                                        <th scope="row">
+                                                            <i className="ni ni-book-bookmark text-blue" />
+                                                            <span className="mb-0 text-sm">
+    
+                                                                <td>{row.name}</td>
+                                                            </span>
+                                                        </th>
+                                                        <td style={{ textAlign: 'center' }}>
+                                                            <Badge color="" className="badge-dot">
+                                                                <i className="bg-info" />
+                                                                {row.email}
+                                                            </Badge>
+                                                        </td>
+                                                        <td>
+                                                            {row.subject}
+                                                        </td>
+                                                        <td style={{ textAlign: 'center' }}>
+                                                            <Badge color="" className="badge-dot">
+                                                                <i className="bg-info" />
+                                                                {row.message}
+                                                            </Badge>
+                                                        </td>
+                                                        <td style={{ textAlign: 'center' }}>
+                                                            {/* <Button color="primary" onClick={() => { FindInformation(row._id) }}>
+                                                                <i className="ni ni-active-40"></i>
+                                                            </Button> */}
+                                                            <Button data-id={row._id} data-name={row.name} color="danger" onClick={Deletetoggle}>
+                                                                <i className="ni ni-fat-remove"></i>
+                                                            </Button>
+                                                        </td>
+                                                    </tr>
+                                                    ))
+                                                    ) :
+                                
+                                                      <tr>
+                                                        <td span="5">No Feedback has given yet!</td>
+                                                      </tr>
+                                            }
                                 </tbody>
                             </Table>
                         </Card>

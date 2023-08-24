@@ -95,7 +95,11 @@ const Home = () => {
       })
         .then(res => {
           console.log(res);
-          setAlert(true)
+          setAlert(true);
+          e.target.elements.name.value = '';
+          e.target.elements.email.value = '';
+          e.target.elements.subject.value = '';
+          e.target.elements.message.value = '';
           setMessage('Feedback Sent successfully')
          
         })
@@ -105,8 +109,6 @@ const Home = () => {
           setMessage('Server Failed to connect')
           
         })
-   
-    
   }
 
   useEffect(() => {
@@ -128,7 +130,7 @@ const Home = () => {
       <Header />
       <div className="hero-wrap opacity-8 mask " style={{ backgroundImage: "url('" + fourth + "')" }}>
         <div className="container">
-        
+         
           <div className="row no-gutters slider-text align-items-center justify-content-center">
             <div className="col-md-7 text-center">
                 <h1 className="mb-4" style={{ backgroundColor: 'black' }}>Doing Nothing is Not An Option of Our Life</h1>
@@ -145,9 +147,10 @@ const Home = () => {
             <div className="col-md-5 d-flex justify-content-center counter-wrap">
               <div className="block-18 color-1 align-items-stretch">
                 <div className="text">
-                  <span>Served Over</span>
-                  <strong className="number">1,432,805</strong>
-                  <span>People in all across the Pakistan</span>
+                  <p>We cannot stop natural disasters but we can arm ourselves with knowledge: </p>
+                  {/* <strong className="number">1,432,805</strong> */}
+                  <span>so many lives wouldn't have to be lost if there was enough disaster preparedness.
+                </span>
                 </div>
               </div>
             </div>
@@ -155,17 +158,17 @@ const Home = () => {
               <div className="block-18 color-2 align-items-stretch">
                 <div className="text">
                   <h3 className="mb-4">Donate Money</h3>
-                  <p>Even the all-powerful Pointing has no control about the blind texts.</p>
-                  <p><Link to={"/donations"} className="btn btn-white px-3 py-2 mt-2">Donate Now</Link></p>
+                  <p>Your generosity can change someone's life. Please donate now and make a positive impact.</p>
+                  <p><Link to="/donations" className="btn btn-white px-3 py-2 mt-2">Donate Now</Link></p>
                 </div>
               </div>
             </div>
             <div className="col-md d-flex justify-content-center counter-wrap">
               <div className="block-18 color-3 align-items-stretch">
                 <div className="text">
-                  <h3 className="mb-4">Be a Volunteer</h3>
-                  <p>Even the all-powerful Pointing has no control about the blind texts.</p>
-                  <p><a href="#" className="btn btn-white px-3 py-2 mt-2">Be A Volunteer</a></p>
+                  <h3 className="mb-4">Register as NGO</h3>
+                  <p>We has responsibility to reach out to help our brothers and sisters affected by disasters.</p>
+                  <p><Link to="/auth/register" className="btn btn-white px-3 py-2 mt-2">Register Now</Link></p>
                 </div>
               </div>
             </div>
@@ -178,7 +181,7 @@ const Home = () => {
           <div className="row justify-content-center mb-5 pb-3">
             <div className="col-md-5 heading-section   text-center">
               <h2 className="mb-4">DISASTERS</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+              <p>We cannot stop natural disasters but we can arm ourselves with knowledge: so many lives wouldn't have to be lost if there was enough disaster preparedness.</p>
             </div>
           </div>
           <div className="row">
@@ -187,7 +190,9 @@ const Home = () => {
               {disasters.map((disaster) => (
               <div key={disaster._id} className="col-md-4 d-flex ftco-animate">
                 <div className="blog-entry align-self-stretch" style={{width: "100%"}}>
-                  <Link to={"/disasterdetail?id=" + disaster._id } className="block-20" style={{ backgroundImage: "url('" + cause_1 + "')" }}>
+                  {/* <Link to={"/disasterdetail?id=" + disaster._id } className="block-20" style={{ backgroundImage: "url('" + cause_1 + "')" }}>
+                  </Link> */}
+                  <Link to={"/disasterdetail?id=" + disaster._id } className="block-20" ><img src={'http://localhost:8000/'+disaster.gallery[0].replace('public/', '')} alt="" style={{width: '424px',height: '260px',objectFit: 'cover' }}/>
                   </Link>
                   <div className="text p-4 d-block">
                     <div className="meta mb-3">
@@ -197,24 +202,29 @@ const Home = () => {
                     </div>
                     <h3 className="heading mb-4 "> <Link to={"/disasterdetail?id=" + disaster._id } >{disaster.dis_title}</Link></h3>
                     <p className="time-loc"><span className="mr-2"><i className="icon-clock-o"></i> </span> {disaster.dis_area}<span  style={{ paddingLeft: "6px" }}><i className="icon-map-o"></i>{disaster.dis_type} </span></p>
-                    <p>{disaster.gallery.substring(0, 100)}</p>
+                    {/* <p>{disaster.gallery.substring(0, 100)}</p> */}
+                    <p>{disaster.Description ? disaster.Description.substring(0,100): disaster.Description}</p>
                     <p><Link to={"/disasterdetail?id=" + disaster._id }>Read More <i className="ion-ios-arrow-forward"></i></Link></p>
                   </div>
                 </div>
               </div>
               ))}
+              
               </div>
             </div>
           </div>
         </div>
       </section>
-
+      <div className="d-flex justify-content-center align-items-center" style={{marginTop:'-90px'}}>
+      <Link to="/disasters">
+        <Button className="btn btn-primary py-3 px-5 mt-2 text-center">View Now</Button>
+      </Link></div>
       <section className="ftco-section">
         <div className="container">
           <div className="row justify-content-center mb-5 pb-3">
             <div className="col-md-7 heading-section   text-center">
               <h2 className="mb-4">Latest Donations</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+              <p>Making a donation is the ultimate sign of solidarity. Actions speak louder than words.</p>
             </div>
           </div>
           <div className="row">
@@ -226,7 +236,7 @@ const Home = () => {
                     <h3><a href="teacher-single.html">Rida Fatima</a></h3>
                     <span className="position">Donated Just now</span>
                     <div className="text">
-                      <p>Donated <span>$300</span> for <a href="#">Children Needs Food</a></p>
+                      <p>Donated <span>Rs.300</span></p>
                     </div>
                   </div>
                 </div>
@@ -240,7 +250,7 @@ const Home = () => {
                     <h3><a href="teacher-single.html">Isha Tariq</a></h3>
                     <span className="position">Donated Just now</span>
                     <div className="text">
-                      <p>Donated <span>$150</span> for <a href="#">Children Needs Food</a></p>
+                      <p>Donated <span>Rs.150</span> </p>
                     </div>
                   </div>
                 </div>
@@ -254,7 +264,7 @@ const Home = () => {
                     <h3><a href="teacher-single.html">Umaira Shaheen</a></h3>
                     <span className="position">Donated Just now</span>
                     <div className="text">
-                      <p>Donated <span>$250</span> for <a href="#">Children Needs Food</a></p>
+                      <p>Donated <span>Rs.250</span> </p>
                     </div>
                   </div>
                 </div>
@@ -263,7 +273,10 @@ const Home = () => {
           </div>
         </div>
       </section>
-      
+      <div className="d-flex justify-content-center align-items-center " style={{marginTop:'-90px'}}>
+      <Link to="/">
+        <Button className="btn btn-primary py-3 px-5 mt-2 text-center">View Now</Button>
+      </Link></div>
       {/* <section className="ftco-gallery">
         <div className="d-md-flex">
           <a href="images/cause-2.jpg" className="gallery image-popup d-flex justify-content-center align-items-center img ftco-animate" style={{ backgroundImage: "url('" + cause_2 + "')" }}>
@@ -371,26 +384,31 @@ const Home = () => {
 
       <section className="ftco-section bg-light">
         <div className="container">
-          <div className="row justify-content-center mb-5 pb-3">
+          <div className="row justify-content-center mb-3 pb-3">
             <div className="col-md-7 heading-section ftco-animate text-center">
-              <h2 className="mb-4">Relief operation</h2>
+              <h2 className="mb-4">Relief Operation</h2>
+              <p>The best preparation for good work tomorrow is to do good work today !</p>
             </div>
           </div>
           <div className="row">
           {reliefActivities.map((reliefActivity) => (
               <div  key={reliefActivity._id} className="col-md-4 d-flex ftco-animate">
                 <div className="blog-entry align-self-stretch" style={{width: "100%"}}>
+                { reliefActivity.gallery[0] ? 
+                   <Link to={"/reliefActivitydetail?id=" + reliefActivity._id } className="block-20" ><img src={'http://localhost:8000/'+reliefActivity.gallery[0].replace('public/', '')} alt="" style={{width: '400px',height: '260px',objectFit: 'cover' }} /></Link>
+                   :
                 <Link to={"/reliefActivitydetail?id=" + reliefActivity._id } className="block-20" style={{ backgroundImage: "url('" + event_1 + "')" }} >
                   </Link>
+                 }
                   <div className="text p-4 d-block">
                     <div className="meta mb-3">
-                      <div>{reliefActivity.date}</div>
-                      <div>Admin</div>
-                      <div><span className="icon-chat"></span> 3</div>
+                      <div>{reliefActivity.Ngo_Name}</div>
+                      {/* <div>Admin</div>
+                      <div><span className="icon-chat"></span> 3</div> */}
                     </div>
                     <h3 className="heading mb-4"><Link to={"/reliefActivitydetail?id=" + reliefActivity._id }>{reliefActivity.dis_title}</Link></h3>
-                    <p className="time-loc"><span className="mr-2"><i className="icon-clock-o"></i> 10:30AM-03:30PM</span> <span><i className="icon-map-o"></i> Venue Main Campus</span></p>
-                    {/* <p>{reliefActivity.gallery.substring(0, 100)}</p> */}
+                    <p className="time-loc"><span className="mr-2"><i className="icon-clock-o"></i> {reliefActivity.dis_type}</span> <span><i className="icon-map-o"></i> {reliefActivity.date}</span></p>
+                     <p>{reliefActivity.description.substring(0, 100)}</p> 
                     <p><Link to={"/reliefActivitydetail?id=" + reliefActivity._id }>Learn More <i className="ion-ios-arrow-forward"></i></Link></p>
                     
                   </div>
@@ -400,7 +418,10 @@ const Home = () => {
           </div>
         </div>
       </section>
-
+      <div className="d-flex justify-content-center align-items-center mb-6" style={{marginTop:'-90px'}}>
+      <Link to="/relief_Activities">
+        <Button className="btn btn-primary py-3 px-5 mt-2 text-center">View Now</Button>
+      </Link></div>
       <section className="ftco-section-3 img" style={{ backgroundImage: "url('" + bg_3 + "')" }}>
         <div className="overlay"></div>
         <div className="container">

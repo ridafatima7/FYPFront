@@ -20,6 +20,7 @@
 import { Redirect,Link,useHistory} from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios'
+import InputMask from 'react-input-mask';
 import {
   Button,
   Card,
@@ -49,6 +50,7 @@ const Register = () => {
   const handleSubmit=(e)=>{
     e.preventDefault();
     const role = "NGO";
+    const Status="Pending";
     const name=e.target.elements.name.value;
     const username=e.target.elements.username.value;
     const email=e.target.elements.email.value;
@@ -57,6 +59,7 @@ const Register = () => {
     const phone_no=e.target.elements.phone_no.value;
     const address=e.target.elements.address.value;
     const account_no=e.target.elements.accountno.value;
+    const account_Type=e.target.elements.accountType.value;
     const description=e.target.elements.description.value;
     // axios.post('http://localhost:8000/auth/get_data?name=rida').then(res =>{console.log(res)})
     if(password===confirm_password)
@@ -64,12 +67,12 @@ const Register = () => {
        axios({
          method:'post',
          url:'http://localhost:8000/auth/register?Message=Account Successfully registered',
-         data:{name:name,username:username,email:email,password:password,phone_no:phone_no,address:address,accountno:account_no,description:description,role:role}
+         data:{name:name,username:username,email:email,password:password,phone_no:phone_no,address:address,accountno:account_no,account_Type:account_Type,description:description,role:role,Status:Status}
        })
       .then(res=>{
         //  console.log(res);
         // setRegister(true);
-         if(res.data=="Account registered successfully")
+         if(res.data.indicator === "success")
          {
             setRegister(true);
          }
@@ -83,12 +86,17 @@ const Register = () => {
             setError(true);
             setErrorMessage("Email already exists!");
          }
+         else if(res.data.message==="Failed to register account.")
+         {
+            setError(true);
+            setErrorMessage("Failed to register account,Try Again!");
+         }
          else
          {
            setErrorMessage(res.data);
            setError(true);
          }
-      console.log(res);
+       console.log(res);
       })
       .catch(error=>{
         console.log(error);
@@ -107,7 +115,7 @@ const Register = () => {
  if(isregistered)
     {
          // return <Redirect to="/auth/login" />;  
-         history.push('/auth/login?Message=AccountRegisteredSuccessfully'); 
+         history.push('/auth/login?Message=AccountRegisterationRequestSent!'); 
     }
     
   return (
@@ -273,11 +281,30 @@ const Register = () => {
                       <i className="ni ni-hat-3" />
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input
+                  {/* <Input
                    name="phone_no"
                    placeholder="Enter Phone Number"
                     type="Number" 
                     required />
+                </InputGroup> */}
+                <InputMask
+                  style={{
+                    border: 'none',
+                    boxShadow: 'none',
+                    // padding: '0.375rem 0.75rem',
+                    height: '45px',
+                    width: '405px',
+                    borderRadius: '8px',
+                    fontSize: '14px'
+                  }}
+                  mask="0399-9999999" 
+                  maskChar="_"
+                  id="phone_no"
+                  name="phone_no"
+                  placeholder="Enter Phone No"
+                  type="text"
+                  
+                  />
                 </InputGroup>
               </FormGroup>
               <FormGroup>
@@ -301,11 +328,47 @@ const Register = () => {
                       <i className="ni ni-hat-3" />
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input
+                  <InputMask
+                  style={{
+                    border: 'none',
+                    boxShadow: 'none',
+                    // padding: '0.375rem 0.75rem',
+                    height: '45px',
+                    width: '405px',
+                    fontSize: '14px',
+                    borderRadius: '8px'
+                  }}
+                  mask="0399-9999999" 
+                  maskChar="_"
+                  id="accountno"
+                  name="accountno"
+                  placeholder="Enter Account No"
+                  type="text"
+                  required
+                  />
+                  {/* <Input
                    name="accountno"
                    placeholder="Account Number (UAN30070000)"
                     type="text"
-                    required />
+                    required /> */}
+                </InputGroup>
+              </FormGroup>
+              <FormGroup>
+                <InputGroup className="input-group-alternative mb-3">
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupText>
+                      <i className="ni ni-hat-3" />
+                    </InputGroupText>
+                  </InputGroupAddon>
+                  <Input
+                   name="accountType"
+                   placeholder="Account Type"
+                    type="select"
+                    required >
+                    <option value="Not Specified">Please Select Account Type</option>
+                    <option value="Jazzcash">Jazzcash</option>
+                    <option value="Easypesa">Easypesa</option>
+                    </Input>
                 </InputGroup>
               </FormGroup>
               <FormGroup>
@@ -318,8 +381,8 @@ const Register = () => {
                   <Input
                    name="description"
                    placeholder="Description"
-                    type="text"
-                    required />
+                   type="text"
+                     />
                 </InputGroup>
               </FormGroup>
               {/* <Row className="my-4">
